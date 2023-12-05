@@ -1,0 +1,92 @@
+{
+  "name": "Site",
+  "uuid": "129bc926-deff-40d8-a6e4-2b5da2507cc6",
+  "entity": "VC",
+
+  "document": {
+    "$id": "#129bc926-deff-40d8-a6e4-2b5da2507cc6",
+    "$comment": "{\"term\": \"129bc926-deff-40d8-a6e4-2b5da2507cc6\", \"@id\": \"#129bc926-deff-40d8-a6e4-2b5da2507cc6\"}",
+    "title": "Site",
+    "description": "Site info",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "siteId": {
+        "title": "siteId",
+        "description": "siteId",
+        "readOnly": false,
+        "$comment": "{\"term\": \"siteId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "projectId": {
+        "title": "projectId",
+        "description": "projectId",
+        "readOnly": false,
+        "$comment": "{\"term\": \"projectId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "siteName": {
+        "title": "siteName",
+        "description": "siteName",
+        "readOnly": false,
+        "$comment": "{\"term\": \"siteName\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "GPSLocation": {
+        "title": "GPSLocation",
+        "description": "GPSLocation",
+        "readOnly": false,
+        "$comment": "{\"term\": \"GPSLocation\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "policyId": {
+        "title": "policyId",
+        "description": "policyId",
+        "readOnly": true,
+        "$comment": "{\"term\": \"policyId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": [
+      "policyId",
+      "@context",
+      "type",
+      "siteId",
+      "siteName",
+      "GPSLocation"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

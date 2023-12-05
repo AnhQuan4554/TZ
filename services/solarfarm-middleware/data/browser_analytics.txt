@@ -1,0 +1,125 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+ var assert = require('assert');
+
+ $webDriver.get('https://solarfarm.dev.tymlez.com/analytics') 
+    .then(async function(){return await $webDriver.wait( $selenium.until.titleIs('Login') ,5000)  })
+   
+  .then(function(){    
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)      
+   })
+   
+  .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Solar Farm Dashboard') ,5000)  })
+  .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Dashboard', 'Dashboard Navbar title incorrect') }) })
+  })
+   
+ //tell the monitor to find analytic component
+ .then(function () {     
+        console.log("Validate Analytics elements ...")
+        $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-header"]'))
+              .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Analytics for\nSolar Farm', 'Analytics dashboard not found') }) })
+     })
+
+ .then(function () {
+      //key metrics
+     console.log("Validate key metrics elements ...")
+     return $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary"]'))
+            .then(function () {
+                $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-title"]'))
+                    .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Key Metrics', 'Key Metrics title incorrect') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-components"]'))
+                    .then(function(){
+                         //RECs generated
+                          $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-rec-without-chart"]'))
+                               .then(function(){
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-rec-label"]'))
+                                         .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'RECs generated', 'RECs generated label not found') }) })
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-rec-value"]'))
+                                         .then(function (el) {el.getText().then(function(text) {assert.notEqual(0, 'No data for RECs generated')}) })
+                               })
+                         //solar energy generated
+                        $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-generated-with-chart"]'))
+                               .then(function(){
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-generated-label"]'))
+                                         .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Solar energy generated', 'Solar energy generated label not found') }) })
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-generated-value"]'))
+                                         .then(function (el) {el.getText().then(function(text) {
+                                             assert.notEqual(text.indexOf("MWh"),-1,'Unit of Solar energy generated should be MWh')
+                                             assert.notEqual('0 MWh', 'No data for Solar energy generated')})
+                                          })
+                               })
+                      // forecast solar energy generated
+                       $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-forecast-with-chart"]'))
+                               .then(function(){
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-forecast-label"]'))
+                                         .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Solar energy generated (forecast)', 'Solar energy generated (forecast) label not found') }) })
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-forecast-value"]'))
+                                         .then(function (el) {el.getText().then(function(text) {
+                                              assert.notEqual(text.indexOf("MWh"),-1,'Unit of solar energy generated (forecast) should be MWh')
+                                              assert.notEqual('0 MWh', 'No data for Solar energy generated (forecast)')})
+                                         })
+                               })
+                       //carbon avoided
+                        $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-abatement-with-chart"]'))
+                               .then(function(){
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-abatement-label"]'))
+                                         .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon avoided', 'Carbon avoided label not found') }) })
+                                     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-summary-energy-component-abatement-value"]'))
+                                         .then(function (el) {el.getText().then(function(text) {
+                                             assert.notEqual(text.indexOf("t"),-1,'Unit of Carbon avoided should be t')
+                                             assert.notEqual('0 t', 'No data for Carbon avoided')})
+                                        })
+                               })                      
+                    })
+          })
+ })//end key metrics
+
+//energy generation chart
+.then(function(){
+     console.log("Validate Energy generation chart")
+     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-energy-generation-header"]'))
+          .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-energy-generation-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy Generation Chart', 'Energy Generation Chart label not found') }) })
+          })
+       $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-energy-generation-descriptors"]'))
+            .then(function(){
+                $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-energy-generation-descriptors-solar-array-(kwh)"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Solar Array (kWh)', 'Solar Array (kWh) label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-energy-generation-descriptors-forecast"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Forecast', 'Forecast label not found') }) })                     
+            })
+})//end energy generation chart
+
+  //REC certificates
+.then(function(){
+    console.log("Validate REC certificates")
+   $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-verified-guarantee"]'))
+        .then(function(){
+             $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-verified-guarantee-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'REC Certificates', 'REC Certificates label not found') }) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-verified-guarantee-common-table"]'))
+               .then( function(table) { table.findElements($selenium.By.css('tr')).then(function(tr) {assert(tr.length > 1, "Verification table does not have any row")})})
+                  .then(function(){
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-vpid"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Certificate ID', 'Certificate ID column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-minteddate"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Date and Time', 'Date and Time column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy Value (MW)', 'Energy Value (MW) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-onchainurl"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VIEW TYMLEZ TRUST CHAIN', 'VIEW TYMLEZ TRUST CHAIN column not found') }) })
+                  })
+             $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-analytics-verified-guarantee-footer"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'All data secured by the TYMLEZ platform built on Hedera hashgraph', 'All data secured by the TYMLEZ platform built on Hedera hashgraph label not found') }) })
+         })
+})//end REC certificates 

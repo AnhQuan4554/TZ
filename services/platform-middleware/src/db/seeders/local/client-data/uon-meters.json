@@ -1,0 +1,19 @@
+[
+  {
+    "name": "MQTT-S3",
+    "key": "MQTT-S3",
+    "dataSource": "uon-mqtt-device-dev/data",
+    "meterType": "uon",
+    "interval": 300,
+    "dataSourceType": "API",
+    "dataCredentials": {
+      "accessKeyId": "AKIAYF3VUOFJCECSGZXI",
+      "secretAccessKey": "[Updated me]",
+      "region": "ap-southeast-2"
+    },
+    "officialCarbonFactor": 0,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  }
+]

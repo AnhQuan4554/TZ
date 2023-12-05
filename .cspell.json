@@ -1,0 +1,31 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "ignoreWords": [
+    "nestjs",
+    "tymlez",
+    "prosumer",
+    "ethermint",
+    "mikro",
+    "renewables",
+    "camelcase",
+    "mockaroo",
+    "wattwatchers",
+    "esbuild",
+    "globby",
+    "devias",
+    "middlewares",
+    "solcast",
+    "deepmerge",
+    "uuidv4",
+    "preprod",
+    "cets",
+    "wattwatcher",
+    "UNSDG",
+    "dovu",
+    "trustchain",
+    "datetime",
+    "Hedera"
+  ],
+  "flagWords": ["license"]
+}

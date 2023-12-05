@@ -1,0 +1,194 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$webDriver.get('https://magnum.dev.tymlez.com/ironore')
+  .then(function(){
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+ .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Magnum - IronOre') ,5000) })
+ .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore Dashboard', 'Iron Ore Dashboard Navbar title incorrect') }) })
+  })
+  // key metric component
+  .then(function(){
+      console.log("Validate key metrics elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Key Metrics', 'Key Metrics title incorrect') }) })
+        })
+        .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-iron-ore-in"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-iron-ore-in-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore In', 'Iron Ore In label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-iron-ore-in-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Iron Ore In uom should be t')}) })
+                    })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-energy-consumption"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-energy-consumption-title"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption', 'Energy consumption label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-energy-consumption-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy consumption uom should be MWh')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-co2eq-emissions"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-co2eq-emissions-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Emissions', 'CO2eq Emissions label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-co2eq-emissions-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Emissions uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-co2eq-abated"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-co2eq-abated-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Abated', 'CO2eq Abated label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-co2eq-abated-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Abated uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-net-co2eq"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-net-co2eq-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2eq', 'Net CO2eq label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-net-co2eq-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Net CO2eq uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-iron-ore-produced"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-iron-ore-produced-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore Produced', 'Iron Ore Produced label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-multi-metric-blocks-iron-ore-produced-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Iron Ore Produced uom should be t')}) })
+                    })
+        })
+  })
+
+  // production process component
+  .then(function(){
+      console.log("Validate production process elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Production Process', 'Production Process title incorrect') }) })
+        })
+      .then(function(){
+            $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-run-of-mine-stockpile"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-run-of-mine-stockpile-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Run of Mine Stockpile', 'Run of Mine Stockpile label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-run-of-mine-stockpile-quantity"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-run-of-mine-stockpile-quantity-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Quantity :', 'Biomass Quantity label not found') }) })
+                                 $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-run-of-mine-stockpile-quantity-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biomas Quantity uom should be t')}) })
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher"]'))
+                 .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Crusher', 'Crusher label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Crusher Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Crusher Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Crusher Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-crusher-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Crusher Carbon emission uom should be kg')}) })
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder"]'))
+                .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Electromagnetic Vibration Feeder', 'Electromagnetic Vibration Feeder label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Electromagnetic Vibration Feeder Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Electromagnetic Vibration Feeder Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Electromagnetic Vibration Feeder Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-electromagnetic-vibration-feeder-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Electromagnetic Vibration Feeder Carbon emission uom should be kg')}) })
+                             })
+                })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill"]'))
+                .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Mill', 'Mill label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Mill Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Mill Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Mill Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-mill-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Mill Carbon emission uom should be kg')}) })
+                             })
+                })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator"]'))
+                  .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Magnetic Separator', 'Magnetic Separator label not found') }) })              
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Magnetic Separator Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Magnetic Separator Energy consumption uom should be MWh')}) }) 
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Magnetic Separator Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-process-steps-magnetic-separator-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Magnetic Separator Carbon emission uom should be kg')}) })
+                             })
+                })
+      })
+  })
+
+  // carbon emissions daily
+ .then(function(){
+      console.log("Validate Carbon Emissions element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-header"]'))
+          .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Emissions', 'Carbon Emissions label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-subtitle"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Daily Updates', 'Daily Updates label not found') }) })
+          })
+        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-descriptors"]'))
+           .then(function(){
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-descriptors-co2e-abated"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Abated', 'CO2e Abated label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-descriptors-carbon-produced"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Produced', 'Carbon Produced label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-ironore-carbon-emissions-descriptors-net-carbon"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net Carbon', 'Net Carbon label not found') }) })                   
+             })
+ })
+ 

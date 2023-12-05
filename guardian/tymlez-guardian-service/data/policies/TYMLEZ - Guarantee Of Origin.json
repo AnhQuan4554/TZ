@@ -1,0 +1,1742 @@
+{
+  "name": "TYMLEZ - Guarantee Of Origin",
+  "version": "1.0",
+  "description": "Tymlez Policy to guarantee of Origin",
+  "topicDescription": "Tymlez Policy to guarantee of Origin",
+  "policyRoles": ["ROOT_AUTHORITY", "INSTALLER", "TOKEN_OWNER"],
+  "policyTag": "TymlezGOO",
+  "config": {
+    "defaultActive": true,
+    "blockType": "interfaceContainerBlock",
+    "permissions": ["ANY_ROLE"],
+    "id": "f3db300a-3d2d-4c08-be61-bef1a19f9777",
+    "onErrorAction": "no-action",
+    "uiMetaData": {
+      "type": "blank",
+      "title": ""
+    },
+    "tag": "",
+    "children": [
+      {
+        "id": "cf53b282-473b-4bc6-beb1-7c816f09779d",
+        "tag": "choose_role_user_role",
+        "blockType": "policyRolesBlock",
+        "defaultActive": true,
+        "permissions": ["NO_ROLE"],
+        "uiMetaData": {
+          "title": "Registration",
+          "description": "Choose a role"
+        },
+        "roles": ["TOKEN_OWNER", "INSTALLER"],
+        "onErrorAction": "no-action",
+        "children": [],
+        "events": []
+      },
+      {
+        "id": "c347b439-e9bc-46a5-ab70-92c48e706533",
+        "tag": "root_authority",
+        "blockType": "interfaceStepBlock",
+        "defaultActive": true,
+        "permissions": ["OWNER"],
+        "onErrorAction": "no-action",
+        "uiMetaData": {
+          "type": "blank",
+          "title": "Setup root authority"
+        },
+        "children": [
+          {
+            "id": "b5654f01-c2d1-47ba-ae29-bd37ccee947b",
+            "tag": "request_project_data",
+            "blockType": "requestVcDocumentBlock",
+            "defaultActive": false,
+            "permissions": ["OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {
+              "type": "page",
+              "title": "Project information"
+            },
+            "presetFields": [],
+            "schema": "#1f3683e8-58be-43c9-b584-08e857059ddc&1.0.0",
+            "idType": "DID",
+            "stopPropagation": false,
+            "preset": false,
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "551e7528-e0f6-4152-bef4-2501d91306ef",
+            "tag": "send_project_to_hedera",
+            "blockType": "sendToGuardianBlock",
+            "defaultActive": false,
+            "permissions": ["OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {},
+            "options": [],
+            "dataSource": "database",
+            "documentType": "vc",
+            "stopPropagation": false,
+            "dependencies": [],
+            "entityType": "Project",
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "708806da-9387-4e78-9927-2a6bca422ab3",
+            "tag": "send_project_to_hedera_topic",
+            "blockType": "sendToGuardianBlock",
+            "defaultActive": false,
+            "permissions": ["OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {},
+            "options": [],
+            "documentType": "vc",
+            "dataSource": "hedera",
+            "topicOwner": "user",
+            "stopPropagation": false,
+            "dependencies": [],
+            "entityType": "Project",
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "00a9905c-2444-412e-93fa-3186b30e3d15",
+            "tag": "root_authority_page",
+            "blockType": "interfaceContainerBlock",
+            "defaultActive": true,
+            "permissions": ["OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {
+              "type": "tabs",
+              "title": "Root Authority"
+            },
+            "children": [
+              {
+                "id": "8c79d817-0769-4b52-abb9-1d6662d46ce0",
+                "tag": "project_grid",
+                "blockType": "interfaceDocumentsSourceBlock",
+                "defaultActive": true,
+                "permissions": ["OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "fields": [
+                    {
+                      "title": "Document ID",
+                      "name": "document.id",
+                      "tooltip": "",
+                      "type": "text"
+                    },
+                    {
+                      "title": "DID",
+                      "name": "document.credentialSubject.0.id",
+                      "tooltip": "",
+                      "type": "text"
+                    },
+                    {
+                      "title": "Project Name",
+                      "name": "document.credentialSubject.0.projectName",
+                      "tooltip": "",
+                      "type": "text"
+                    },
+                    {
+                      "title": "View Project",
+                      "name": "document",
+                      "tooltip": "",
+                      "type": "button",
+                      "action": "dialog",
+                      "url": "",
+                      "dialogContent": "VC",
+                      "dialogClass": "",
+                      "dialogType": "json",
+                      "bindBlock": "",
+                      "content": "View Document"
+                    }
+                  ],
+                  "title": "Project"
+                },
+                "children": [
+                  {
+                    "id": "33289be2-7bb0-48c8-9c93-9646a72030cf",
+                    "tag": "project_grid_data",
+                    "blockType": "documentsSourceAddon",
+                    "defaultActive": false,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "filters": [],
+                    "dataType": "vc-documents",
+                    "schema": "#1f3683e8-58be-43c9-b584-08e857059ddc&1.0.0",
+                    "children": [],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "id": "7f89ccd9-02f4-42f6-bc6b-2f3ac0be6ec4",
+                "tag": "site_page",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Sites"
+                },
+                "children": [
+                  {
+                    "id": "7bf43c99-dc29-40eb-9eed-a594395cb883",
+                    "tag": "site_grid",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "Document ID",
+                          "name": "document.id",
+                          "tooltip": "",
+                          "type": "text",
+                          "content": ""
+                        },
+                        {
+                          "title": "DID",
+                          "name": "document.credentialSubject.0.id",
+                          "tooltip": "",
+                          "type": "text",
+                          "content": ""
+                        },
+                        {
+                          "title": "Site Name",
+                          "name": "document.credentialSubject.0.siteName",
+                          "tooltip": "",
+                          "type": "text",
+                          "content": ""
+                        },
+                        {
+                          "title": "Project DID",
+                          "name": "document.credentialSubject.0.projectId",
+                          "tooltip": "",
+                          "type": "text",
+                          "content": ""
+                        },
+                        {
+                          "title": "View document",
+                          "name": "document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "url": "",
+                          "dialogContent": "VC",
+                          "dialogClass": "",
+                          "dialogType": "json",
+                          "bindBlock": "",
+                          "content": "View Document"
+                        }
+                      ],
+                      "title": "Sites"
+                    },
+                    "children": [
+                      {
+                        "id": "eda1ee8b-6811-4407-b139-9c0d715d489b",
+                        "tag": "site_grid_data",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vc-documents",
+                        "schema": "#3ae8518e-c802-45e2-b547-ca093d26ab9e&1.0.0",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  },
+                  {
+                    "id": "09168d0d-be95-48c4-9db8-4ef539bf4f9e",
+                    "tag": "create_new_site_steps",
+                    "blockType": "interfaceStepBlock",
+                    "defaultActive": true,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "type": "blank"
+                    },
+                    "cyclic": true,
+                    "children": [
+                      {
+                        "id": "5eda97b7-b885-4ce3-8830-2f7a5c9ffc4c",
+                        "tag": "request_site_data",
+                        "blockType": "requestVcDocumentBlock",
+                        "defaultActive": true,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "uiMetaData": {
+                          "type": "dialog",
+                          "title": "Site details",
+                          "content": "Add Site",
+                          "dialogContent": "Add new site"
+                        },
+                        "presetFields": [],
+                        "schema": "#3ae8518e-c802-45e2-b547-ca093d26ab9e&1.0.0",
+                        "idType": "DID",
+                        "stopPropagation": false,
+                        "preset": false,
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "38fd3939-35ba-4451-b472-0d9c53f6896d",
+                        "tag": "send_site_data_to_hedera",
+                        "blockType": "sendToGuardianBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "uiMetaData": {},
+                        "options": [],
+                        "dataSource": "database",
+                        "documentType": "vc",
+                        "stopPropagation": false,
+                        "dependencies": [],
+                        "entityType": "Site",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "2994b39e-f377-4eac-87ea-0372aa1235bc",
+                        "tag": "send_site_data_to_hedera_topic",
+                        "blockType": "sendToGuardianBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "uiMetaData": {},
+                        "options": [],
+                        "documentType": "vc",
+                        "dataSource": "hedera",
+                        "topicOwner": "user",
+                        "stopPropagation": false,
+                        "dependencies": [],
+                        "entityType": "Site",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "id": "35604a7c-e20c-41cc-99ca-53c7e170f44d",
+                "tag": "ra_installer_page",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Installers"
+                },
+                "children": [
+                  {
+                    "id": "2c81cc23-85de-41df-af74-c52c69ccf2cc",
+                    "tag": "ra_installer_grid",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "Document ID",
+                          "name": "document.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "DID",
+                          "name": "document.credentialSubject.0.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Installer ID",
+                          "name": "document.credentialSubject.0.installerId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Installer Name",
+                          "name": "document.credentialSubject.0.installerName",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Certification Expiry Date",
+                          "name": "document.credentialSubject.0.certificationExpiryDate",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "View document",
+                          "name": "document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "url": "",
+                          "dialogContent": "VC",
+                          "dialogClass": "",
+                          "dialogType": "json",
+                          "bindBlock": "",
+                          "content": "View Document"
+                        }
+                      ],
+                      "title": "Installers"
+                    },
+                    "children": [
+                      {
+                        "id": "f56efa52-d4ff-4d43-bf9b-264d09f69b78",
+                        "tag": "ra_installer_data",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vc-documents",
+                        "schema": "#f4dcebb3-077c-4c14-9f8f-47defbde64c0&1.0.0",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "id": "8740c393-99b2-455b-b7ff-3c04a5d5a106",
+                "tag": "device_page",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Devices"
+                },
+                "children": [
+                  {
+                    "id": "0702569b-a230-4133-aac5-cd5bcd59938b",
+                    "tag": "device_grid",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "Document ID",
+                          "name": "document.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "DID",
+                          "name": "document.credentialSubject.0.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Device ID",
+                          "name": "document.credentialSubject.0.deviceId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Certification Expiry Date",
+                          "name": "document.credentialSubject.0.certificationExpiryDate",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Assign device to site",
+                          "name": "document.credentialSubject.0.siteId",
+                          "tooltip": "",
+                          "type": "block",
+                          "bindGroup": "device_not_linked_to_site",
+                          "action": "",
+                          "url": "",
+                          "dialogContent": "",
+                          "dialogClass": "",
+                          "dialogType": "",
+                          "bindBlock": "assign_device_to_site"
+                        },
+                        {
+                          "title": "Site ID",
+                          "name": "document.credentialSubject.0.siteId",
+                          "tooltip": "",
+                          "type": "text",
+                          "bindGroup": "device_linked_to_site"
+                        },
+                        {
+                          "title": "View Device",
+                          "name": "document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "url": "",
+                          "dialogContent": "json",
+                          "dialogClass": "",
+                          "dialogType": "VC",
+                          "bindBlock": "",
+                          "content": "View Device"
+                        }
+                      ]
+                    },
+                    "children": [
+                      {
+                        "id": "22100cb3-c237-4d2b-be41-06487fc1c005",
+                        "tag": "device_not_linked_to_site",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "value": "Waiting for assign to site",
+                            "field": "option.status",
+                            "type": "equal"
+                          }
+                        ],
+                        "dataType": "vc-documents",
+                        "schema": "#49fb455f-44a5-4fad-9c4a-ad8d9e3827cb&1.0.0",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "1de2174d-7219-43c6-a584-e30477709618",
+                        "tag": "device_linked_to_site",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "value": "Assigned to site",
+                            "field": "option.status",
+                            "type": "equal"
+                          }
+                        ],
+                        "dataType": "vc-documents",
+                        "schema": "#49fb455f-44a5-4fad-9c4a-ad8d9e3827cb&1.0.0",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  },
+                  {
+                    "id": "09a2fae0-8fec-4047-bb59-2bc7ab6a2a52",
+                    "tag": "assign_device_to_site",
+                    "blockType": "interfaceActionBlock",
+                    "defaultActive": false,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "options": [],
+                      "title": "Site",
+                      "content": "Assign"
+                    },
+                    "type": "dropdown",
+                    "value": "document.credentialSubject.0.id",
+                    "name": "document.credentialSubject.0.siteName",
+                    "field": "document.credentialSubject.0.siteId",
+                    "children": [
+                      {
+                        "id": "7bf1c9f7-d814-4644-bed1-23135d7c8b83",
+                        "tag": "device_site_selector",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "schema": "#3ae8518e-c802-45e2-b547-ca093d26ab9e&1.0.0",
+                        "dataType": "vc-documents",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": [
+                      {
+                        "target": "save_assign_site",
+                        "source": "assign_device_to_site",
+                        "input": "RunEvent",
+                        "output": "DropdownEvent",
+                        "actor": "owner",
+                        "disabled": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "716685c1-e9ab-46ac-944b-207217dec38e",
+                    "tag": "save_assign_site",
+                    "blockType": "sendToGuardianBlock",
+                    "defaultActive": false,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {},
+                    "options": [
+                      {
+                        "name": "status",
+                        "value": "Assigned to site"
+                      }
+                    ],
+                    "dataSource": "hedera",
+                    "entityType": "Device_Approved",
+                    "documentType": "vc",
+                    "topicOwner": "issuer",
+                    "children": [],
+                    "events": []
+                  },
+                  {
+                    "id": "17f7c297-09d8-4308-b378-aa99411616a1",
+                    "tag": "device_registration",
+                    "blockType": "sendToGuardianBlock",
+                    "defaultActive": false,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {},
+                    "options": [
+                      {
+                        "name": "status",
+                        "value": "Assigned to site"
+                      }
+                    ],
+                    "documentType": "vc",
+                    "dataSource": "database",
+                    "entityType": "Device_Approved",
+                    "children": [],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "id": "b1f2fbf1-6dca-4dc5-9d65-874f53aca4c9",
+                "tag": "vp",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "VP"
+                },
+                "children": [
+                  {
+                    "id": "7c450ea9-a586-40b4-95b0-9076c13de5bf",
+                    "tag": "vp_grid",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "Document ID",
+                          "name": "document.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Message ID",
+                          "name": "messageId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Minted Date",
+                          "name": "document.verifiableCredential.L.credentialSubject.0.date",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Topic ID",
+                          "name": "topicId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Trust Chain",
+                          "name": "hash",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "link",
+                          "url": "",
+                          "dialogContent": "",
+                          "dialogClass": "",
+                          "dialogType": "",
+                          "bindBlock": "trustchain_report"
+                        }
+                      ]
+                    },
+                    "children": [
+                      {
+                        "id": "43341dbe-23ca-4e38-85e5-dfdd3e36958f",
+                        "tag": "vp_grid_data",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vp-documents",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "9601aeae-72b6-48d8-99f7-0ccc3e5c1e6a",
+                        "tag": "vp_grid_pager",
+                        "blockType": "paginationAddon",
+                        "defaultActive": true,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "id": "4c75521f-367c-4550-817a-e40c1cc4d13c",
+                "tag": "trustchain",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Trust Chain"
+                },
+                "children": [
+                  {
+                    "id": "4e60b8a4-f39a-4c73-8fb6-24e803fe7ba5",
+                    "tag": "trustchain_report",
+                    "blockType": "reportBlock",
+                    "defaultActive": true,
+                    "permissions": ["OWNER"],
+                    "onErrorAction": "no-action",
+                    "children": [
+                      {
+                        "id": "aa108312-4cc1-40cc-b80c-06ff46a32a9a",
+                        "tag": "mint_token_item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "type": "equal",
+                            "field": "document.id",
+                            "value": "actionId",
+                            "typeValue": "variable"
+                          }
+                        ],
+                        "variables": [
+                          {
+                            "name": "deviceId",
+                            "value": "document.credentialSubject.0.deviceId"
+                          },
+                          {
+                            "name": "policyId",
+                            "value": "document.credentialSubject.0.policyId"
+                          },
+                          {
+                            "name": "mrvId",
+                            "value": "document.id"
+                          }
+                        ],
+                        "visible": true,
+                        "title": "Token Minted",
+                        "description": "Mint Tymlez GoO token",
+                        "iconType": "common",
+                        "icon": "mint",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "25424253-33fd-44be-8187-d7bc6cd498a3",
+                        "tag": "mrv_request_Item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "type": "equal",
+                            "typeValue": "variable",
+                            "field": "document.id",
+                            "value": "mrvId"
+                          }
+                        ],
+                        "variables": [],
+                        "visible": true,
+                        "title": "Request MRV Data",
+                        "description": "Request MRV Data",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "f7ade3d1-a7aa-4da6-b71d-ba10505d96d0",
+                        "tag": "device_registration_item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "typeValue": "variable",
+                            "value": "deviceId",
+                            "field": "document.credentialSubject.0.id",
+                            "type": "equal"
+                          },
+                          {
+                            "type": "equal",
+                            "field": "type",
+                            "value": "Device_Approved",
+                            "typeValue": "value"
+                          },
+                          {
+                            "field": "document.credentialSubject.0.policyId",
+                            "value": "policyId",
+                            "typeValue": "variable",
+                            "type": "equal"
+                          }
+                        ],
+                        "variables": [
+                          {
+                            "name": "installerDID",
+                            "value": "document.issuer"
+                          },
+                          {
+                            "name": "siteId",
+                            "value": "document.credentialSubject.0.siteId"
+                          }
+                        ],
+                        "visible": true,
+                        "iconType": "common",
+                        "title": "Device Registration",
+                        "icon": "inverter",
+                        "description": "Device registration data",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "16c069a1-aded-4cac-8d4f-a608e4d662ad",
+                        "tag": "installer_registration_item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "typeValue": "value",
+                            "field": "type",
+                            "value": "Installer",
+                            "type": "equal"
+                          },
+                          {
+                            "type": "equal",
+                            "typeValue": "variable",
+                            "field": "document.credentialSubject.0.policyId",
+                            "value": "policyId"
+                          },
+                          {
+                            "type": "equal",
+                            "typeValue": "variable",
+                            "value": "installerDID",
+                            "field": "document.credentialSubject.0.id"
+                          }
+                        ],
+                        "variables": [
+                          {
+                            "name": "document.credentialSubject.0.installerId",
+                            "value": "installerId"
+                          }
+                        ],
+                        "visible": true,
+                        "title": "Submission of Installer Information",
+                        "description": "Submission of Installer Information",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "082dd5dd-7d61-4da6-88f6-ee0d833f3bc7",
+                        "tag": "site_information_item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "type": "equal",
+                            "typeValue": "value",
+                            "field": "type",
+                            "value": "Site"
+                          },
+                          {
+                            "typeValue": "variable",
+                            "type": "equal",
+                            "field": "document.credentialSubject.0.id",
+                            "value": "siteId"
+                          },
+                          {
+                            "type": "equal",
+                            "typeValue": "variable",
+                            "field": "document.credentialSubject.0.policyId",
+                            "value": "policyId"
+                          }
+                        ],
+                        "variables": [],
+                        "visible": true,
+                        "title": "Sites",
+                        "description": "Submission of Site Information",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "b53ce89a-dfe5-4a8d-a683-0996bb6881f3",
+                        "tag": "project_item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "type": "equal",
+                            "typeValue": "value",
+                            "field": "type",
+                            "value": "Project"
+                          }
+                        ],
+                        "variables": [],
+                        "visible": true,
+                        "title": "Project",
+                        "description": "Submission of Project Information",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "7637aeb0-67ac-422e-9e65-d0aa13ffd52a",
+                        "tag": "root_authority_item",
+                        "blockType": "reportItemBlock",
+                        "defaultActive": false,
+                        "permissions": ["OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [
+                          {
+                            "type": "equal",
+                            "typeValue": "variable",
+                            "field": "document.credentialSubject.0.policyId",
+                            "value": "policyId"
+                          },
+                          {
+                            "type": "equal",
+                            "typeValue": "value",
+                            "field": "type",
+                            "value": "ROOT_AUTHORITY"
+                          }
+                        ],
+                        "variables": [],
+                        "visible": true,
+                        "title": "Root Authority Information",
+                        "description": "Root Authority Information",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              }
+            ],
+            "events": []
+          }
+        ],
+        "events": []
+      },
+      {
+        "id": "d608f5a8-8814-4694-bb67-0d2446d356f6",
+        "tag": "token_owner",
+        "blockType": "interfaceStepBlock",
+        "defaultActive": true,
+        "permissions": ["TOKEN_OWNER"],
+        "onErrorAction": "no-action",
+        "uiMetaData": {
+          "type": "blank",
+          "title": "Token Owner"
+        },
+        "children": [
+          {
+            "id": "89e0855f-7609-4ea7-ac0c-076d43b2021d",
+            "tag": "request_owner_vc",
+            "blockType": "requestVcDocumentBlock",
+            "defaultActive": true,
+            "permissions": ["TOKEN_OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {
+              "type": "page",
+              "title": "Token Owner Information"
+            },
+            "presetFields": [],
+            "schema": "#6b2815d9-71ad-4ce2-8e99-9969410082e6&1.0.0",
+            "idType": "OWNER",
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "5e41e238-9b82-41da-9f76-e1efcdbe1ff0",
+            "tag": "send_owner_data_to_db",
+            "blockType": "sendToGuardianBlock",
+            "defaultActive": false,
+            "permissions": ["TOKEN_OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {},
+            "options": [],
+            "entityType": "TokenOwner",
+            "dataSource": "database",
+            "documentType": "vc",
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "225a28c7-62eb-4ab2-afce-123c36835961",
+            "tag": "send_owner_data_to_hedera",
+            "blockType": "sendToGuardianBlock",
+            "defaultActive": false,
+            "permissions": ["TOKEN_OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {},
+            "options": [],
+            "dataSource": "hedera",
+            "documentType": "vc",
+            "topicOwner": "owner",
+            "entityType": "TokenOwner",
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "2e11fb28-19de-416a-beee-03ca8a6ac556",
+            "tag": "token_owner_page",
+            "blockType": "interfaceContainerBlock",
+            "defaultActive": true,
+            "permissions": ["TOKEN_OWNER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {
+              "type": "tabs",
+              "title": "Token Owner Page"
+            },
+            "children": [
+              {
+                "id": "8b9e85fc-4c0b-48e1-b870-8ca1efec9f43",
+                "tag": "token_vc_page",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["TOKEN_OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Owner Information"
+                },
+                "children": [
+                  {
+                    "id": "105b1aee-4acb-408f-89ae-f154ff8031bb",
+                    "tag": "token_owner_document",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["TOKEN_OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "ID",
+                          "name": "document.credentialSubject.0.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Document",
+                          "name": "document",
+                          "tooltip": "",
+                          "type": "button",
+                          "bindGroup": "",
+                          "action": "dialog",
+                          "url": "",
+                          "dialogContent": "json",
+                          "dialogClass": "",
+                          "dialogType": "vc",
+                          "bindBlock": "",
+                          "content": "View Document"
+                        }
+                      ],
+                      "title": "Token Owner Information"
+                    },
+                    "children": [
+                      {
+                        "id": "ec919770-1298-4d3e-b556-3304194c4409",
+                        "tag": "token_owner_document_data",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["TOKEN_OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vc-documents",
+                        "schema": "#6b2815d9-71ad-4ce2-8e99-9969410082e6&1.0.0",
+                        "onlyOwnDocuments": false,
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "id": "19fd13f5-9635-428d-8a1b-07927a2dc48e",
+                "tag": "owner_vp",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["TOKEN_OWNER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "VP"
+                },
+                "children": [
+                  {
+                    "id": "94453be2-4594-4521-b92f-45b54028b786",
+                    "tag": "owner_vp_document",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["TOKEN_OWNER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "VP ID",
+                          "name": "document.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Hash",
+                          "name": "hash",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+
+                        {
+                          "title": "Message ID",
+                          "name": "messageId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "View VP",
+                          "name": "document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "url": "",
+                          "dialogContent": "VP",
+                          "dialogClass": "",
+                          "dialogType": "json",
+                          "bindBlock": "",
+                          "content": "View VP"
+                        }
+                      ],
+                      "title": "VP"
+                    },
+                    "children": [
+                      {
+                        "id": "1136477e-3c18-428e-8474-909d8d2cd067",
+                        "tag": "owner_vp_data",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["TOKEN_OWNER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vp-documents",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "6dfebdcf-4cfe-4481-b39a-90c737f2de27",
+                        "tag": "owner_vp_pager",
+                        "blockType": "paginationAddon",
+                        "defaultActive": true,
+                        "permissions": ["TOKEN_OWNER"],
+                        "onErrorAction": "no-action",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              }
+            ],
+            "events": []
+          }
+        ],
+        "events": []
+      },
+      {
+        "defaultActive": true,
+        "tag": "init_installer_steps",
+        "permissions": ["INSTALLER"],
+        "blockType": "interfaceStepBlock",
+        "uiMetaData": {
+          "type": "blank"
+        },
+        "id": "4e43ad39-3398-4c66-9417-dbe4f358eb1c",
+        "onErrorAction": "no-action",
+        "children": [
+          {
+            "tag": "add_new_installer_request",
+            "defaultActive": true,
+            "permissions": ["INSTALLER"],
+            "blockType": "requestVcDocumentBlock",
+            "schema": "#f4dcebb3-077c-4c14-9f8f-47defbde64c0&1.0.0",
+            "idType": "OWNER",
+            "uiMetaData": {
+              "type": "page",
+              "title": "New Installer",
+              "description": "Description",
+              "privateFields": ["policyId"]
+            },
+            "id": "b214d8cd-33f5-4f74-9988-4678aa64bf2d",
+            "onErrorAction": "no-action",
+            "presetFields": [],
+            "children": [],
+            "events": []
+          },
+          {
+            "tag": "Submission_of_Installer_Information",
+            "blockType": "sendToGuardianBlock",
+            "dataType": "vc-documents",
+            "entityType": "Installer",
+            "uiMetaData": {},
+            "stopPropagation": false,
+            "id": "de60ae71-8b97-4bfc-85e3-dedc2747ce12",
+            "onErrorAction": "no-action",
+            "options": [],
+            "dataSource": "hedera",
+            "documentType": "vc",
+            "topicOwner": "issuer",
+            "permissions": [],
+            "children": [],
+            "events": []
+          },
+          {
+            "tag": "send_installer_vc_to_hedera",
+            "blockType": "sendToGuardianBlock",
+            "dataType": "",
+            "entityType": "Installer",
+            "uiMetaData": {},
+            "id": "233776fe-b3f2-4259-972f-ccfcda9431b0",
+            "onErrorAction": "no-action",
+            "options": [],
+            "dataSource": "database",
+            "documentType": "vc",
+            "permissions": [],
+            "children": [],
+            "events": []
+          },
+          {
+            "tag": "installer_header",
+            "defaultActive": true,
+            "permissions": ["INSTALLER"],
+            "blockType": "interfaceContainerBlock",
+            "uiMetaData": {
+              "type": "tabs"
+            },
+            "id": "94564c8b-1cfb-45c2-924b-86fb15f5c87e",
+            "onErrorAction": "no-action",
+            "children": [
+              {
+                "id": "626fa525-745b-4949-8b40-e43540e9d0fb",
+                "tag": "installer_page",
+                "blockType": "interfaceContainerBlock",
+                "defaultActive": true,
+                "permissions": ["INSTALLER"],
+                "onErrorAction": "no-action",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Installer"
+                },
+                "children": [
+                  {
+                    "id": "369f62a3-a387-414a-a4fb-db76935cb169",
+                    "tag": "installer_grid",
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "defaultActive": true,
+                    "permissions": ["INSTALLER"],
+                    "onErrorAction": "no-action",
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "title": "",
+                          "name": "document.id",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Installer Name",
+                          "name": "document.credentialSubject.0.installerName",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Installer ID",
+                          "name": "document.credentialSubject.0.installerId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Certification Expiry Date",
+                          "name": "document.credentialSubject.0.certificationExpiryDate",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "View Installer",
+                          "name": "document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "url": "",
+                          "dialogContent": "json",
+                          "dialogClass": "",
+                          "dialogType": "VC",
+                          "bindBlock": "",
+                          "content": "View Installer"
+                        }
+                      ]
+                    },
+                    "children": [
+                      {
+                        "id": "8756809c-f0c5-421f-8cf2-736a429f892e",
+                        "tag": "installer_grid_data",
+                        "onlyOwnDocuments": true,
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": false,
+                        "permissions": ["INSTALLER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vc-documents",
+                        "schema": "#f4dcebb3-077c-4c14-9f8f-47defbde64c0&1.0.0",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "tag": "sensors_page",
+                "defaultActive": true,
+                "permissions": ["INSTALLER"],
+                "blockType": "interfaceContainerBlock",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "Devices"
+                },
+                "id": "acbb8c63-661a-4e32-98c2-1b670d8f9ef5",
+                "onErrorAction": "no-action",
+                "children": [
+                  {
+                    "tag": "sensors_grid",
+                    "defaultActive": true,
+                    "permissions": ["INSTALLER"],
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "dependencies": ["SendVCtoGuardian"],
+                    "onlyOwnDocuments": true,
+                    "dataType": "vc-documents",
+                    "filters": {
+                      "schema": "#c3e6e6d9-f6f9-4ad1-883d-3474f1243a51&1.0.0",
+                      "type": "Device"
+                    },
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "name": "document.id",
+                          "title": "ID",
+                          "type": "text"
+                        },
+                        {
+                          "name": "document.credentialSubject.0.id",
+                          "title": "DID",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Device ID",
+                          "name": "document.credentialSubject.0.deviceId",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "title": "Certification Expiry Date",
+                          "name": "document.credentialSubject.0.certificationExpiryDate",
+                          "tooltip": "",
+                          "type": "text"
+                        },
+                        {
+                          "name": "document",
+                          "title": "Document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "content": "View Document",
+                          "uiClass": "link",
+                          "dialogContent": "VC",
+                          "dialogClass": "",
+                          "dialogType": "json"
+                        },
+                        {
+                          "name": "document.id",
+                          "title": "Config",
+                          "tooltip": "",
+                          "type": "block",
+                          "action": "block",
+                          "content": "download",
+                          "uiClass": "",
+                          "bindBlock": "download_config_btn"
+                        }
+                      ]
+                    },
+                    "id": "7a10d5dd-280f-4656-a654-bb1f0c37f0e9",
+                    "onErrorAction": "no-action",
+                    "children": [
+                      {
+                        "id": "bd312efd-4baf-40f9-bea1-b2c4938bdc29",
+                        "tag": "sensors_grid_filters",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": true,
+                        "permissions": ["INSTALLER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vc-documents",
+                        "onlyOwnDocuments": true,
+                        "schema": "#49fb455f-44a5-4fad-9c4a-ad8d9e3827cb&1.0.0",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  },
+                  {
+                    "tag": "download_config_btn",
+                    "blockType": "interfaceActionBlock",
+                    "permissions": ["INSTALLER"],
+                    "type": "download",
+                    "schema": "#c3e6e6d9-f6f9-4ad1-883d-3474f1243a51&1.0.0",
+                    "stopPropagation": true,
+                    "targetUrl": "http://localhost:3003/mrv",
+                    "uiMetaData": {
+                      "content": "download",
+                      "options": []
+                    },
+                    "id": "d918047e-508d-4586-a0d1-ac008733319d",
+                    "onErrorAction": "no-action",
+                    "children": [],
+                    "events": []
+                  },
+                  {
+                    "defaultActive": true,
+                    "tag": "create_new_sensor_steps",
+                    "permissions": ["INSTALLER"],
+                    "blockType": "interfaceStepBlock",
+                    "uiMetaData": {
+                      "type": "blank"
+                    },
+                    "cyclic": true,
+                    "id": "2ffaa713-c4b6-453f-aa99-90a938a83e7e",
+                    "onErrorAction": "no-action",
+                    "children": [
+                      {
+                        "tag": "add_sensor_bnt",
+                        "defaultActive": true,
+                        "permissions": ["INSTALLER"],
+                        "blockType": "requestVcDocumentBlock",
+                        "schema": "#49fb455f-44a5-4fad-9c4a-ad8d9e3827cb&1.0.0",
+                        "idType": "DID",
+                        "uiMetaData": {
+                          "type": "dialog",
+                          "description": "Description",
+                          "privateFields": ["policyId"],
+                          "content": "New Sensors",
+                          "uiClass": "btn",
+                          "dialogContent": "New Sensors",
+                          "dialogClass": "",
+                          "dialogType": ""
+                        },
+                        "id": "af793c19-2da4-4eda-bdb7-ba2b353ad125",
+                        "onErrorAction": "no-action",
+                        "presetFields": [],
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "tag": "send_sensor_vc_to_hedera",
+                        "blockType": "sendToGuardianBlock",
+                        "dataType": "",
+                        "entityType": "Device",
+                        "uiMetaData": {},
+                        "id": "4268670e-15cc-4ed4-8125-4c64f93409db",
+                        "onErrorAction": "no-action",
+                        "options": [
+                          {
+                            "name": "status",
+                            "value": "Waiting for assign to site"
+                          }
+                        ],
+                        "dataSource": "database",
+                        "documentType": "vc",
+                        "permissions": [],
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "tag": "device_add",
+                        "blockType": "sendToGuardianBlock",
+                        "dataType": "",
+                        "entityType": "Device",
+                        "stopPropagation": false,
+                        "uiMetaData": {},
+                        "id": "cb71acd4-a1ca-4d75-8009-fdabe301d307",
+                        "onErrorAction": "no-action",
+                        "options": [
+                          {
+                            "name": "status",
+                            "value": "Waiting for assign to site"
+                          }
+                        ],
+                        "dataSource": "hedera",
+                        "documentType": "vc",
+                        "topic": "root",
+                        "topicOwner": "issuer",
+                        "permissions": [],
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              },
+              {
+                "tag": "mrv_page",
+                "defaultActive": true,
+                "permissions": ["INSTALLER"],
+                "blockType": "interfaceContainerBlock",
+                "uiMetaData": {
+                  "type": "blank",
+                  "title": "MRV"
+                },
+                "id": "cdb99fe0-53f4-4f40-949a-3e20b482d83f",
+                "onErrorAction": "no-action",
+                "children": [
+                  {
+                    "tag": "mrv_grid",
+                    "defaultActive": true,
+                    "permissions": ["INSTALLER"],
+                    "blockType": "interfaceDocumentsSourceBlock",
+                    "dependencies": ["SendVCtoGuardian"],
+                    "onlyOwnDocuments": true,
+                    "dataType": "vc-documents",
+                    "filters": {
+                      "schema": "#b578cb95-8530-46cc-9dc4-f31980744102",
+                      "type": "MRV"
+                    },
+                    "uiMetaData": {
+                      "fields": [
+                        {
+                          "name": "document.id",
+                          "title": "ID",
+                          "type": "button"
+                        },
+                        {
+                          "name": "document.issuer",
+                          "title": "Device DID",
+                          "type": "text"
+                        },
+                        {
+                          "name": "document.credentialSubject.0.CO2eqEmissionsReduction",
+                          "title": "CO2 Emissions Reduction",
+                          "type": "text"
+                        },
+                        {
+                          "name": "document",
+                          "title": "Document",
+                          "tooltip": "",
+                          "type": "button",
+                          "action": "dialog",
+                          "content": "View Document",
+                          "uiClass": "link",
+                          "dialogContent": "VC",
+                          "dialogClass": "",
+                          "dialogType": "json"
+                        }
+                      ]
+                    },
+                    "id": "011ef0e8-10ce-4adb-85b5-de076e22d273",
+                    "onErrorAction": "no-action",
+                    "children": [
+                      {
+                        "id": "fb6d2c57-a040-468a-9100-c9454b36d8e2",
+                        "tag": "mvr_grid_filters",
+                        "blockType": "documentsSourceAddon",
+                        "defaultActive": true,
+                        "permissions": ["INSTALLER"],
+                        "onErrorAction": "no-action",
+                        "filters": [],
+                        "dataType": "vc-documents",
+                        "schema": "#c3e6e6d9-f6f9-4ad1-883d-3474f1243a51&1.0.0",
+                        "children": [],
+                        "events": []
+                      },
+                      {
+                        "id": "9bc25ae9-fe4d-484f-9587-95779a9e924f",
+                        "tag": "mrv_grid_pager",
+                        "blockType": "paginationAddon",
+                        "defaultActive": true,
+                        "permissions": ["INSTALLER"],
+                        "onErrorAction": "no-action",
+                        "children": [],
+                        "events": []
+                      }
+                    ],
+                    "events": []
+                  }
+                ],
+                "events": []
+              }
+            ],
+            "events": []
+          }
+        ],
+        "events": []
+      },
+      {
+        "tag": "mint_events",
+        "defaultActive": true,
+        "permissions": ["ROOT_AUTHORITY", "INSTALLER"],
+        "blockType": "interfaceContainerBlock",
+        "uiMetaData": {
+          "type": "blank"
+        },
+        "id": "e6c3ae49-58f5-4514-8861-42c26cf62574",
+        "onErrorAction": "no-action",
+        "children": [
+          {
+            "tag": "mrv_source",
+            "blockType": "externalDataBlock",
+            "entityType": "MRV",
+            "schema": "#c3e6e6d9-f6f9-4ad1-883d-3474f1243a51&1.0.0",
+            "uiMetaData": {},
+            "id": "ff3a200e-6ae1-4ea9-9c4c-e1122b2016b1",
+            "onErrorAction": "no-action",
+            "permissions": [],
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "ca373df0-2e61-4531-a146-02472c6d5782",
+            "tag": "save_mrv",
+            "blockType": "sendToGuardianBlock",
+            "defaultActive": false,
+            "permissions": ["ROOT_AUTHORITY", "INSTALLER"],
+            "onErrorAction": "no-action",
+            "uiMetaData": {},
+            "options": [],
+            "entityType": "MRV",
+            "dataSource": "database",
+            "documentType": "vc",
+            "children": [],
+            "events": []
+          },
+          {
+            "tag": "Requesting_Origin_issuance",
+            "blockType": "sendToGuardianBlock",
+            "dataType": "",
+            "entityType": "MRV",
+            "uiMetaData": {},
+            "dataSource": "hedera",
+            "documentType": "vc",
+            "id": "7b091bee-1aeb-47f1-93fa-b0cbcb99aa44",
+            "onErrorAction": "no-action",
+            "options": [],
+            "permissions": [],
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "c4708b08-4fcd-4fc6-aa1f-18ad2a0abe0a",
+            "tag": "aggregate_value",
+            "blockType": "aggregateDocumentBlock",
+            "uiMetaData": {},
+            "onErrorAction": "no-action",
+            "expressions": [
+              {
+                "name": "total",
+                "value": "value"
+              }
+            ],
+            "aggregateType": "cumulative",
+            "emptyData": false,
+            "condition": "sum(total) >= 1",
+            "permissions": [],
+            "children": [],
+            "events": []
+          },
+          {
+            "id": "4a57ad6c-cf75-4c97-a1e1-a8408c472477",
+            "blockType": "splitBlock",
+            "defaultActive": false,
+            "permissions": ["ROOT_AUTHORITY", "INSTALLER"],
+            "onErrorAction": "no-action",
+            "sourceField": "document.credentialSubject.0.value",
+            "threshold": "1",
+            "tag": "mrv_split"
+          },
+          {
+            "tag": "mint_token",
+            "blockType": "mintDocumentBlock",
+            "tokenId": "0.0.45961410",
+            "rule": "value/1",
+            "uiMetaData": {},
+            "id": "0323f309-5f1d-4396-b1bf-213a2e6fc482",
+            "onErrorAction": "no-action",
+            "accountType": "custom",
+            "accountId": "tokenOwnerId",
+            "memo": "__MEMO__",
+            "permissions": [],
+            "children": [],
+            "events": []
+          }
+        ],
+        "events": []
+      }
+    ],
+    "events": []
+  }
+}

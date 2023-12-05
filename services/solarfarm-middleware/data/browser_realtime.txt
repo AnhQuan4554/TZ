@@ -1,0 +1,151 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+ var assert = require('assert');
+
+$webDriver.get('https://solarfarm.dev.tymlez.com/')
+
+    .then(async function(){return await $webDriver.wait( $selenium.until.titleIs('Login') ,5000)  })
+   
+  .then(function(){    
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)      
+   })
+   
+  .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Solar Farm Dashboard') ,5000)  })
+  .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Dashboard', 'Dashboard Navbar title incorrect') }) })
+  })
+  
+ //tell the monitor to find realtime component 
+.then(function () {
+     console.log("Validate Analytics elements ...")
+     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-header"]'))
+              .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Real Time Updates for\nSolar Farm', 'Realtime dashboard not found') }) })
+})
+
+//REC Generation
+.then(function () {
+     console.log("Validate REC Generation elements ...");
+     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec"]'))
+     .then(function(){
+        $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-header"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'REC Generation', 'REC Generation title not found') }) })
+        //REC today
+        $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-today-header"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Today', 'Today label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-today-value"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.notEqual(text, 0, 'No data for REC Today') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-today-label"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'RECs generated today', 'RECs generated today label not found') }) })
+       //last 7 days
+        $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-last-week-header"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Last 7 days', 'Last 7 days label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-last-week-value"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.notEqual(text, 0, 'No data for Total REC generated') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-rec-last-week-label"]'))
+           .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Total RECs generated', 'Total RECs generated label not found') }) })
+     })
+})
+
+.then(function(){
+     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-components"]'))
+    .then(function(){
+        //Active Solar panel
+         console.log("Validate Active solar panels ...");
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-panel"]'))
+             .then(function(){
+                  $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-panel-header"]'))
+                     .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Active solar panels', 'Active solar panels label not found') }) })
+                 $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-panel-label"]'))
+                     .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Last 5 minutes', 'Active solar panels Last 5 minutes label not found') }) })
+                 $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-panel-value"]'))
+                     .then(function (el) { el.getText().then(function(text) { assert.notEqual(text, '0 / 20,000', 'No data for Active solar panels') }) })             
+            })
+        //Solar energy generated
+         console.log("Validate Solar energy generated ...")
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-generated"]'))
+             .then(function(){
+                  $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-generated-header"]'))
+                     .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Solar energy generated', 'Solar energy generated label not found') }) })
+                 $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-generated-label"]'))
+                     .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Last 5 minutes', 'Active solar panels Last 5 minutes label not found') }) })
+                 $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-energy-component-generated-value"]'))
+                     .then(function (el) { el.getText().then(function(text) {
+                             assert.notEqual(text.indexOf("MWh"),-1,'Unit of Solar energy generated should be MWh')
+                             assert.notEqual(text, '0.00 MWh', 'No data for Solar energy generated') }) })
+            })          
+    })  
+})
+     
+//Performance ratio
+.then(function(){      
+     console.log("Validate Performance ratio ...");
+    $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-performance-ratio"]'))
+    .then(function(){
+          $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-performance-ratio-header"]'))
+               .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Performance Ratio', 'Performance Ratio label not found') }) })
+          $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-performance-ratio-value"]'))
+               .then(function (el) { el.getText().then(function(text) { assert.notEqual(text, '0.00 %', 'No data for Performance Ratio') }) })  
+         $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-performance-ratio-label-marker"]'))
+               .then(function (el) { el.getText().then(function(text) { assert.equal(text, 'Current generation against forecast', 'Current generation against forecast label not found') }) })
+    })
+})
+
+//Solar panel group
+.then(function(){   
+     console.log("Validate Solar panels ...");
+     $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-solar-panel-group"]'))
+       .then(function(){
+           $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-solar-panel-group-header"]'))
+               .then(function (el) { el.getText().then(function(text) {assert.equal(text, 'Solar Panels', 'Solar Panels label not found') }) })
+           $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-solar-panel-group-subheader"]'))
+               .then(function (el) { el.getText().then(function(text) { assert.equal(text, 'Generation by array', 'Generation by array label not found') }) })
+           $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-solar-panel-group-button-refresh"]'))
+               .then(function (el) { el.getText().then(function(text) { assert.equal(text, 'Refresh', 'Refresh button not found') }) })
+           $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-solar-panel-group-common-table"]'))
+                  .then( function(table) { table.findElements($selenium.By.css('tr')).then(function(tr) {
+                        assert(tr.length > 1, "Verification table does not have any row")
+                            //group 1
+                                 tr[1].getText().then(function(text) {
+                                     assert.notEqual(text.indexOf("PANL-G001"),-1,'Panel Group for Group 1 not found');
+                                     assert.notEqual(text.indexOf("1 - 5,000"),-1,'Panel IDs for Group 1 not correct');
+                                     assert.equal(text.indexOf("0.00 MWh"),-1,'No data for Group 1');
+                                 })
+                               //group 2
+                                 tr[2].getText().then(function(text) {
+                                     assert.notEqual(text.indexOf("PANL-G002"),-1,'Panel Group for Group 2 not found');
+                                     assert.notEqual(text.indexOf("5,001 - 10,000"),-1,'Panel IDs for Group 2 not correct');
+                                   assert.equal(text.indexOf("0.00 MWh"),-1,'No data for Group 2');
+                                 })
+                               //group 3
+                                 tr[3].getText().then(function(text) {
+                                     assert.notEqual(text.indexOf("PANL-G003"),-1,'Panel Group for Group 3 not found');
+                                     assert.notEqual(text.indexOf("10,001 - 15,000"),-1,'Panel IDs for Group 3 not correct');
+                                   assert.equal(text.indexOf("0.00 MWh"),-1,'No data for Group 3');
+                                 })
+                             //group 4
+                                 tr[4].getText().then(function(text) {
+                                      assert.notEqual(text.indexOf("PANL-G004"),-1,'Panel Group for Group 4 not found');
+                                      assert.notEqual(text.indexOf("15,001 - 20,000"),-1,'Panel IDs for Group 4 not correct');
+                                 })
+                  })})
+                  .then(function(){
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-name"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'SOLAR PANEL ARRAY', 'SOLAR PANEL ARRAY column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-ids"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'PANEL IDS', 'PANEL IDS column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-generation"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'GENERATION (LAST 5 MINUTES)', 'GENERATION (LAST 5 MINUTES) column not found') }) })
+                  })
+             $webDriver.findElement($selenium.By.css('[data-test-id="solarfarm-realtime-solar-panel-group-footer"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'All data secured by the TYMLEZ platform built on Hedera hashgraph', 'All data secured by the TYMLEZ platform built on Hedera hashgraph label not found') }) })
+       })
+})//end solar panel
+     

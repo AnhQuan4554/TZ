@@ -1,0 +1,54 @@
+{
+  "name": "@tymlez/tymlez-cli",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "Tymlez <dev@tymlez.com>",
+  "description": "The common utility use for development and ci.",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "cli": "node -r esbuild-register ./src/index.ts",
+    "watch": "tsc -w"
+  },
+  "bin": {
+    "tymlez-cli": "./dist/index.js",
+    "tymlez-cli-dev": "./src/index.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudfront": "^3.252.0",
+    "@aws-sdk/client-ssm": "^3.252.0",
+    "@aws-sdk/client-sts": "^3.252.0",
+    "@hashgraph/sdk": "^2.16.2",
+    "@tymlez/backend-libs": "*",
+    "@tymlez/common-libs": "*",
+    "@tymlez/trustchain-sdk": "*",
+    "axios": "^1.2.3",
+    "chalk": "^5.2.0",
+    "date-fns": "^2.29.3",
+    "deepmerge": "^4.2.2",
+    "exec-sh": "^0.4.0",
+    "joi": "^17.6.3",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "p-limit": "3.1.0",
+    "promise-retry": "^2.0.1",
+    "readline": "^1.3.0",
+    "uuid": "^9.0.0",
+    "yaml": "^2.1.1",
+    "yargs": "^17.6.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.8",
+    "@types/lodash": "^4.14.191",
+    "@types/md5": "^2.3.2",
+    "@types/node": "^16.18.11",
+    "@types/promise-retry": "^1.1.3",
+    "@types/uuid": "^9.0.0",
+    "@types/yargs": "^17.0.20",
+    "esbuild": "^0.17.3",
+    "esbuild-jest": "^0.5.0",
+    "esbuild-register": "^3.4.2",
+    "jest": "^28.1.3",
+    "typescript": "^4.9.4"
+  }
+}

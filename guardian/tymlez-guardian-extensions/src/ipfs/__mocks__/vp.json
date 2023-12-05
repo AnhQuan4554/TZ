@@ -1,0 +1,1031 @@
+{
+  "id": "4651d8bb-fe61-4749-b7cd-c9468698e041",
+  "type": ["VerifiablePresentation"],
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
+  "verifiableCredential": [
+    {
+      "id": "e328c86b-cbf9-460e-978d-09a2d0720ad0",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:19:57.540Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "__sensitiveFields": ["value", "otherMRVData", "CO2Emissions"],
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22238",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:15:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:20:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22238",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:19:57Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..jOLa9IHSqOcAZ7l4H7NOzkTw5C7uvrxDOPL4tru15Q9MnbhOh60bzN5_WRztNdnvBT-6y7_knmVaiJ7sHM9TCA"
+      }
+    },
+    {
+      "id": "b37ca252-f5f3-4a94-a68e-7c78231e293b",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:20:13.429Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "__sensitiveFields": ["value", "otherMRVData", "CO2Emissions"],
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22268",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:20:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:25:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0.017123,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.000017,
+          "CO2eqEmissions": 0.000017,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22268",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:20:13Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..52JdM4tJnv9xKiN80E_cCNwOUNvz85LPzqI3Qj45yheyA4yCuUPvt3ANwPr7C1ibjBI9zMQZpldOrKsKy2hIBA"
+      }
+    },
+    {
+      "id": "7d3d722b-b2f3-4b77-8244-d4091744d383",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:20:33.374Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "__sensitiveFields": ["value", "otherMRVData", "CO2Emissions"],
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22322",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:25:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:30:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0.017002,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.000017,
+          "CO2eqEmissions": 0.000017,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22322",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:20:33Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..uTN45Nbm_IMkmOrZW-Z2w7VepqCgoXtUVext2VUeklPxPTIz7Kn0oKpPFxMolTQrLcf2ZFZJJMGsMcA89j7PAA"
+      }
+    },
+    {
+      "id": "1e866c9a-cd6e-4f92-ba74-711da125cd4c",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:20:53.375Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22340",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:30:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:35:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0.01684,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.000017,
+          "CO2eqEmissions": 0.000017,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22340",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:20:53Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..dCpRwA0zJOr0WAbPHhRFQfzl4_yBev2oTBoYQ8x2Z9RYaUWUbIka4H4ZzR5XDLGrr5Yo45JVjccDnaMEEC-RBw"
+      }
+    },
+    {
+      "id": "a11bdb90-901d-46c9-be09-f0c2dde4673d",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:21:13.360Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22358",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:35:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:40:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22358",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:21:13Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..EO70OZ17JExrnOYNTJhLteXjtTSd8gblcnsugQuNIR3XfsDv1Qdv7sTarmrVsGK9kwhFuQqjgX85Otdgcox7Bw"
+      }
+    },
+    {
+      "id": "8c796977-ea7c-4820-a57e-1650f618e6ff",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:21:33.370Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22412",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:40:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:45:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 2.227622,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.002228,
+          "CO2eqEmissions": 0.002228,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22412",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:21:33Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..0CqcJUkbw9qqNNdmVLnVusn2uQP8cXGVuXOjILrEPglOOowX18oKcqbUZuwosExCtAIU6jTCdsBLJR6NwhqpCA"
+      }
+    },
+    {
+      "id": "a5c9c078-50d0-4d93-93ef-c5eb3a4bf30d",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:21:53.472Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22430",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:45:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:50:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22430",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:21:53Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..uxM05D6g0n9gBwWGJDHBsvdsLtBglvqFb8UpMYPnXSuALSENrGICXkoTUy4Y9k3Robsqtrbyf736vv3x7wGsAw"
+      }
+    },
+    {
+      "id": "c411713b-c7f6-4254-838a-e45aeb591071",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:22:13.490Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22472",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:50:00.000Z",
+          "intervalEndDateTime": "2022-07-11T15:55:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0.017221,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.000017,
+          "CO2eqEmissions": 0.000017,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22472",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:22:13Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..ly0oFNZnrHCg1LXInraN0Ctz52GC21xNlJopuKIjlkWlW42V93wlCB8yo23-3Wc3tCQ4GpK0b87BlxBe5H2wAQ"
+      }
+    },
+    {
+      "id": "a0c19351-8ea5-4ca1-8a20-a0598b00be86",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:22:33.475Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22490",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T15:55:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:00:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22490",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:22:33Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..QY7ITByy9RRFMyC85gFChA_mkQr31k693rVvP3y09cgLhSn8VJMhugNyU6J163RDVavlgRMPM2dL0uKXBFYUBQ"
+      }
+    },
+    {
+      "id": "c17969a3-8796-40b1-a22d-d16e6dc9fd97",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:22:53.616Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22532",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:00:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:05:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22532",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:22:53Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..4PkbNpldTA8rXopvpsU6mEzF54GuElSEggkqnxvyuWkJgUFyfZMd2qOzGghTUHltkyJAdqdp2YCJYGEicqUcBw"
+      }
+    },
+    {
+      "id": "8178fd17-311b-49c7-bbd8-e41bba70e80c",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:23:13.653Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22538",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:05:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:10:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 1.231184,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.001231,
+          "CO2eqEmissions": 0.001231,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22538",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:23:13Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..vRJGyfAJkCwtxgmp0nlEYMeth07sO9oIVYMvRgPvWvLLCG8yvBvwNTyWfOc46wGripFdQ_2D19bojvM69b-dBw"
+      }
+    },
+    {
+      "id": "fc132cde-672c-426f-a47f-828fd029ef3c",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:23:33.576Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22592",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:10:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:15:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22592",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:23:33Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..cvSgEQUtWWP-u0KofMB6Vlxe8LTe_llv1k121W8Xy9FyzE_pHF-0wf7AaKz9I1MI9yoSnsCzuylIAgky-WC3Bw"
+      }
+    },
+    {
+      "id": "ac0ac50c-3b1d-44e0-b7ee-c53414e9925f",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:23:54.648Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22622",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:15:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:20:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22622",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:23:54Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..q6ahR6WOi-KOoQcEfy6gYfGvdCD3dnswv7P6PnycnCy6C65jFg4LjmtVq3gM29E-_J2tiQSnAOqyCfWJqMOOCg"
+      }
+    },
+    {
+      "id": "c6504474-4c28-45f3-8051-bcb6c1499db8",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:24:14.693Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22640",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:20:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:25:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22640",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:24:14Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..BR15T9eqbXyx77WFx7trSw6v08UcMv85j3nhHd23oxCKdzQHkDXN1EUJRqdo1g7YOW3eYVxADSCjPqngSqnxCQ"
+      }
+    },
+    {
+      "id": "e841d5fa-9076-4b2b-84f8-bbc8ef7f89e2",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:24:34.681Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22670",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:25:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:30:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0.381024,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.000381,
+          "CO2eqEmissions": 0.000381,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22670",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:24:34Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..HhhHBUB6jfROr0bxnBLrzhs5EvplkyALjlVCs65z9GZbcnRuy8a_peNdXLpxBWu2YADEGuWEVVh37-KD3WV8Ag"
+      }
+    },
+    {
+      "id": "b0db0079-4995-4934-8d0f-668c361e4217",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:24:55.628Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22700",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:30:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:35:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22700",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:24:55Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..3fjuYnbC6g1ItW9Kf6y1rX2SG27YKsKro_tYTzYw2-uUsJsaHES23CrfA0tBy9S-b__zJwH1bWjaQq9T0DmTBg"
+      }
+    },
+    {
+      "id": "312dca9b-b093-482b-83e9-3f5ffe891d03",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:25:16.690Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22730",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:35:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:40:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22730",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:25:16Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..iiWe7UUsjxkmR4aycu2hIw-OwFm7s_DZHvWoXI5XxxVdwrjJo5PpNj9cmn4mX4j9nmSO61istozYCwjIHndNCg"
+      }
+    },
+    {
+      "id": "a6cbd6f0-4d6a-48d2-b842-21abfee5445c",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:25:33.772Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22772",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:40:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:45:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 0,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0,
+          "CO2eqEmissions": 0,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22772",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:25:33Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..BEPgCXYa0ZDxB9mflCXJ4fWOM8Bh_CaLzH0CRpxWGNQUuRqx5cxF5uiJi9ZHDOeo8tHuH6eMWjjURkmbWtOZCQ"
+      }
+    },
+    {
+      "id": "5a0fa6a8-7b2c-4cfb-81d3-c27405a274b0",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "issuanceDate": "2022-07-14T01:27:08.803Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "deviceId": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+          "readingId": "22790",
+          "readingDate": "2022-07-11",
+          "intervalStartDateTime": "2022-07-11T16:45:00.000Z",
+          "intervalEndDateTime": "2022-07-11T16:50:00.000Z",
+          "intervalDuration": 300,
+          "intervalDurationUOM": "s",
+          "value": 2.720239,
+          "valueUOM": "Kw/h",
+          "quality": "HIGH - REAL TIME IOT DEVICE READINGS",
+          "greenhouseGasEmissionsScope": "Scope 1",
+          "greenhouseGasEmissionsSource": "DIRECT - STATIONARY COMBUSTION",
+          "CO2Emissions": 0.00272,
+          "CO2eqEmissions": 2.72,
+          "CO2eqEmissionsTYMLEZ": 0,
+          "emissionsUOM": "t",
+          "CO2eqFormula": "N/A",
+          "CO2eqFormulaLink": "https://www.ipcc.ch/assessment-report/ar5/",
+          "sourceData": [
+            {
+              "type": "9c80e37a-da78-4ca1-80d3-cd801390386d&1.0.0",
+              "@context": [
+                "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+              ],
+              "readingId": "22790",
+              "hashId": "TODO"
+            }
+          ],
+          "otherMRVData": "{}",
+          "policyId": "62ce83c6c7db8084a9a0b716",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreicfvm67vfl2mhaoj6nf6c55gklmgdvtp2gzbm7t3qir63x4xkdmw4"
+          ],
+          "type": "41e3834b-2daa-4598-b30c-beb7b5036f0d&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:27:08Z",
+        "verificationMethod": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..5CyY9NUZ2ALS95tbLVr89CH__lFt8rVyiOzvHL5HFqlBNkMsiCF8e9SBYr5_Q04dxTuLgKIM7rCDoYtkpRpPAQ"
+      }
+    },
+    {
+      "id": "d3a3131e-8d5a-40d1-8607-f1f681c34380",
+      "type": ["VerifiableCredential"],
+      "issuer": "did:hedera:testnet:GPcYs84KZZebnCuz1G3qiXoyBKFEQsEkzRWcVxzdTDyM;hedera:testnet:tid=0.0.47665527",
+      "issuanceDate": "2022-07-14T01:27:09.389Z",
+      "@context": ["https://www.w3.org/2018/credentials/v1"],
+      "credentialSubject": [
+        {
+          "date": "2022-07-14T01:27:09.373Z",
+          "tokenId": "0.0.47665528",
+          "amount": "2.72",
+          "@context": [
+            "https://ipfs.io/ipfs/bafkreiaenzyl4lilcfzcsannk4bi257l3yd3aa444brllrr4ijnsw3bzqy"
+          ],
+          "type": "MintToken&1.0.0"
+        }
+      ],
+      "proof": {
+        "type": "Ed25519Signature2018",
+        "created": "2022-07-14T01:27:09Z",
+        "verificationMethod": "did:hedera:testnet:GPcYs84KZZebnCuz1G3qiXoyBKFEQsEkzRWcVxzdTDyM;hedera:testnet:tid=0.0.47665527#did-root-key",
+        "proofPurpose": "assertionMethod",
+        "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..cncInRPfKGRKjjJxIv6M2hGJV2Gbauje1c9WTE9S93qMcyMeE_lxeUdh_swFZUhW90qp44Aaz_obd29nZb-YDQ"
+      }
+    }
+  ],
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2022-07-14T01:27:10Z",
+    "verificationMethod": "did:hedera:testnet:GPcYs84KZZebnCuz1G3qiXoyBKFEQsEkzRWcVxzdTDyM;hedera:testnet:tid=0.0.47665527#did-root-key",
+    "proofPurpose": "authentication",
+    "challenge": "123",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..k23q-QiZ5aifjvymLuK11c4PNYOlCqAwgwilAPFKPMkBJqOOrGWVa4AtL9L5y9ERUGugjBBvBBQoq58ucoMUCg"
+  }
+}

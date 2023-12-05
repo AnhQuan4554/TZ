@@ -1,0 +1,24 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "strictPropertyInitialization": false,
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "exclude": ["node_modules/", "dist/", "coverage/"],
+  // "references": [
+  //   {
+  //     "path": "../../packages/backend-libs"
+  //   },
+
+  //   {
+  //     "path": "../../packages/common-libs"
+  //   },
+  //   {
+  //     "path": "../../packages/platform-api-interfaces"
+  //   }
+  // ],
+  "include": ["src"]
+}

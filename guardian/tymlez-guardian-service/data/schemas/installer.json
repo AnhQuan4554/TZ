@@ -1,0 +1,229 @@
+{
+  "name": "Installer",
+  "uuid": "f4d298b8-a0ac-40aa-966c-45ba4bc3085e",
+  "entity": "VC",
+  "document": {
+    "$id": "#f4d298b8-a0ac-40aa-966c-45ba4bc3085e",
+    "$comment": "{\"term\": \"f4d298b8-a0ac-40aa-966c-45ba4bc3085e\", \"@id\": \"https://ipfs.io/ipfs/bafkreibxtwbyjehm2gtiezilkwxasyz4bpmfsfjrxtzd6cnhpqiun76wwi#f4d298b8-a0ac-40aa-966c-45ba4bc3085e\", \"previousVersion\": \"1.0.0\"}",
+    "title": "Installer",
+    "description": "Installer data",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "installerId": {
+        "title": "installerId",
+        "description": "Unique identifier for the installer",
+        "readOnly": false,
+        "$comment": "{\"term\": \"installerId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "installerName": {
+        "title": "installerName",
+        "description": "Business name for the installer",
+        "readOnly": false,
+        "$comment": "{\"term\": \"installerName\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "registrationCountry": {
+        "title": "registrationCountry",
+        "description": "Name of the country where the business is registered",
+        "readOnly": false,
+        "$comment": "{\"term\": \"registrationCountry\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "businessRegistrationNumber": {
+        "title": "businessRegistrationNumber",
+        "description": "Registration number for the business",
+        "readOnly": false,
+        "$comment": "{\"term\": \"businessRegistrationNumber\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "businessRegistrationNumberType": {
+        "title": "businessRegistrationNumberType",
+        "description": "Registration number type e.g. ACN for Austrlia",
+        "readOnly": false,
+        "$comment": "{\"term\": \"businessRegistrationNumberType\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "businessRegistrationDate": {
+        "title": "businessRegistrationDate",
+        "description": "Date the business was first registered",
+        "readOnly": false,
+        "$comment": "{\"term\": \"businessRegistrationDate\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "date"
+      },
+      "registeredOfficeAddress": {
+        "title": "registeredOfficeAddress",
+        "description": "Official address of the business",
+        "readOnly": false,
+        "$comment": "{\"term\": \"registeredOfficeAddress\", \"@id\": \"https://ipfs.io/ipfs/bafkreibxtwbyjehm2gtiezilkwxasyz4bpmfsfjrxtzd6cnhpqiun76wwi#1d735afd-0dbb-4fc6-819b-c7de3c469d45\"}",
+        "$ref": "#1d735afd-0dbb-4fc6-819b-c7de3c469d45"
+      },
+      "businessType": {
+        "title": "businessType",
+        "description": "Legal status/type of business",
+        "readOnly": false,
+        "$comment": "{\"term\": \"businessType\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "primaryBusinessFunction": {
+        "title": "primaryBusinessFunction",
+        "description": "Main function/activity of the business",
+        "readOnly": false,
+        "$comment": "{\"term\": \"primaryBusinessFunction\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "businessLead": {
+        "title": "businessLead",
+        "description": "Details of the CEO or General Manager",
+        "readOnly": false,
+        "$comment": "{\"term\": \"businessLead\", \"@id\": \"#0852bcad-44c4-40d5-a4c5-df056e97c949\"}",
+        "$ref": "#0852bcad-44c4-40d5-a4c5-df056e97c949"
+      },
+      "websiteLink": {
+        "title": "websiteLink",
+        "description": "URL of the company website",
+        "readOnly": false,
+        "$comment": "{\"term\": \"websiteLink\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "numberOfEmployees": {
+        "title": "numberOfEmployees",
+        "description": "Approximate number of employees",
+        "readOnly": false,
+        "$comment": "{\"term\": \"numberOfEmployees\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "integer"
+      },
+      "otherCountriesOfOperation": {
+        "title": "otherCountriesOfOperation",
+        "description": "List of other countries the business operates in",
+        "readOnly": false,
+        "$comment": "{\"term\": \"otherCountriesOfOperation\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "otherRelatedEntities": {
+        "title": "otherRelatedEntities",
+        "description": "List of other entities related to this business",
+        "readOnly": false,
+        "$comment": "{\"term\": \"otherRelatedEntities\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "shareholders": {
+        "title": "shareholders",
+        "description": "List of significant shareholders",
+        "readOnly": false,
+        "$comment": "{\"term\": \"shareholders\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "balanceSheetTotal": {
+        "title": "balanceSheetTotal",
+        "description": "Balance sheet total for the last financial year inc currency",
+        "readOnly": false,
+        "$comment": "{\"term\": \"balanceSheetTotal\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "operationalContact": {
+        "title": "operationalContact",
+        "description": "Details of the operational contact (name, email, phone etc..)",
+        "readOnly": false,
+        "$comment": "{\"term\": \"operationalContact\", \"@id\": \"https://ipfs.io/ipfs/bafkreibxtwbyjehm2gtiezilkwxasyz4bpmfsfjrxtzd6cnhpqiun76wwi#0852bcad-44c4-40d5-a4c5-df056e97c949\"}",
+        "$ref": "#0852bcad-44c4-40d5-a4c5-df056e97c949"
+      },
+      "leadUserContact": {
+        "title": "leadUserContact",
+        "description": "Details of the main user contact (name, email, phone etc..)",
+        "readOnly": false,
+        "$comment": "{\"term\": \"leadUserContact\", \"@id\": \"https://ipfs.io/ipfs/bafkreibxtwbyjehm2gtiezilkwxasyz4bpmfsfjrxtzd6cnhpqiun76wwi#0852bcad-44c4-40d5-a4c5-df056e97c949\"}",
+        "$ref": "#0852bcad-44c4-40d5-a4c5-df056e97c949"
+      },
+      "financePersonContact": {
+        "title": "financePersonContact",
+        "description": "Details of the finance contact (name, email, phone etc..)",
+        "readOnly": false,
+        "$comment": "{\"term\": \"financePersonContact\", \"@id\": \"https://ipfs.io/ipfs/bafkreibxtwbyjehm2gtiezilkwxasyz4bpmfsfjrxtzd6cnhpqiun76wwi#0852bcad-44c4-40d5-a4c5-df056e97c949\"}",
+        "$ref": "#0852bcad-44c4-40d5-a4c5-df056e97c949"
+      },
+      "certification": {
+        "title": "certification",
+        "description": "Image of the certification certificate",
+        "readOnly": false,
+        "$comment": "{\"term\": \"certification\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "pattern": "^((https)://)?ipfs.io/ipfs/.+"
+      },
+      "certificationExpiryDate": {
+        "title": "certificationExpiryDate",
+        "description": "The date the certification certificate expires",
+        "readOnly": false,
+        "$comment": "{\"term\": \"certificationExpiryDate\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "date"
+      },
+      "policyId": {
+        "title": "policyId",
+        "description": "policyId",
+        "readOnly": true,
+        "$comment": "{\"term\": \"policyId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "ref": {
+        "title": "ref",
+        "description": "ref",
+        "readOnly": true,
+        "$comment": "{\"term\": \"ref\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": [
+      "@context",
+      "type",
+      "installerId",
+      "installerName",
+      "registrationCountry",
+      "businessRegistrationNumber",
+      "businessRegistrationNumberType",
+      "businessRegistrationDate",
+      "registeredOfficeAddress",
+      "businessType",
+      "primaryBusinessFunction",
+      "businessLead",
+      "certification",
+      "certificationExpiryDate",
+      "policyId"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

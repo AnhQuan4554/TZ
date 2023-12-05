@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strictPropertyInitialization": false,
+    "importsNotUsedAsValues": "preserve"
+  },
+  "exclude": ["node_modules/", "dist/", "coverage/"],
+  // "references": [
+  //   {
+  //     "path": "../../packages/backend-libs"
+  //   },
+  //   {
+  //     "path": "../../packages/common-libs"
+  //   },
+  //   {
+  //     "path": "../../packages/platform-api-interfaces"
+  //   }
+  // ],
+  "include": ["src"]
+}

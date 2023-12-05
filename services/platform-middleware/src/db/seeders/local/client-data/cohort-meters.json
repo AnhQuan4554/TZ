@@ -1,0 +1,93 @@
+[
+  {
+    "name": "Solcast",
+    "key": "solcast_mock",
+    "dataSource": "solcast_mock",
+    "meterType": "solcast",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "T6 and T7",
+    "key": "DD_6_7",
+    "dataSource": "DD_6_7",
+    "meterType": "wattwatchers",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "T8 and T1",
+    "key": "DD_1_8",
+    "dataSource": "DD_1_8",
+    "meterType": "wattwatchers",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "T2 and T3",
+    "key": "DD_2_3",
+    "dataSource": "DD_2_3",
+    "meterType": "wattwatchers",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "T4 and T5",
+    "key": "DD_4_5",
+    "dataSource": "DD_4_5",
+    "meterType": "wattwatchers",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "Main",
+    "key": "DD_Main",
+    "dataSource": "DD_Main",
+    "meterType": "wattwatchers",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": "Tymlez IoT"
+  },
+  {
+    "name": "Communal",
+    "key": "DD_Communal",
+    "dataSource": "DD_Communal",
+    "meterType": "wattwatchers",
+    "interval": 300,
+    "dataSourceType": "MOCK",
+    "dataCredentials": "mock",
+    "officialCarbonFactor": 0.8,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  }
+]

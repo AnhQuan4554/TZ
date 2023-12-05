@@ -1,0 +1,9 @@
+{
+  "name": "@tymlez/prefect-agent",
+  "version": "1.0.0",
+  "description": "Prefect Agent",
+  "private": true,
+  "scripts": {
+    "deploy:dev:cohort": "tymlez-cli deploy backend --type prefect"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "packages": [
+    "clients/*",
+    "packages/*",
+    "services/*",
+    "guardian/*",
+    "cli/*",
+    "skaffold/*"
+  ],
+  "version": "0.0.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true
+}

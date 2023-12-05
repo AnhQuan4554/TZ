@@ -1,0 +1,320 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$webDriver.get('https://h2go.dev.tymlez.com/')
+   .then(function(){
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+ .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Dashboard for Green Hydrogen') ,5000) })
+ .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="h2go-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Dashboard for Green Hydrogen', 'Dashboard for Green Hydrogen title incorrect') }) })
+  })
+  
+//tell the monitor to find summary component  
+.then(function() {
+     console.log("Validate summary elements")
+     $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary"]'))       
+       .then(function () {
+             $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Summary', 'Summary title incorrect') }) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-components"]'))
+                  .then(function(){
+                        //water supplied
+                        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-waterSupplied-desktop"]'))
+                             .then(function(){
+                                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-waterSupplied-desktop-label"]'))
+                                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Water supplied (kL)', 'Water supplied (kL) label not found') }) })
+                               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-waterSupplied-desktop-value"]'))
+                                   .then(function (el) {el.getText().then(function(text) {                                     
+                                             assert.notEqual(text.indexOf("kL"),-1,'Unit of Water supplied should be kL')
+                                             assert.notEqual('0 kL', 'No data for Water supplied')})
+                                          })
+                             })
+                        //solar energy supplied
+                        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-solarSupplied-desktop"]'))
+                             .then(function(){
+                                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-solarSupplied-desktop-label"]'))
+                                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Solar Energy supplied (kWh)', 'Solar Energy supplied (kWh) label not found') }) })
+                               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-solarSupplied-desktop-value"]'))
+                                   .then(function (el) {el.getText().then(function(text) {                                     
+                                             assert.notEqual(text.indexOf("kWh"),-1,'Unit of Solar Energy supplied should be kWh')
+                                             assert.notEqual('0 kWh', 'No data for Solar Energy supplied')})
+                                          })
+                             })
+                       //grid energy supplied
+                        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-electricitySupplied-desktop"]'))
+                             .then(function(){
+                                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-electricitySupplied-desktop-label"]'))
+                                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Grid Energy supplied (kWh)', 'Grid Energy supplied (kWh) label not found') }) })
+                               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-electricitySupplied-desktop-value"]'))
+                                   .then(function (el) {el.getText().then(function(text) {                                     
+                                             assert.notEqual(text.indexOf("kWh"),-1,'Unit of Grid Energy supplied should be kWh')
+                                             assert.notEqual('0 kWh', 'No data for Grid Energy supplied')})
+                                          })
+                             })
+                      //hydrogen output
+                        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-deliveredHydrogen-desktop"]'))
+                             .then(function(){
+                                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-deliveredHydrogen-desktop-label"]'))
+                                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Hydrogen output (kg)', 'Hydrogen output (kg) label not found') }) })
+                               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-deliveredHydrogen-desktop-value"]'))
+                                   .then(function (el) {el.getText().then(function(text) {                                     
+                                             assert.notEqual(text.indexOf("kg"),-1,'Unit of Hydrogen output should be kg')
+                                             assert.notEqual('0 kg', 'No data for Hydrogen output')})
+                                          })
+                             })
+                      //oxygen output
+                        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-deliveredOxygen-desktop"]'))
+                             .then(function(){
+                                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-deliveredOxygen-desktop-label"]'))
+                                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Oxygen output (kg)', 'Oxygen output (kg) label not found') }) })
+                               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-deliveredOxygen-desktop-value"]'))
+                                   .then(function (el) {el.getText().then(function(text) {                                     
+                                             assert.notEqual(text.indexOf("kg"),-1,'Unit of Oxygen output should be kg')
+                                             assert.notEqual('0 kg', 'No data for Oxygen output')})
+                                          })
+                             })
+                    //total carbon emission
+                        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-totalCarbonEmission-desktop"]'))
+                             .then(function(){
+                                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-totalCarbonEmission-desktop-label"]'))
+                                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Total Carbon emission (kg)', 'Total Carbon emission (kg) label not found') }) })
+                               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-energy-component-totalCarbonEmission-desktop-value"]'))
+                                   .then(function (el) {el.getText().then(function(text) {                                     
+                                             assert.notEqual(text.indexOf("kg"),-1,'Unit of Total Carbon emission should be kg')
+                                             assert.notEqual('0 kg', 'No data for Total Carbon emission')})
+                                    })
+                             })
+                  })        
+
+          // pie chart   
+          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-pie-chart"]')).getAttribute('innerHTML')
+             .then(function(m){
+                    assert.notEqual(m.indexOf("From Renewable energy"),-1,'Pie chart - Renewable energy not found') 
+                    assert.notEqual(m.indexOf("From Other resources"),-1,'Pie chart - Other resources not found') 
+             }) 
+         //find hydrogen footprint
+        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-hydrogen"]'))
+            .then(function(){
+                 $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-hydrogen-header"]'))
+                      .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Intensity', 'Carbon Intensity label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-hydrogen-value"]'))
+                      .then(function (el) {el.getText().then(function(text) {
+                             assert.notEqual(text.indexOf("kg"),-1,'Unit of Carbon Intensity should be kg')
+                             assert.notEqual('0 kg', 'No data for Carbon Intensity')})
+                      })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-summary-hydrogen-footer"]'))
+                      .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq per kilogram of hydrogen', 'CO2eq per kilogram of hydrogen label not found') }) })
+            })             
+       })    
+})
+ 
+ // carbon emissions daily
+ .then(function(){
+      console.log("Validate Carbon Emissions element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-header"]'))
+          .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Emissions', 'Carbon Emissions label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-subtitle"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Daily Updates', 'Daily Updates label not found') }) })
+          })
+        $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-descriptors"]'))
+            .then(function(){
+                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-descriptors-co2e-abated"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Abated', 'CO2e Abated label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-descriptors-carbon-produced"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Produced', 'Carbon Produced label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-carbon-emissions-descriptors-net-carbon"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net Carbon', 'Net Carbon label not found') }) })         
+             })
+ })
+
+  
+//verification
+.then(function(){
+      console.log("Validate Verification element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="h2go-verified-guarantee"]'))
+        .then(function(){
+             $webDriver.findElement($selenium.By.css('[data-test-id="h2go-verified-guarantee-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Verified Guarantee of Origin', 'Verified Guarantee of Origin label not found') }) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="h2go-verified-guarantee-button-refresh"]'))
+               .then(function (el) { el.getText().then(function(text) { assert.equal(text, 'REFRESH', 'REFRESH button not found') }) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="h2go-verified-guarantee-common-table"]'))
+                  .then( function(table) { table.findElements($selenium.By.css('tr')).then(function(tr) {assert(tr.length > 1, "Verification table does not have any row")})})
+                  .then(function(){
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-vpid"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Certificate ID', 'Certificate ID column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'H2 Produced (t)', 'H2 Produced (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-greenenergyvalue"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Renewable Energy (kWh)', 'Renewable Energy (kWh) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-gridenergyvalue"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Grid Energy (kWh)', 'Grid Energy (kWh) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-energyvalue"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Total Energy (kWh)', 'Total Energy (kWh) column not found') }) })
+                     $webDriver.findElement($selenium.By.css('[data-test-id="column-co2eqemissions"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2 Produced (t)', 'CO2 Produced (t) column not found') }) })                      
+                    $webDriver.findElement($selenium.By.css('[data-test-id="column-timestamp"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Date and Time', 'Date and Time column not found') }) })
+                    $webDriver.findElement($selenium.By.css('[data-test-id="column-onchainurl"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VIEW TYMLEZ TRUST CHAIN', 'VIEW TYMLEZ TRUST CHAIN column not found') }) })
+                  })
+         })
+})    
+
+// key metrics  
+.then(function() {
+    console.log("Validate key metrics element")
+   $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Key Metrics', 'Key Metrics title incorrect') }) })
+        })
+        .then(function(){
+               //water
+               $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-water"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-water-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Water', 'Water label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-water-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {
+                                  assert.notEqual(text.indexOf("kL"),-1,'Water uom should be kL')
+                                  assert.notEqual('0 kL', 'No data for Water')})
+                               })
+                    })
+          //green energy
+          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-green-energy"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-green-energy-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Green Energy', 'Green Energy label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-green-energy-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {
+                                  assert.notEqual(text.indexOf("kWh"),-1,'Green Energy uom should be kWh')
+                                  assert.notEqual('0 kWh', 'No data for Green Energy')})
+                               })
+                    })
+          //fossil energy
+          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-fossil-energy"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-fossil-energy-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Fossil Energy', 'Fossil Energy label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-fossil-energy-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {
+                                  assert.notEqual(text.indexOf("kWh"),-1,'Fossil Energy uom should be kWh')
+                                  assert.notEqual('0 kWh', 'No data for Fossil Energy')})
+                               })
+                    })
+          //hydrogen produced
+          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-hydrogen-produced"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-hydrogen-produced-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Hydrogen Produced', 'Hydrogen Produced label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="h2go-multi-metric-blocks-hydrogen-produced-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {
+                                  assert.notEqual(text.indexOf("kg"),-1,'Hydrogen Produced uom should be kg')
+                                  assert.notEqual('0 kg', 'No data for Hydrogen Produced')})
+                               })
+                    })
+        })
+})
+
+// production process component
+.then(function(){
+      console.log("Validate production process elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Production Process', 'Production Process title incorrect') }) })
+        })
+      .then(function(){
+            //water & alkaline
+            $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Water & Alkaline Treatment', 'Water & Alkaline Treatment label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Water & Alkaline Treatment Energy consumption label not found') }) })
+                                 $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kWh"),-1,'Water & Alkaline Treatment Energy consumption uom should be kWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Water & Alkaline Treatment Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-water-&-alkaline-treatment-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Water & Alkaline Treatment Carbon emission uom should be kg')}) })
+                             })
+                     })
+            //electrolysis
+            $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Electrolysis', 'Electrolysis label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Electrolysis Energy consumption label not found') }) })
+                                 $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kWh"),-1,'Electrolysis Energy consumption uom should be kWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Electrolysis Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-electrolysis-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Electrolysis Carbon emission uom should be kg')}) })
+                             })
+                     })
+             //gas purification
+            $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Gas Purification', 'Gas Purification label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Gas Purification Energy consumption label not found') }) })
+                                 $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kWh"),-1,'Gas Purification Energy consumption uom should be kWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Gas Purification Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-gas-purification-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Gas Purification Carbon emission uom should be kg')}) })
+                             })
+                     })
+         //compression
+            $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Compression', 'Compression label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Compression Energy consumption label not found') }) })
+                                 $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kWh"),-1,'Compression Energy consumption uom should be kWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Compression Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="h2go-process-steps-compression-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Compression Carbon emission uom should be kg')}) })
+                             })
+                     })
+      })
+})

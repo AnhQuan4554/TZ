@@ -1,0 +1,21 @@
+{
+  "name": "@tymlez/platform-api-interfaces",
+  "version": "1.0.0",
+  "description": "Typescript interfaces for platform middleware API",
+  "types": "index.d.ts",
+  "scripts": {
+    "lint": "npm run check:consistency && yarn check:spell && tsc --noEmit",
+    "watch": "tsc -w",
+    "check:spell": "cspell '**/*.ts'",
+    "check:consistency": "tymlez-cli interface-tools check-interface && tymlez-cli interface-tools check-type --type=date && tymlez-cli interface-tools check-type --type=number"
+  },
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "@tymlez/trustchain-sdk": "*"
+  },
+  "devDependencies": {
+    "cspell": "^6.19.2",
+    "typescript": "^4.9.4"
+  }
+}

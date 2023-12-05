@@ -1,0 +1,319 @@
+<html>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+      }
+
+      body {
+        padding: 24px;
+        font-family: 'Source Sans Pro', sans-serif;
+        margin: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin-right: auto;
+        margin-left: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .table {
+        width: 100%;
+        border: 1px solid #eeeeee;
+      }
+
+      .table-header {
+        display: flex;
+        width: 100%;
+        background: rgb(151, 150, 150);
+        padding: 18px 0;
+      }
+
+      .table-row {
+        display: flex;
+        width: 100%;
+        padding: 18px 0;
+      }
+      .table-row:nth-of-type(odd) {
+        background: #eeeeee;
+      }
+
+      .table-data,
+      .header__item {
+        flex: 1 1 20%;
+        text-align: center;
+      }
+
+      .header__item {
+        text-transform: uppercase;
+      }
+
+      .filter__link {
+        color: white;
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .filter__link::after {
+        content: '';
+        position: absolute;
+        right: -18px;
+        color: white;
+        font-size: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .filter__link.desc::after {
+        content: '(desc)';
+      }
+      .filter__link.asc::after {
+        content: '(asc)';
+      }
+    </style>
+    <script type="text/javascript">
+      function arrayToTable(tableData, $table) {
+        $(tableData).each(function (i, rowData) {
+          var $row = $('<div class="table-row"><div>');
+          $row.append($('<div class="table-data">' + rowData.name + '</div>'));
+          $row.append(
+            $(
+              '<div class="table-data"><a target="_blank" href="' +
+                rowData.link +
+                '">' +
+                rowData.link +
+                '</div>',
+            ),
+          );
+          $row.append($('<div class="table-data">' + rowData.desc + '</div>'));
+          $table.append($row);
+        });
+      }
+
+      var services = [
+        {
+          name: 'Platform API',
+          link: 'http://localhost:3000/api',
+          desc: 'Platform API Backend Server',
+        },
+        {
+          name: 'Platform Admin Web',
+          link: 'http://localhost:3000/admin',
+          desc: 'System Admin dashboard',
+        },
+        {
+          name: 'Platform Client Web',
+          link: 'http://localhost:3000',
+          desc: 'Customer facing dashboard',
+        },
+        {
+          name: 'Platform Client API',
+          link: 'http://localhost:3000/client-api',
+          desc: 'Client API backend for Client Web',
+        },
+        {
+          name: 'Trust Chain Web',
+          link: 'http://localhost:3000/trustchain',
+          desc: 'Trust Chain UI',
+        },
+        {
+          name: 'Trust Chain Web',
+          link: 'http://localhost:3000/trustchain',
+          desc: 'Trust Chain UI',
+        },
+        {
+          name: 'Guardian API',
+          link: 'http://localhost:3010',
+          desc: 'Guardian API Endpoint',
+        },
+        {
+          name: 'Guardian Tymlez Extension API',
+          link: 'http://localhost:3011',
+          desc: 'Tymlez Guardian Extension API Endpoint',
+        },
+        {
+          name: 'Guardian Vault',
+          link: 'http://localhost:8200',
+          desc: 'Guardian Vault UI',
+        },
+        {
+          name: 'Guardian Frontend Web',
+          link: 'http://localhost:4000',
+          desc: 'Guardian Frontend Web Dashboard',
+        },
+      ];
+
+      var tools = [
+        {
+          name: 'Dozzle',
+          link: 'http://localhost:8888/',
+          desc: 'View container logs',
+        },
+        {
+          name: 'Mongo Express',
+          link: 'http://localhost:9999/',
+          desc: 'Web-Based Mongo DB Administrative Tool',
+        },
+        {
+          name: 'Redis Commander',
+          link: 'http://localhost:6380/',
+          desc: 'Web-Based Redis Administrative Tool',
+        },
+        {
+          name: 'Nat Server',
+          link: 'http://localhost:8222/',
+          desc: 'NAT Server Info',
+        },
+        {
+          name: 'Bull Queue Monitor',
+          link: 'http://localhost:8005/',
+          desc: 'Monitor Bull Queues',
+        },
+      ];
+
+      var others = [
+        {
+          name: 'MongoDB',
+          link: 'http://localhost:27018',
+          desc: 'MongoDB URL',
+        },
+        {
+          name: 'Postgres DB',
+          link: 'http://localhost:5432',
+          desc: 'Postgres DB host and port',
+        },
+        {
+          name: 'Redis',
+          link: 'http://localhost:6379',
+          desc: 'Redis host and port',
+        },
+        {
+          name: 'Localstack',
+          link: 'http://localhost:4566',
+          desc: 'Localstack edge port',
+        },
+        {
+          name: 'Vault UI',
+          link: 'http://localhost:8200',
+          desc: 'Access to local vault UI',
+        },
+      ];
+
+      $(document).ready(function () {
+        arrayToTable(services, $('#services'));
+        arrayToTable(tools, $('#tools'));
+        arrayToTable(others, $('#others'));
+      });
+    </script>
+  </head>
+  <body>
+    <h2 class="container">Commands</h2>
+    <div class="container">
+      <div class="table">
+        <div class="table-content">
+          <div class="table-header">
+            <div class="header__item">
+              <span id="name" class="filter__link" href="#">Command</span>
+            </div>
+            <div class="header__item">
+              <span id="name" class="filter__link" href="#">Description</span>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-data"><code>yarn start:build</code></div>
+            <div class="table-data">
+              Build container images. Please run this first
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-data"><code>yarn start:dev</code></div>
+            <div class="table-data">
+              Start all containers. You can selectively start only some service
+              using flags like '--web', '--backend', '--guardian'.
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-data"><code>yarn stop:dev</code></div>
+            <div class="table-data">Stop all running containers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <h2 class="container">Main Services</h2>
+    <div class="container">
+      <div class="table">
+        <div class="table-header">
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">Service Name</span>
+          </div>
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">URL</span>
+          </div>
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">Description</span>
+          </div>
+        </div>
+        <div class="table-content" id="services"></div>
+      </div>
+    </div>
+    <br /><br />
+    <h2 class="container">Tools</h2>
+    <div class="container">
+      <div class="table">
+        <div class="table-header">
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">Tool Name</span>
+          </div>
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">URL</span>
+          </div>
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">Description</span>
+          </div>
+        </div>
+        <div class="table-content" id="tools"></div>
+      </div>
+    </div>
+
+    <br /><br />
+    <h2 class="container">Other Ports</h2>
+    <div class="container">
+      <div class="table">
+        <div class="table-header">
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">Service Name</span>
+          </div>
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">URL</span>
+          </div>
+          <div class="header__item">
+            <span id="name" class="filter__link" href="#">Description</span>
+          </div>
+        </div>
+        <div class="table-content" id="others"></div>
+      </div>
+    </div>
+  </body>
+</html>

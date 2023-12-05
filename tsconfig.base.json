@@ -1,0 +1,102 @@
+{
+  "extends": "@tsconfig/node16",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "pretty": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "allowUnreachableCode": false,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "removeComments": false,
+    "importsNotUsedAsValues": "error",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "composite": false,
+    "incremental": true,
+    "sourceRoot": "src",
+    "baseUrl": "./"
+    // "paths": {
+    //   "@tymlez/common-libs": ["packages/common-libs/src"],
+    //   "@tymlez/backend-libs": ["packages/backend-libs/src"]
+    // }
+  },
+
+  "watchOptions": {
+    "excludeDirectories": ["**/node_modules", "node_modules/**"]
+  },
+  // "references": [
+  //   {
+  //     "path": "packages/backend-libs"
+  //   },
+  //   {
+  //     "path": "packages/common-libs"
+  //   },
+  //   {
+  //     "path": "packages/devias-material-kit"
+  //   },
+  //   {
+  //     "path": "packages/frontend-libs"
+  //   },
+  //   {
+  //     "path": "packages/platform-api-interfaces"
+  //   },
+  //   {
+  //     "path": "clients/cohort-web-smoke"
+  //   },
+  //   {
+  //     "path": "clients/cohort-web"
+  //   },
+  //   {
+  //     "path": "clients/uon-web"
+  //   },
+  //   {
+  //     "path": "clients/magnum-web"
+  //   },
+  //   {
+  //     "path": "services/platform-middleware"
+  //   },
+  //   {
+  //     "path": "services/tymlez-middleware"
+  //   },
+  //   {
+  //     "path": "services/cohort-middleware"
+  //   },
+  //   {
+  //     "path": "services/uon-middleware"
+  //   },
+  //   {
+  //     "path": "services/magnum-middleware"
+  //   },
+  //   {
+  //     "path": "skaffold/client-web"
+  //   },
+  //   {
+  //     "path": "skaffold/client-middleware"
+  //   }
+  // ],
+
+  "files": [],
+  "exclude": ["node_modules", "dist", "build", "coverage", "**/**/node_modules"]
+}

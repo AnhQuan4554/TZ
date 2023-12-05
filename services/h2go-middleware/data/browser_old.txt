@@ -1,0 +1,83 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$browser.get('https://h2go.dev.tymlez.com/').then(function(){
+  $browser.findElement($driver.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+  $browser.findElement($driver.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+})
+.then(function(){ 
+  $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/main/div/div/div[2]/form/div[3]/button'), 1000).click()
+  return $browser.wait(function() {
+   //Tell the monitor to get the page title, then run a function on that title.
+      return $browser.getTitle().then(function(title) {//Specify the expected page title.
+           return title === "Dashboard for Green Hydrogen";
+        });
+     }, 10000);//If the condition is not satisfied within a timeout of 1000 milliseconds (1 second), proceed anyway.
+  })
+  .then(function () {
+   return $browser.findElement($driver.By.xpath('//*[@id="__next"]/header/div/div[1]/div[2]/h5')).then(function (el) {
+      el.getText().then(function(text) {
+         assert.equal(text, 'Dashboard for Green Hydrogen', 'Login not successfully')
+      })})
+  })
+  
+//tell the monitor to find summary component
+  .then(function(){
+    console.log("Validate dashboard page elements")
+    return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div/div[1]/div/div[1]/div/div/div[1]/div[1]/p'), 30000).then( function(summary) {
+      summary.getText().then(function(text){
+        assert.equal(text,'Summary' , 'Summary not found')
+      }).then(function(){     
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-energy-component-0-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Water supplied"),-1,'Energy component Water Supplied not found') })    
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-energy-component-1-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Solar Energy supplied"),-1,'Energy component Solar Energy supplied not found') })    
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-energy-component-2-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Grid Energy supplied"),-1,'Energy component Grid Energy supplied not found') })    
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-energy-component-3-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Hydrogen output"),-1,'Energy component Hydrogen output not found') })    
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-energy-component-4-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Oxygen output"),-1,'Energy component Oxygen output not found') })    
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-energy-component-5-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Total Carbon emission"),-1,'Energy component Total Carbon emission not found') })    
+  //tell the monitor to find pie chart   
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-pie-chart-stack"]')).getAttribute('innerHTML')
+             .then(function(m){
+                    assert.notEqual(m.indexOf("From Renewable energy"),-1,'Pie chart - Renewable energy not found') 
+                    assert.notEqual(m.indexOf("From Other resources"),-1,'Pie chart - Other resources not found') }) 
+         //find hydrogen footprint
+        $browser.findElement($driver.By.css('[data-test-id="h2go-summary-hydrogen"]')).getAttribute('innerHTML')
+             .then(function(m){assert.notEqual(m.indexOf("Carbon Intensity"),-1,'Hydrogen Footprint not found') }) 
+      })})})   
+ 
+//tell the monitor to find carbon emissions daily
+  .then(function(){     
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div/div[2]/div/div/div[1]/div/div/div/div/h6[1]'), 30000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Carbon Emissions' , 'Carbon Emissions daily not found')
+      })})
+     })
+       //tell the monitor to find key metrics
+  .then(function() {
+      return $browser.findElement($driver.By.css('[data-test-id="h2go-verified-guarantee"]'))
+       .then( function(x) {
+           x.getAttribute('innerHTML').then(function(m){assert.notEqual(m.indexOf("Verified Guarantee of Origin"),-1,'Verification  not found') }) 
+           x.findElements($driver.By.css('tr')).then(function(tr) { assert(tr.length > 1, "Verification table does not have any row")
+      })})
+  })
+  //tell the monitor to find key metrics
+  .then(function() {
+    return $browser.findElement($driver.By.css('[data-test-id="h2go-multi-metric-blocks"]'))
+       .then( function(x) {x.getAttribute('innerHTML').then(function(m){assert.notEqual(m.indexOf("Key Metrics"),-1,'Key Metrics not found') }) }) 
+  })
+  //find process
+  .then(function() {
+     return $browser.findElement($driver.By.css('[data-test-id="h2go-process-steps"]'))
+       .then( function(x) {x.getAttribute('innerHTML').then(function(m){assert.notEqual(m.indexOf("Production Process"),-1,'Production Process not found') }) }) 
+   })
+    

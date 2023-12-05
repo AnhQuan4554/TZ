@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GuardianLogsService fillMissingIntervalData() should fill multiple gap 1`] = `
+Array [
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:25:00.0000000Z",
+    "pv_estimate": 5,
+  },
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:20:00.000Z",
+    "pv_estimate": 6,
+  },
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:15:00.000Z",
+    "pv_estimate": 6,
+  },
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:10:00.0000000Z",
+    "pv_estimate": 7,
+  },
+]
+`;
+
+exports[`GuardianLogsService fillMissingIntervalData() should fill the missing gap 1`] = `
+Array [
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:25:00.0000000Z",
+    "pv_estimate": 5,
+  },
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:20:00.000Z",
+    "pv_estimate": 6,
+  },
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:15:00.0000000Z",
+    "pv_estimate": 7,
+  },
+]
+`;
+
+exports[`GuardianLogsService fillMissingIntervalData() should not change anything if no gap 1`] = `
+Array [
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:25:00.0000000Z",
+    "pv_estimate": 5,
+  },
+  Object {
+    "period": "PT5M",
+    "period_end": "2022-07-09T15:20:00.0000000Z",
+    "pv_estimate": 7,
+  },
+]
+`;

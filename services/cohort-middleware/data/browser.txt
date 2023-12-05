@@ -1,0 +1,252 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$webDriver.get('https://cohort.dev.tymlez.com/')
+  .then(function(){
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+ .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Cohort') ,5000) })
+ .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="cohort-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Dashboard', 'Dashboard title incorrect') }) })
+  })
+  .then(function() {
+     $webDriver.findElement($selenium.By.css('[data-test-id="cohort-header"]'))
+       .then(function () {
+             $webDriver.findElement($selenium.By.css('[data-test-id="cohort-header-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Summary from', 'Summary title incorrect') }) })
+       })
+  })
+  
+//tell the monitor to find summary component
+.then(function() {
+     console.log("Validate summary elements")
+     $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary"]'))
+         .then(function(){
+                 //weather
+                 $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-weather"]'))
+                      .then(function () {
+                               $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-weather-temperature"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual('0 °C', 'No data for weather')})})
+                      })
+                  //solar energy generation
+                  $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-solar-generation"]'))  
+                       .then(function(){
+                              $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-solar-generation-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Solar Energy Generation (simulated)', 'Solar Energy Generation (simulated) label not found') }) })
+                              $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-solar-generation-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {
+                                              assert.notEqual(text.indexOf("kWh"),-1,'Unit of Solar Energy Generation (simulated) should be kWh')
+                                              assert.notEqual('0 kWh', 'No data for Solar Energy Generation (simulated)')})
+                                                         })
+                       })
+                  //key metrics
+                  $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-components"]'))
+                      .then(function(){
+                             $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-components-title"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Key Metrics', 'Key Metrics label not found') }) })
+                        //Carbon Output
+                             $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-output"]'))
+                                 .then(function(){
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-output-label"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Output', 'Carbon Output label not found') }) })
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-output-value"]'))
+                                            .then(function (el) {el.getText().then(function(text) {
+                                                 assert.notEqual(text.indexOf("kg"),-1,'Unit of Carbon Output should be kg')
+                                                 assert.notEqual('0 kg', 'No data for Carbon Output')})})
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-output-trend-percent"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.notEqual('0 %', 'No data for Carbon Output Percent')})})
+                                 })
+                             //Carbon Abatement (simulated)
+                              $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-abatement-(simulated)"]'))
+                                 .then(function(){
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-abatement-(simulated)-label"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Abatement (simulated)', 'Carbon Abatement (simulated) label not found') }) })
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-abatement-(simulated)-value"]'))
+                                            .then(function (el) {el.getText().then(function(text) {
+                                                  assert.notEqual(text.indexOf("kg"),-1,'Unit of Carbon Abatement (simulated) should be kg')
+                                                  assert.notEqual('0 kg', 'No data for Carbon Abatement (simulated)')})})
+                                      $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-carbon-abatement-(simulated)-trend-percent"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.notEqual('0 %', 'No data for Carbon Abatement (simulated) Percent')})})
+                                 })
+                            //Grid Energy Supplied
+                              $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-grid-energy-supplied"]'))
+                                 .then(function(){
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-grid-energy-supplied-label"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Grid Energy Supplied', 'Grid Energy Supplied label not found') }) })
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-grid-energy-supplied-value"]'))
+                                            .then(function (el) {el.getText().then(function(text) {
+                                                  assert.notEqual(text.indexOf("kWh"),-1,'Unit of Grid Energy Supplied should be kWh')
+                                                  assert.notEqual('0 kWh', 'No data for Grid Energy Supplied')})})
+                                      $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-grid-energy-supplied-trend-percent"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.notEqual('0 %', 'No data for Grid Energy Supplied Percent')})})
+                                 })
+                             //Solar Energy Generation (simulated)
+                              $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-solar-energy-generation-(simulated)"]'))
+                                 .then(function(){
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-solar-energy-generation-(simulated)-label"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Solar Energy Generation (simulated)', 'Solar Energy Generation (simulated) label not found') }) })
+                                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-solar-energy-generation-(simulated)-value"]'))
+                                            .then(function (el) {el.getText().then(function(text) {
+                                                  assert.notEqual(text.indexOf("kWh"),-1,'Unit of Solar Energy Generation (simulated) should be kWh')
+                                                  assert.notEqual('0 kWh', 'No data for Solar Energy Generation (simulated)')})})
+                                      $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-energy-component-desktop-solar-energy-generation-(simulated)-trend-percent"]'))
+                                            .then(function (el) {el.getText().then(function(text) {assert.notEqual('0 %', 'No data for Solar Energy Generation (simulated) Percent')})})
+                                 })
+                      })//end key metric
+             //carbon output pie chart
+               $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-carbon-output"]'))
+                   .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-carbon-output-title"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Output', 'Carbon Output header not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-carbon-output-label-0"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Abated (simulated)', 'CO2e Abated (simulated) label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-carbon-output-label-1"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Produced', 'CO2e Produced label not found') }) })
+                   })
+               //tenancy usage
+                 $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage"]'))
+                   .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-title"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Tenancy Usage', 'Tenancy Usage header not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-Communal"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Communal', 'Communal label not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-Elevator"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Elevator', 'Elevator label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T1"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T1', 'T1 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T2"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T2', 'T2 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T3"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T3', 'T3 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T4"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T4', 'T4 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T5"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T5', 'T5 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T6"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T6', 'T6 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T7"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T7', 'T7 label not found') }) })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="cohort-summary-tenancy-usage-label-T8"]'))
+                                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T8', 'T8 label not found') }) })
+                   })
+         })
+})
+  
+//find all the tabs
+ .then(function(){
+      $webDriver.findElement($selenium.By.css('[data-test-id="cohort-energy-tab-child-tenancy"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'TENANCY', 'Tenancy tab not found') }) })
+      $webDriver.findElement($selenium.By.css('[data-test-id="cohort-energy-tab-child-consumption"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CONSUMPTION & GENERATION (SIMULATED)', 'Consumption & Generation (simulated) tab not found') }) })
+     $webDriver.findElement($selenium.By.css('[data-test-id="cohort-energy-tab-child-carbon"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CARBON EMISSION', 'Carbon Emission tab not found') }) })
+      $webDriver.findElement($selenium.By.css('[data-test-id="cohort-energy-tab-child-verification"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VERIFICATION', 'Verification tab not found') }) })
+  })
+
+//  Tenancy tab
+.then(function(){
+  console.log("Validate Tenancy tab")
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-title"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'TENANCY', 'TENANCY title not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-communal"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Communal', 'Communal label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-elevator"]'))
+              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Elevator', 'Elevator label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t1"]'))
+               .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T1', 'T1 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t2"]'))
+               .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T2', 'T2 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t3"]'))
+               .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T3', 'T3 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t4"]'))
+               .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T4', 'T4 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t5"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T5', 'T5 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t6"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T6', 'T6 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t7"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T7', 'T7 label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-tenancy-descriptors-t8"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'T8', 'T8 label not found') }) })
+})
+
+   
+// Consumption and Generation tab
+.then(function(){
+   console.log("Validate Consumption and Generation tab")
+   $webDriver.findElement( $selenium.By.css('[data-test-id="cohort-energy-tab-child-consumption"]')).click()
+})
+   .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Cohort - Consumption & Generation (simulated)') ,10000) })
+    .then(function(){
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-consumption-generation-title"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Consumption & Generation (simulated)', 'Consumption & Generation (simulated) title not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-consumption-generation-descriptors-consumption"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Consumption', 'Consumption label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-consumption-generation-descriptors-generation-(simulated)"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Generation (simulated)', 'Generation (simulated) label not found') }) })
+    })
+
+ //Carbon tab
+ .then(function(){
+    console.log("Validate carbon tab")
+    $webDriver.findElement($selenium.By.css('[data-test-id="cohort-energy-tab-child-carbon"]')).click()
+ })
+    .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Cohort - Carbon Emission') ,10000) })
+.then(function(){
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-carbon-emissions-title"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Emissions', 'Carbon Emissions title not found') }) })
+       $webDriver.findElement($selenium.By.css('[data-test-id="cohort-carbon-emissions-descriptors-co2e-emission-(grid-consumption)"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Emission (Grid Consumption)', 'CO2e Emission (Grid Consumption) label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-carbon-emissions-descriptors-estimated-co2e-abated-(solar-generation)"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Estimated CO2e Abated (Solar Generation)', 'Estimated CO2e Abated (Solar Generation) label not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-carbon-emissions-descriptors-net-co2e"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2e', 'Net CO2e label not found') }) })
+})
+  
+  //Verification tab
+.then(function(){ 
+       console.log("Validate Verification tab")
+     // $webDriver.findElement($selenium.By.css('[data-test-id="cohort-energy-tab-child-verification"]')).click()
+         $webDriver.get('https://cohort.dev.tymlez.com/verification')
+         .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Cohort - Verification') ,5000) })
+    .then(function(){
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-verified-guarantee-title"]'))
+             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VERIFICATION', 'VERIFICATION title not found') }) })
+         $webDriver.findElement($selenium.By.css('[data-test-id="cohort-verified-guarantee-common-table"]'))
+            .then( function(table) { table.findElements($selenium.By.css('tr')).then(function(tr) {assert(tr.length > 1, "Verification table does not have any row")})})
+              .then(function(){
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-vpid"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VP ID', 'VP ID column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2eqemissions"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2 PRODUCED (T)', 'CO2 PRODUCED (T) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-minteddate"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'DATE AND TIME MINTED', 'DATE AND TIME MINTED column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-onchainurl"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VIEW TYMLEZ TRUST CHAIN', 'VIEW TYMLEZ TRUST CHAIN column not found') }) })
+                  })
+           $webDriver.findElement($selenium.By.css('[data-test-id="cohort-verified-guarantee-footer"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'All data secured by the TYMLEZ platform built on Hedera hashgraph', 'All data secured by the TYMLEZ platform built on Hedera hashgraph label not found') }) })
+         })
+   })
+
+
+//  Dovu Carbon Offset
+.then(function(){
+     console.log("Validate Dovu elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="dovu-carbon-purchase-title"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Offsets', 'Carbon Offsets title not found') }) })
+      $webDriver.findElement($selenium.By.css('[data-test-id="dovu-carbon-purchase-value"]'))
+            .then(function (el) {el.getText().then(function(text) {
+                     assert.notEqual(text.indexOf("t"),-1,'Unit of Carbon Offsets Purchased should be t')
+                     assert.notEqual('0 (t)', 'No data for Carbon Offsets Purchased')})})
+ })
+    

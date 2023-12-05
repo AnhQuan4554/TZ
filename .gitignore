@@ -1,0 +1,55 @@
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+*secrets.js
+*secrets.json
+*secret.js
+*secret.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/
+
+# OS
+.DS_Store
+
+# Tests
+coverage/
+
+# Others
+/temp/
+*.out
+.tmp/
+*.tsbuildinfo
+.serverless/
+.esbuild/
+local/local.env
+.idea
+.local.env
+.local.*.env
+*.local.env
+*.local.*.env
+.env.local
+.env
+
+*.pdf
+dist/
+*.functional-test.ts
+
+# yarn
+.yarn/cache
+.yarn/install-state.gz
+yarn.checksum
+./tymlez-api-service-ref
+./guardian/

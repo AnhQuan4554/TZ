@@ -1,0 +1,12 @@
+node_modules/
+.github/
+.git
+dist/
+**/**/build/
+**/**/dist/
+**/**/node_modules/
+docs/
+.husky/
+.tsbuildinfo
+tsconfig.tsbuildinfo
+**/**/.next/

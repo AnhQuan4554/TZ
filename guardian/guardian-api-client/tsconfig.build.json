@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["es2018", "dom"],
+    "baseUrl": "./",
+    "paths": {}
+  },
+  "exclude": ["node_modules/", "dist/", "coverage/", "e2e/", "tools/"]
+}

@@ -1,0 +1,6 @@
+{
+  "watch": ["server.ts"],
+  "ext": "ts",
+  "exec": "node -r esbuild-register local/mock/server.ts",
+  "legacyWatch": true
+}

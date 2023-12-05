@@ -1,0 +1,67 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$browser.get('https://magnum.dev.tymlez.com/')
+  .then(function(){
+       $browser.findElement($driver.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $browser.findElement($driver.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+  .then(function(){ 
+     $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/main/div/div/div[2]/form/div[3]/button'), 1000).click()
+       return $browser.wait(function() {
+       //Tell the monitor to get the page title, then run a function on that title.
+            return $browser.getTitle().then(function(title) {//Specify the expected page title.
+                return title === "Magnum";
+            });
+        }, 10000);//If the condition is not satisfied within a timeout of 1000 milliseconds (1 second), proceed anyway.
+   })
+  .then(function () {    
+        return $browser.findElement($driver.By.xpath('//*[@id="__next"]/header/div/div[1]/div[2]/h5')).then(function (el) {
+            el.getText().then(function(text) {
+              assert.equal(text, 'Dashboard', 'Dashboard Navbar title incorrect')
+      }) })
+  })
+  //tell the monitor to find summary component
+  .then(function(){
+      console.log("Validate dashboard summary elements")
+      $browser.findElement($driver.By.css('[data-test-id="magnum-summary"]')).getAttribute('innerHTML')
+        .then(function(m){assert.notEqual(m.indexOf("Summary"),-1,'Summary not found') }) 
+        .then(function(){     
+             $browser.findElement($driver.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Biochar Produced"),-1,'Component Biochar Produced not found') })
+             $browser.findElement($driver.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Fine Iron Ore Produced"),-1,'Component Fine Iron Ore Produced not found') })
+            $browser.findElement($driver.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Pig Iron Produced"),-1,'Component Pig Iron Produced not found') })
+       })     
+  })
+  //tell the monitor to find carbon emissions daily
+  .then(function(){     
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/main/div/div[2]/div/div/div[1]/div/div/div/div[1]/h6[1]'), 30000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Carbon Emissions' , 'Carbon Emissions daily not found')
+      })})
+  })
+  //find Average Net CO2eq per Tonne of Pig Iron
+  .then(function(){     
+     console.log("Validate Average Net CO2 element")
+     $browser.findElement($driver.By.css('[data-test-id="magnum-average-net-CO2eq"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Average Net CO2eq per Tonne of Pig Iron"),-1,'Component Average Net CO2eq per Tonne of Pig Iron not found') })     
+  })
+  
+  //tell the monitor to find verification
+.then(function(){ 
+      console.log("Validate verification element")
+      $browser.findElement($driver.By.css('[data-test-id="magnum-verified-guarantee"]')).getAttribute('innerHTML')
+        .then(function(m){assert.notEqual(m.indexOf("Verified Guarantee of Origin"),-1,'Verified Guarantee of Origin not found') }) 
+        .then(function() { 
+           $browser.findElement($driver.By.css('[data-test-id="magnum-verified-guarantee-commom-table"]')).then( function(table) {
+                table.findElements($driver.By.css('tr')).then(function(tr) {assert(tr.length > 1, "Verification table does not have any row")})})
+         })
+}) 
+  

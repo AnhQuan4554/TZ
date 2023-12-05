@@ -1,0 +1,65 @@
+[
+  {
+    "name": "h2go",
+    "meterKey": "h2go-main",
+    "type": "DATA",
+    "settings": {
+      "solcastUrl": "[replace by cohort realtime solcast url]",
+      "timeFactors": 75,
+      "duration": 30
+    }
+  },
+  {
+    "name": "h2go-cet",
+    "meterKey": "h2go-main",
+    "type": "MRV",
+    "tags": ["Tymlez_CET"],
+    "settings": {
+      "CarbonEmissionConversionRate": 0.001,
+      "ReadingConversionRate": 0.001,
+      "CarbonEqEmissionMetricNames": "carbon.emissions",
+      "CarbonEmissionMetricNames": "carbon.emissions",
+      "ReadingMetricName": "water_treatment.input.electricity,electrolyser.input.electricity,gas_purification.input.electricity,compression.input.electricity",
+      "OtherMRVDataMetricNames": "",
+      "defaultMRVFields": {
+        "valueUOM": "kWh",
+        "CO2eqFormula": "$value* 0.8/1000"
+      }
+    }
+  },
+  {
+    "name": "h2go-cru",
+    "meterKey": "h2go-main",
+    "type": "MRV",
+    "tags": ["Tymlez_CRU"],
+    "settings": {
+      "CarbonReductionConversionRate": 0.001,
+      "ReadingConversionRate": 0.001,
+      "CarbonReductionMetricNames": "carbon.reduction",
+      "ReadingMetricName": "electrolyser.input.solar,water_treatment.input.solar,gas_purification.input.solar,compression.input.solar",
+      "OtherMRVDataMetricNames": "",
+      "defaultMRVFields": {
+        "valueUOM": "kWh"
+      }
+    }
+  },
+  {
+    "name": "h2go-goo",
+    "meterKey": "h2go-main",
+    "type": "MRV",
+    "tags": ["Tymlez_GOO"],
+    "settings": {
+      "CarbonEmissionConversionRate": 0.001,
+      "CarbonReductionConversionRate": 0.001,
+      "ReadingConversionRate": 0.001,
+      "CarbonEqEmissionMetricNames": "carbon.emissions",
+      "CarbonEmissionMetricNames": "",
+      "CarbonReductionMetricNames": "carbon.reduction",
+      "ReadingMetricName": "compressor.output.hydrogen",
+      "OtherMRVDataMetricNames": "water_treatment.input.water,water_treatment.input.electricity,electrolyser.input.electricity,gas_purification.input.electricity,compression.input.electricity,water_treatment.input.solar,electrolyser.input.solar,gas_purification.input.solar,compression.input.solar",
+      "defaultMRVFields": {
+        "valueUOM": "t"
+      }
+    }
+  }
+]

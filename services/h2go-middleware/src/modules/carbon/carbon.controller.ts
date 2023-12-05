@@ -1,0 +1,73 @@
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  ParseEnumPipe,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  FirebaseAuthGuard,
+  PermissionGuard,
+  Permissions,
+  getGranularity,
+} from '@tymlez/backend-libs';
+import type {
+  ICarbonSeries,
+  IIsoDate,
+  IMetricGranularity,
+  ISingleValueHttpResponse,
+} from '@tymlez/platform-api-interfaces';
+import { PERMISSIONS } from '@tymlez/common-libs';
+import { IsoDateTimePipe } from '../../utils/pipes/isodatetime.pipe';
+import { CarbonService } from './carbon.service';
+
+@Controller('carbon')
+@UseGuards(FirebaseAuthGuard, PermissionGuard)
+export class CarbonController {
+  constructor(private carbonService: CarbonService) {}
+
+  @Get('/series')
+  @Permissions(
+    PERMISSIONS.CLIENT_DASHBOARD_READ,
+    PERMISSIONS.ALL_RESOURCE_READ,
+    PERMISSIONS.ALL_RESOURCE_WRITE,
+  )
+  async getCarbonSeries(
+    @Query('from', new IsoDateTimePipe()) from: IIsoDate,
+    @Query('to', new IsoDateTimePipe(new Date().toISOString())) to: IIsoDate,
+    @Query(
+      'granularity',
+      new ParseEnumPipe(
+        {
+          total: 'total',
+          minute: 'minute',
+          hour: 'hour',
+          day: 'day',
+          month: 'month',
+          week: 'week',
+          auto: 'auto',
+        },
+        {
+          exceptionFactory: (_e): void => {
+            throw new BadRequestException('Invalid granularity value');
+          },
+        },
+      ),
+    )
+    granularity: IMetricGranularity,
+  ): Promise<ISingleValueHttpResponse<ICarbonSeries>> {
+    const realGranularity =
+      granularity === 'auto' ? getGranularity(from, to) : granularity;
+    const series = await this.carbonService.getCarbonSeriesData(
+      from,
+      to,
+      realGranularity,
+    );
+
+    return {
+      success: true,
+      data: series,
+    };
+  }
+}

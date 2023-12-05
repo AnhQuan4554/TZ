@@ -1,0 +1,124 @@
+{
+  "name": "Project",
+  "uuid": "82e4f992-433b-4b1b-9c11-780e3d2ed24e",
+  "entity": "VC",
+  "document": {
+    "$id": "#82e4f992-433b-4b1b-9c11-780e3d2ed24e",
+    "$comment": "{\"term\": \"82e4f992-433b-4b1b-9c11-780e3d2ed24e\", \"@id\": \"#82e4f992-433b-4b1b-9c11-780e3d2ed24e\"}",
+    "title": "Project",
+    "description": "",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "projectId": {
+        "title": "projectId",
+        "description": "Unique identifier for the project",
+        "readOnly": false,
+        "$comment": "{\"term\": \"projectId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "projectName": {
+        "title": "projectName",
+        "description": "Descriptive name for the project",
+        "readOnly": false,
+        "$comment": "{\"term\": \"projectName\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "projectDescription": {
+        "title": "projectDescription",
+        "description": "Short summary of the project",
+        "readOnly": false,
+        "$comment": "{\"term\": \"projectDescription\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "projectType": {
+        "title": "projectType",
+        "description": "Type of project",
+        "readOnly": false,
+        "$comment": "{\"term\": \"projectType\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "country": {
+        "title": "country",
+        "description": "Country code for the location of the project",
+        "readOnly": false,
+        "$comment": "{\"term\": \"country\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "standard": {
+        "title": "standard",
+        "description": "The name of the standards body this project is registered with",
+        "readOnly": false,
+        "$comment": "{\"term\": \"standard\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "standardProjectId": {
+        "title": "standardProjectId",
+        "description": "The unique identifier allocated to the project by the standards body",
+        "readOnly": false,
+        "$comment": "{\"term\": \"standardProjectId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "standardProjectLink": {
+        "title": "standardProjectLink",
+        "description": "URL for the project as listed on the standards registry",
+        "readOnly": false,
+        "$comment": "{\"term\": \"standardProjectLink\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "url"
+      },
+      "policyId": {
+        "title": "policyId",
+        "description": "policyId",
+        "readOnly": true,
+        "$comment": "{\"term\": \"policyId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": [
+      "policyId",
+      "@context",
+      "type",
+      "projectId",
+      "projectName",
+      "projectDescription",
+      "projectType",
+      "country",
+      "standard",
+      "standardProjectId"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "rootAuthorityId": "f3f66883-8994-4e1d-8b15-0650218491d8",
+  "rootAuthorityName": "Department of State Development, Infrastructure, Local Government and Planning",
+  "registrationCountry": "Australia",
+  "businessRegistrationNumber": "29230178530",
+  "businessRegistrationNumberType": "ABN",
+  "businessRegistrationDate": "2012-04-30T14:00:00.000Z",
+  "registeredOfficeAddress": {
+    "addressId": "6730be42-5b1a-4c7b-971a-4f881ebc03f4",
+    "addressLine1": "1 William Street",
+    "addressLine2": "",
+    "city": "Brisbane",
+    "state": "Queensland",
+    "postalCode": "4000",
+    "country": "Australia",
+    "GPSLocation": ""
+  },
+  "businessType": "Government",
+  "primaryBusinessFunction": "Government",
+  "businessLead": {
+    "personId": "eff6d5eb-7b1e-4cbd-b771-16de3babf7e6",
+    "title": "Mr",
+    "familyName": "Walters",
+    "givenNames": "Brooke",
+    "identificationNumber": "",
+    "identificationNumberType": "",
+    "identificationNumberAuthority": ""
+  },
+  "websiteLink": "",
+  "numberOfEmployees": 0,
+  "otherCountriesOfOperation": "",
+  "otherRelatedEntities": "",
+  "shareholders": "",
+  "balanceSheetTotal": "",
+  "operationalContact": null,
+  "leadUserContact": null,
+  "financePersonContact": null,
+  "isPublished": false
+}

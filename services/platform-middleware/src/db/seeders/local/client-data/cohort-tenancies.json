@@ -1,0 +1,56 @@
+[
+  {
+    "name": "T1",
+    "meterKey": "DD_1_8",
+    "tags": ["0@DD_1_8", "1@DD_1_8", "2@DD_1_8"],
+    "visible": true
+  },
+  {
+    "name": "T2",
+    "meterKey": "DD_2_3",
+    "tags": ["0@DD_2_3", "1@DD_2_3", "2@DD_2_3"],
+    "visible": true
+  },
+  {
+    "name": "T3",
+    "meterKey": "DD_2_3",
+    "tags": ["3@DD_2_3", "4@DD_2_3", "5@DD_2_3"],
+    "visible": true
+  },
+  {
+    "name": "T4",
+    "meterKey": "DD_4_5",
+    "tags": ["0@DD_4_5", "1@DD_4_5", "2@DD_4_5"],
+    "visible": true
+  },
+  {
+    "name": "T5",
+    "meterKey": "DD_4_5",
+    "tags": ["3@DD_4_5", "4@DD_4_5", "5@DD_4_5"],
+    "visible": true
+  },
+  {
+    "name": "T6",
+    "meterKey": "DD_6_7",
+    "tags": ["0@DD_6_7", "1@DD_6_7", "2@DD_6_7"],
+    "visible": true
+  },
+  {
+    "name": "T7",
+    "meterKey": "DD_6_7",
+    "tags": ["3@DD_6_7", "4@DD_6_7", "5@DD_6_7"],
+    "visible": true
+  },
+  {
+    "name": "T8",
+    "meterKey": "DD_1_8",
+    "tags": ["3@DD_1_8", "4@DD_1_8", "5@DD_1_8"],
+    "visible": true
+  },
+  {
+    "name": "Communal",
+    "meterKey": "DD_Communal",
+    "tags": ["3@DD_Communal", "4@DD_Communal", "5@DD_Communal"],
+    "visible": true
+  }
+]

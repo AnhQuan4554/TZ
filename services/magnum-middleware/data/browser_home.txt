@@ -1,0 +1,258 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$webDriver.get('https://magnum.dev.tymlez.com/')
+  .then(function(){
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+ .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Magnum') ,5000) })
+ .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Summary Pages', 'Summary Pages Navbar title incorrect') }) })
+  })
+  // summary component
+  .then(function(){
+      console.log("Validate dashboard summary elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-title"]'))
+               .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Summary', 'Summary title incorrect') }) })
+        })      
+        .then(function(){
+          //summary biochar 
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar"]'))
+              .then(function () {
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-title"]'))
+                      .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biochar Produced', 'Component Biochar Produced title not found') }) })
+              })
+             .then(function () {
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-biomass"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-biomass-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biomass In', 'Biomass In label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-biomass-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biomass In uom should be t')}) })
+                    })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-energy"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-energy-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption', 'Energy consumption label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-energy-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy consumption uom should be MWh')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-emission"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-emission-label"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Emissions', 'CO2eq Emissions label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-emission-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Emissions uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-abatement"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-abatement-label"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Abated', 'CO2eq Abated label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-abatement-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Abated uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-net"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-net-label"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2eq', 'Net CO2eq label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-net-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Net CO2eq uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-final"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-final-label"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biochar Produced', 'Biochar Produced final label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-biochar-final-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biochar Produced final uom should be t')}) })
+                    })
+              })
+           //summary ironore 
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore"]'))
+              .then(function () {
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-title"]'))
+                    .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Fine Iron Ore Produced', 'Component Fine Iron Ore Produced title not found') }) })
+              })
+              .then(function () {
+                   $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-fineIronore"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-fineIronore-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore In', 'Iron Ore In label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-fineIronore-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Iron Ore In uom should be t')}) })
+                    })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-energy"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-energy-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption', 'Energy consumption label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-energy-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy consumption uom should be MWh')}) })
+                     })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-emission"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-emission-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Emissions', 'CO2eq Emissions label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-emission-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Emissions uom should be t')}) })
+                     })
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-abatement"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-abatement-label"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Abated', 'CO2eq Abated label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-abatement-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Abated uom should be t')}) })
+                     })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-net"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-net-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2eq', 'Net CO2eq label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-net-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Net CO2eq uom should be t')}) })
+                     })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-final"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-final-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore Produced', 'Iron Ore Produced final label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-fine-iron-ore-final-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Iron Ore Produced final uom should be t')}) })
+                     })
+              })
+              //pig iron
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron"]'))
+              .then(function () {
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-title"]'))
+                    .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Produced', 'Component Pig Iron Produced title not found') }) })
+              })
+              .then(function () {
+                   $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-biochar"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-biochar-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biochar In', 'Biochar In label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-biochar-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biochar In uom should be t')}) })
+                    })
+                   $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-ironore"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-ironore-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore In', 'Iron Ore In label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-ironore-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Iron Ore In uom should be t')}) })
+                    })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-energy"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-energy-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption', 'Energy consumption label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-energy-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy consumption uom should be MWh')}) })
+                     })
+                 $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-energyProduction"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-energyProduction-label"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy production', 'Energy production label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-energyProduction-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy production uom should be MWh')}) })
+                     })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-emission"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-emission-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Emissions', 'CO2eq Emissions label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-emission-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Emissions uom should be t')}) })
+                     })
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-abatement"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-abatement-label"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Abated', 'CO2eq Abated label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-abatement-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Abated uom should be t')}) })
+                     })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-net"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-net-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2eq', 'Net CO2eq label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-net-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Net CO2eq uom should be t')}) })
+                     })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-final"]'))
+                     .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-final-label"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Produced', 'Pig Iron Produced final label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-energy-produced-block-pig-iron-final-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Pig Iron Produced final uom should be t')}) })
+                     })
+              })
+        })
+  })
+        
+  // carbon emissions daily
+ .then(function(){
+      console.log("Validate Carbon Emissions element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-header"]'))
+          .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Emissions', 'Carbon Emissions label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-subtitle"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Daily Updates', 'Daily Updates label not found') }) })
+          })
+        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-descriptors"]'))
+            .then(function(){
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-descriptors-co2e-abated"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Abated', 'CO2e Abated label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-descriptors-carbon-produced"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Produced', 'Carbon Produced label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-carbon-emission-descriptors-net-carbon"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net Carbon', 'Net Carbon label not found') }) })         
+             })
+ })
+ 
+//find Average Net CO2eq per Tonne of Pig Iron
+  .then(function(){
+     console.log("Validate Average Net CO2 element")
+     $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-average-net-CO2eq"]'))
+        .then(function(){
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-average-net-CO2eq-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Average Net CO2eq per Tonne of Pig Iron', 'Average Net CO2eq per Tonne of Pig Iron label not found') }) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-average-net-CO2eq-value"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Average Net CO2eq uom should be t')}) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-average-net-CO2eq-label"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq per tonne of pig iron', 'CO2eq per tonne of pig iron footer not found') }) })
+        })
+  })
+  
+//verification
+.then(function(){
+      console.log("Validate Verification element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-verified-guarantee"]'))
+        .then(function(){
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-verified-guarantee-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Verified Guarantee of Origin', 'Verified Guarantee of Origin label not found') }) })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-summary-verified-guarantee-common-table"]'))
+                .then( function(table) {table.findElements($selenium.By.css('tr')).then(function(tr) {assert(tr.length > 1, "Verification table does not have any row")})})
+                  .then(function(){
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-vpid"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Certificate ID', 'Certificate ID column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Produced (t)', 'Pig Iron Produced (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2eqemissions"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2 Emissions (t)', 'CO2 Emissions (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2eqemissionsreduction"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2 Offset (t)', 'CO2 Offset (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2netoffset"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2 Emissions (t)', 'Net CO2 Emissions (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-timestamp"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Date and Time', 'Date and Time column not found') }) })
+                    $webDriver.findElement($selenium.By.css('[data-test-id="column-onchainurl"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VIEW ON-CHAIN', 'VIEW ON-CHAIN column not found') }) })
+                  })
+                 
+         })
+})  

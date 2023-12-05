@@ -1,0 +1,182 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$browser.get('https://solarfarm.dev.tymlez.com/')
+  .then(function(){
+       $browser.findElement($driver.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $browser.findElement($driver.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+  .then(function(){ 
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/main/div/div/div[2]/form/div[3]/button'), 1000).click()
+  })
+  .then(function(){ 
+       return $browser.wait(function() {
+       //Tell the monitor to get the page title, then run a function on that title.
+            return $browser.getTitle().then(function(title) {//Specify the expected page title.
+                return title === "Solar Farm Dashboard";
+            });
+        }, 10000);//If the condition is not satisfied within a timeout of 1000 milliseconds (1 second), proceed anyway.
+   })
+ .then(function () {
+    $browser.findElement($driver.By.xpath('//*[@id="__next"]/header/div/div[1]/div[2]/h5')).then(function (el) {
+        el.getText().then(function(text) {assert.equal(text, 'Dashboard', 'Dashboard Navbar title incorrect') })     
+    })
+  })
+ 
+ 
+ //tell the monitor to find realtime component
+.then(function () {
+    return $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div/div/h1')).then(function (el) {
+                 el.getText().then(function(text) { assert.equal(text, 'Real Time Updates for', 'Realtime dashboard not found')})
+          })
+
+     //summary
+      $browser.findElement($driver.By.css('[data-test-id="solar-farm-web"]')).getAttribute('innerHTML').then(function(m){
+                 assert.notEqual(m.indexOf("REC Generation"),-1,'REC component not found') 
+                 assert.notEqual(m.indexOf("RECs generated today"),-1,'REC today not found')
+                 $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[1]/div/div[2]/div/p[1]')).then(function (p) {
+                       p.getText().then(function(text) {assert.notEqual(text, 0, 'No data for REC Today')})})
+                  assert.notEqual(m.indexOf("Total RECs generated"),-1,'Total RECs generated not found')
+                  $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[1]/div/div[4]/div/p[1]')).then(function (p) {
+                         p.getText().then(function(text) {assert.notEqual(text, 0, 'No data for Total REC generated')})})                  
+      })
+       
+      $browser.findElement($driver.By.css('[data-test-id="solar-farm-realtime-energy-component-0"]')).getAttribute('innerHTML').then(function(m){                      
+                  assert.notEqual(m.indexOf("Active solar panels"),-1,'Active solar panels not found')
+                  assert.notEqual(m.indexOf("Last 5 minutes"),-1,'Last 5 minutes not found')
+                  assert.notEqual(m.indexOf("20,000"),-1,'Total number of solar panel not correct')
+                    $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[2]/div[1]/div/div[3]/div[1]/p')).then(function (p) {
+                           p.getText().then(function(text) {assert.notEqual(text, '0 / 20,000', 'No data for Active solar panels')})})
+      })
+
+     $browser.findElement($driver.By.css('[data-test-id="solar-farm-realtime-energy-component-1"]')).getAttribute('innerHTML').then(function(m){                      
+                   assert.notEqual(m.indexOf("Solar energy generated"),-1,'Solar energy generated not found')
+                   assert.notEqual(m.indexOf("Last 5 minutes"),-1,'Last 5 minutes not found')
+                   assert.notEqual(m.indexOf("MWh"),-1,'Unit of solar energy generated should be MWh')
+                    $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[2]/div[2]/div/div[3]/div[1]/p')).then(function (p) {
+                           p.getText().then(function(text) {assert.notEqual(text, '0 MWh', 'No data for Solar energy generated')})})
+      })
+      
+
+    //performance ratio
+      $browser.findElement($driver.By.css('[data-test-id="solar-farm-web-performance-ratio-stack"]')).getAttribute('innerHTML').then(function(m){
+                 assert.notEqual(m.indexOf("Performance Ratio"),-1,'Performance Ratio component not found')
+                 assert.notEqual(m.indexOf("Current generation against forecast"),-1,'Label for Performance Ratio component not found')
+                $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[3]/div/div/div/div/div[1]/div/div[2]')).then(function (p) {
+                           p.getText().then(function(text) {assert.notEqual(text, '0 %', 'No data for Performance Ratio')})})
+      })
+
+   //Solar panel group
+      $browser.findElement($driver.By.css('[data-test-id="solar-farm-web-panel-group"]')).getAttribute('innerHTML').then(function(m){
+                 assert.notEqual(m.indexOf("Solar Panels"),-1,'Solar Panels component not found')
+                 assert.notEqual(m.indexOf("All data secured by the TYMLEZ platform built on Hedera hashgraph"),-1,'Label for Solar Panels component not found')
+                
+                 $browser.findElement($driver.By.css('[data-test-id="solar-farm-web-panel-group-common-table"]')).then( function(x) {
+                      x.findElements($driver.By.css('tr')).then(function(tr) { 
+                           assert(tr.length > 1, "Verification table does not have any row")
+
+                        //group 1
+                           tr[1].getText().then(function(text) {
+                                assert.notEqual(m.indexOf("PANL-G001"),-1,'Panel Group for Group 1 not found')
+                                assert.notEqual(m.indexOf("1 - 5,000"),-1,'Panel IDs for Group 1 not correct')
+                            })
+                            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[4]/div/div[2]/div/div[1]/div/table/tbody/tr[1]/th[4]/div/div[2]')).then(function (p) {
+                                 p.getText().then(function(text) {assert.notEqual(text, '0 MWh', 'No data for Group 1')})})       
+                      
+                          //group 2
+                           tr[2].getText().then(function(text) {
+                                assert.notEqual(m.indexOf("PANL-G002"),-1,'Panel Group for Group 2 not found')
+                                assert.notEqual(m.indexOf("5,001 - 10,000"),-1,'Panel IDs for Group 2 not correct')
+                            })
+                            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[4]/div/div[2]/div/div[1]/div/table/tbody/tr[2]/th[4]/div/div[2]')).then(function (p) {
+                                 p.getText().then(function(text) {assert.notEqual(text, '0 MWh', 'No data for Group 2')})})   
+
+                         //group 3
+                           tr[3].getText().then(function(text) {
+                                assert.notEqual(m.indexOf("PANL-G003"),-1,'Panel Group for Group 3 not found')
+                                assert.notEqual(m.indexOf("10,001 - 15,000"),-1,'Panel IDs for Group 3 not correct')
+                            })
+                            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[4]/div/div[2]/div/div[1]/div/table/tbody/tr[3]/th[4]/div/div[2]')).then(function (p) {
+                                 p.getText().then(function(text) {assert.notEqual(text, '0 MWh', 'No data for Group 3')})}) 
+
+                         //group 4
+                           tr[4].getText().then(function(text) {
+                                assert.notEqual(m.indexOf("PANL-G004"),-1,'Panel Group for Group 4 not found')
+                                assert.notEqual(m.indexOf("15,001 - 20,000"),-1,'Panel IDs for Group 4 not correct')
+                            })
+                            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/main/div/div[4]/div/div[2]/div/div[1]/div/table/tbody/tr[4]/th[4]/div/div[2]')).then(function (p) {
+                                 p.getText().then(function(text) {assert.notEqual(text, '0 MWh', 'No data for Group 4')})}) 
+                      })
+                 })
+          })
+})
+
+
+ //tell the monitor to find analytic component
+.then(function(){ 
+       $browser.get('https://solarfarm.dev.tymlez.com/analytics') 
+ 
+     .then(function () {     
+         $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[1]/div[1]/h1')).then(function (el) {
+                    el.getText().then(function(text) {assert.equal(text, 'Analytics for', 'Analytics dashboard not found') })
+          })
+     })
+
+  
+  .then(function () {
+     //key metrics
+       $browser.findElement($driver.By.css('[data-test-id="solar-farm-summary-energy-component-0"]')).getAttribute('innerHTML').then(function(m){
+           assert.notEqual(m.indexOf("RECs generated"),-1,'RECs generated component not found')    
+           $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[1]/div/div/div[2]/p[2]')).then(function(el){
+               el.getText().then(function(text) {assert.notEqual(text,0,'No data for RECs generated') })})
+          // $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[1]/div/div[2]/div[2]/p')).then(function(el){
+           //           el.getText().then(function(text) {assert.notEqual(text,'0 %','No data for RECs generated Trend percent') })})
+      })
+  
+        $browser.findElement($driver.By.css('[data-test-id="solar-farm-summary-energy-component-1"]')).getAttribute('innerHTML').then(function(m){
+           assert.notEqual(m.indexOf("Solar energy generated"),-1,'Solar energy generated component not found')         
+           $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[2]/div/div[2]/div[2]/p')).then(function(el){
+               el.getText().then(function(text) {assert.notEqual(text,'0 MWh','No data for Solar energy generated') })})
+           $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[2]/div/div[2]/div[2]/p')).then(function(el){
+               el.getText().then(function(text) {assert.notEqual(text,'0 %','No data for Solar energy generated Trend percent') })})
+       })
+  
+     $browser.findElement($driver.By.css('[data-test-id="solar-farm-summary-energy-component-2"]')).getAttribute('innerHTML').then(function(m){
+          assert.notEqual(m.indexOf("Solar energy generated (forecast)"),-1,'Solar energy generated (forecast) component not found')             
+           $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[3]/div/div[2]/div[2]/p')).then(function(el){
+                 el.getText().then(function(text) {assert.notEqual(text,'0 MWh','No data for Solar energy generated (forecast)') })})
+           $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[3]/div/div[2]/div[2]/p')).then(function(el){
+                el.getText().then(function(text) {assert.notEqual(text,'0 %','No data for Solar energy generated (forecast) Trend percent') })})
+     })
+  
+     $browser.findElement($driver.By.css('[data-test-id="solar-farm-summary-energy-component-3"]')).getAttribute('innerHTML').then(function(m){
+            assert.notEqual(m.indexOf("Carbon avoided"),-1,'Carbon avoided component not found')  
+            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[4]/div/div[2]/div[2]/p')).then(function(el){
+                  el.getText().then(function(text) {assert.notEqual(text,'0 MWh','No data for Carbon avoided') })})
+            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[1]/div/div[2]/div[4]/div/div[2]/div[2]/p')).then(function(el){
+                 el.getText().then(function(text) {assert.notEqual(text,'0 %','No data for Carbon avoided Trend percent') })})
+      })  
+
+  //energy generation chart  
+    $browser.findElement($driver.By.css('[data-test-id="solar-farm-web-energy-generation-chart"]')).getAttribute('innerHTML').then(function(m){
+           assert.notEqual(m.indexOf("Energy Generation Chart"),-1,'Energy Generation Chart component not found')     
+           assert.notEqual(m.indexOf("Solar Array (kWh)"),-1,'Solar Array (kWh) label not found')  
+           assert.notEqual(m.indexOf("Forecast"),-1,'Forecast label not found')  
+    })
+  
+ //REC certificates  
+      $browser.findElement($driver.By.css('[data-test-id="solar-farm-web-verified-guarantee"]')).getAttribute('innerHTML').then(function(m){      
+           assert.notEqual(m.indexOf("REC Certificates"),-1,'REC Certificates title component not found')           
+            $browser.findElement($driver.By.css('[data-test-id="solar-farm-web-verified-guarantee-commom-table"]')).then( function(x) {
+                      x.findElements($driver.By.css('tr')).then(function(tr) {  assert(tr.length > 1, "REC certificates table does not have any row")  })
+            })      
+            $browser.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/main/div/div[2]/div[3]/div/div[2]/div[2]/div[2]/h6')).then(function(el){
+                  el.getText().then(function(text) {assert.equal(text,"All data secured by the TYMLEZ platform built on Hedera hashgraph",'Label for REC certificates component not found') })})
+         })  
+  })
+})

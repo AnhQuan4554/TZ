@@ -1,0 +1,182 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$webDriver.get('https://magnum.dev.tymlez.com/biochar')
+  .then(function(){
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+ .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Magnum - Biochar') ,5000) })
+ .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biochar Dashboard', 'Biochar Dashboard Navbar title incorrect') }) })
+  })
+  // key metric component
+  .then(function(){
+      console.log("Validate key metrics elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Key Metrics', 'Key Metrics title incorrect') }) })
+        })
+        .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-biomass-in"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-biomass-in-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biomass In', 'Biomass In label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-biomass-in-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biomass In uom should be t')}) })
+                    })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-energy-consumption"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-energy-consumption-title"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption', 'Energy consumption label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-energy-consumption-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy consumption uom should be MWh')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-co2eq-emissions"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-co2eq-emissions-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Emissions', 'CO2eq Emissions label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-co2eq-emissions-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Emissions uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-co2eq-abated"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-co2eq-abated-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Abated', 'CO2eq Abated label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-co2eq-abated-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Abated uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-net-co2eq"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-net-co2eq-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2eq', 'Net CO2eq label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-net-co2eq-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Net CO2eq uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-biochar-produced"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-biochar-produced-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biochar Produced', 'Biochar Produced label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-multi-metric-blocks-biochar-produced-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biochar Produced uom should be t')}) })
+                    })
+        })
+  })
+
+  // production process component
+  .then(function(){
+      console.log("Validate production process elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Production Process', 'Production Process title incorrect') }) })
+        })
+      .then(function(){
+            $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-biomass"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-biomass-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biomass', 'Biomass label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-biomass-quantity"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-biomass-quantity-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Quantity :', 'Biomass Quantity label not found') }) })
+                                 $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-biomass-quantity-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biomas Quantity uom should be t')}) })
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying"]'))
+                 .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Drying', 'Drying label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Drying Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Drying Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Drying Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-drying-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Drying Carbon emission uom should be kg')}) })
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding"]'))
+                .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Grinding', 'Grinding label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Grinding Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Grinding Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Grinding Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-grinding-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Grinding Carbon emission uom should be kg')}) })
+                             })
+                })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis"]'))
+                .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pyrolysis', 'Pyrolysis label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Pyrolysis Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Pyrolysis Energy consumption uom should be MWh')}) })
+                             })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-gas-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-gas-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Gas emission :', 'Pyrolysis Gas emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-gas-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("Nm3"),-1,'Pyrolysis Gas emission uom should be Nm3')}) }) 
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Pyrolysis Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-process-steps-pyrolysis-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Pyrolysis Carbon emission uom should be kg')}) })
+                             })
+                })
+      })
+  })
+        
+  // carbon emissions daily
+ .then(function(){
+      console.log("Validate Carbon Emissions element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-header"]'))
+          .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Emissions', 'Carbon Emissions label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-subtitle"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Daily Updates', 'Daily Updates label not found') }) })
+          })
+        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-descriptors"]'))
+            .then(function(){
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-descriptors-co2e-abated"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Abated', 'CO2e Abated label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-descriptors-carbon-produced"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Produced', 'Carbon Produced label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-biochar-carbon-emissions-descriptors-net-carbon"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net Carbon', 'Net Carbon label not found') }) })         
+             })
+ })
+ 

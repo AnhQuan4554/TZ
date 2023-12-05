@@ -1,0 +1,47 @@
+[
+  {
+    "id": "e3f5781f-9e7c-42a2-81c1-be9c32b6561c",
+    "registrationCountry": "Australia",
+    "businessRegistrationNumber": "626914666",
+    "businessRegistrationNumberType": "ACN",
+    "businessRegistrationDate": "2018-06-18T00:00:00.000Z",
+    "registeredOfficeAddress": {
+      "addressId": "1c791e45-5f5b-41ec-b7d1-019484ee10ea",
+      "addressLine1": "100 Main road",
+      "addressLine2": "",
+      "city": "Melbourne",
+      "state": "Victoria",
+      "postalCode": "3000",
+      "country": "Australia",
+      "GPSLocation": ""
+    },
+    "businessType": "Limited Proprietary Company",
+    "primaryBusinessFunction": "Electricial Tester",
+    "businessLead": {
+      "personId": "cc7cf667-5454-48c4-b1a3-bd4f4d72d2f3",
+      "title": "Mr",
+      "familyName": "John",
+      "givenNames": "Doe",
+      "identificationNumber": "",
+      "identificationNumberType": "",
+      "identificationNumberAuthority": ""
+    },
+    "websiteLink": "https://abc.com.au/",
+    "numberOfEmployees": 0,
+    "otherCountriesOfOperation": "",
+    "otherRelatedEntities": "",
+    "shareholders": "",
+    "balanceSheetTotal": "",
+    "operationalContact": null,
+    "leadUserContact": null,
+    "financePersonContact": null,
+    "installerId": "00001",
+    "installerName": "Installer1",
+    "certification": {
+      "name": "a.pdf",
+      "url": "https://preprod-cohort-tymlez-asset.s3.ap-southeast-2.amazonaws.com/installer/Skyba/DANIELROBERTSKYBA.pdf"
+    },
+    "certificationExpiryDate": "2027-04-11T00:00:00.000Z",
+    "isPublished": false
+  }
+]

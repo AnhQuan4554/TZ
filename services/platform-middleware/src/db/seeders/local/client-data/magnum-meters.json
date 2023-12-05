@@ -1,0 +1,41 @@
+[
+  {
+    "name": "BioChar",
+    "key": "biochar",
+    "dataSource": "magnum_biochar",
+    "meterType": "magnum",
+    "interval": 300,
+    "dataSourceType": "API",
+    "dataCredentials": "ed0c1980",
+    "officialCarbonFactor": 0,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "IronOre",
+    "key": "ironore",
+    "dataSource": "magnum_ironore",
+    "meterType": "magnum",
+    "interval": 300,
+    "dataSourceType": "API",
+    "dataCredentials": "ed0c1980",
+    "officialCarbonFactor": 0,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  },
+  {
+    "name": "HIsmelt",
+    "key": "hismelt",
+    "dataSource": "magnum_hismelt",
+    "meterType": "magnum",
+    "interval": 300,
+    "dataSourceType": "API",
+    "dataCredentials": "ed0c1980",
+    "officialCarbonFactor": 0,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": "Tymlez IoT"
+  }
+]

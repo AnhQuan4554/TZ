@@ -1,0 +1,17 @@
+[
+  {
+    "deviceId": "TestDevice1",
+    "site": "cad2d745-e4c2-4930-8daf-3657bbedd833",
+    "deviceName": "Tymlez IoT",
+    "deviceType": "wattwatcher",
+    "deviceDescription": "Development virtual device",
+    "make": "tymlez",
+    "model": "2022",
+    "certificationExpiryDate": "2030-01-01T00:00:00",
+    "serialNumber": "123456",
+    "otherDeviceData": "{}",
+    "certification": "base64",
+    "installer": "e3f5781f-9e7c-42a2-81c1-be9c32b6561c",
+    "isPublished": false
+  }
+]

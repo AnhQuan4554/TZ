@@ -1,0 +1,113 @@
+{
+  "name": "Person",
+  "uuid": "0852bcad-44c4-40d5-a4c5-df056e97c949",
+  "entity": "VC",
+  "document": {
+    "$id": "#0852bcad-44c4-40d5-a4c5-df056e97c949",
+    "$comment": "{\"term\": \"0852bcad-44c4-40d5-a4c5-df056e97c949\", \"@id\": \"#0852bcad-44c4-40d5-a4c5-df056e97c949\"}",
+    "title": "Person",
+    "description": "Person data",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "personId": {
+        "title": "personId",
+        "description": "Unique identifier for the person",
+        "readOnly": false,
+        "$comment": "{\"term\": \"personId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "title": {
+        "title": "title",
+        "description": "Title/name prefix",
+        "readOnly": false,
+        "$comment": "{\"term\": \"title\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "familyName": {
+        "title": "familyName",
+        "description": "Family name/Surname",
+        "readOnly": false,
+        "$comment": "{\"term\": \"familyName\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "givenNames": {
+        "title": "givenNames",
+        "description": "Given name/first name",
+        "readOnly": false,
+        "$comment": "{\"term\": \"givenNames\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "identificationNumber": {
+        "title": "identificationNumber",
+        "description": "Numer from the identification document",
+        "readOnly": false,
+        "$comment": "{\"term\": \"identificationNumber\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "identificationNumberType": {
+        "title": "identificationNumberType",
+        "description": "Type of ID e.g. passport, driver licence",
+        "readOnly": false,
+        "$comment": "{\"term\": \"identificationNumberType\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "identificationNumberAuthority": {
+        "title": "identificationNumberAuthority",
+        "description": "Authority that issued the ID e.g. Australian Government",
+        "readOnly": false,
+        "$comment": "{\"term\": \"identificationNumberAuthority\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+
+      "ref": {
+        "title": "ref",
+        "description": "ref",
+        "readOnly": true,
+        "$comment": "{\"term\": \"ref\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": [
+      "@context",
+      "type",
+      "personId",
+      "title",
+      "familyName",
+      "givenNames"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

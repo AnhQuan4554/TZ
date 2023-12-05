@@ -1,0 +1,379 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$webDriver.get('https://magnum.dev.tymlez.com/pigiron')
+  .then(function(){
+       $webDriver.findElement($selenium.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $webDriver.findElement($selenium.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+ .then(function(){ $webDriver.findElement($selenium.By.name('btnLogin')).click()})
+ .then(async function(){ await $webDriver.wait( $selenium.until.titleIs('Magnum - PigIron') ,5000) })
+ .then(function () {
+        return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-dashboard-navbar"]'))
+          .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Dashboard', 'Pig Iron Dashboard Navbar title incorrect') }) })
+  })
+  // key metric component
+  .then(function(){
+      console.log("Validate key metrics elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Key Metrics', 'Key Metrics title incorrect') }) })
+        })
+        .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-biochar-in"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-biochar-in-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Biochar In', 'Biochar In label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-biochar-in-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Biochar In uom should be t')}) })
+                    })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-iron-ore-in"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-iron-ore-in-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Iron Ore In', 'Iron Ore In label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-iron-ore-in-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Iron Ore In uom should be t')}) })
+                    })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-energy-consumption"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-energy-consumption-title"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption', 'Energy consumption label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-energy-consumption-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy consumption uom should be MWh')}) })
+                    })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-energy-production"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-energy-production-title"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy production', 'Energy production label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-energy-production-value"]'))
+                              .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Energy production uom should be MWh')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-co2eq-emissions"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-co2eq-emissions-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Emissions', 'CO2eq Emissions label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-co2eq-emissions-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Emissions uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-co2eq-abated"]'))
+                    .then(function(){
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-co2eq-abated-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2eq Abated', 'CO2eq Abated label not found') }) })
+                          $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-co2eq-abated-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'CO2eq Abated uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-net-co2eq"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-net-co2eq-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2eq', 'Net CO2eq label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-net-co2eq-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Net CO2eq uom should be t')}) })
+                    })
+              $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-pig-iron-produced"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-pig-iron-produced-title"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Produced', 'Pig Iron Produced label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-multi-metric-blocks-pig-iron-produced-value"]'))
+                            .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'Pig Iron Produced uom should be t')}) })
+                    })
+        })
+  })
+
+  // pig iron production process component
+  .then(function(){
+      console.log("Validate pig iron production process elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Production', 'Pig Iron Production title incorrect') }) })
+        })
+      .then(function(){
+            $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Char Mill', 'Char Mill label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Char Mill Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Char Mill Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Char Mill Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Char Mill Carbon emission uom should be kg')}) })
+                             })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-srv-offgas-in"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-srv-offgas-in-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'SRV Offgas In :', 'Char Mill SRV Offgas In label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-char-mill-srv-offgas-in-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("Nm3"),-1,'Char Mill SRV Offgas In uom should be Nm3')}) })
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer"]'))
+                 .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Ore Dryer', 'Ore Dryer label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Ore Dryer Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Ore Dryer Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Ore Dryer Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Ore Dryer Carbon emission uom should be kg')}) })
+                             })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-ogc-offgas-in"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-ogc-offgas-in-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'OGC Offgas In :', 'Ore Dryer OGC Offgas In label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-ore-dryer-ogc-offgas-in-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("Nm3"),-1,'Ore Dryer OGC Offgas In uom should be Nm3')}) }) 
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv"]'))
+                .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'SRV', 'SRV label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'SRV Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'SRV Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'SRV Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'SRV Carbon emission uom should be kg')}) })
+                             })
+                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-pig-iron-produced"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-pig-iron-produced-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron produced :', 'SRV Pig Iron produced label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-pig-iron-produced-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'SRV Pig Iron produced uom should be t')}) })
+                             })
+                   $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-slag-produced"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-slag-produced-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Slag produced :', 'SRV Slag produced label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-process-steps-srv-slag-produced-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("t"),-1,'SRV Slag produced uom should be t')}) })
+                             })
+                })
+      })
+  })
+
+  // off-gas cleaning process component
+  .then(function(){
+      console.log("Validate off-gas cleaning process elements")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps"]'))
+        .then(function () {
+             return $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-title"]'))
+                .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Off-Gas Cleaning', 'Off-Gas Cleaning title incorrect') }) })
+        })
+      .then(function(){
+            $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'OGC', 'OGC label not found') }) })                    
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'OGC Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'OGC Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'OGC Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'OGC Carbon emission uom should be kg')}) })
+                             })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-fuel-gas-out"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-fuel-gas-out-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Fuel gas out :', 'OGC Fuel gas out label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-ogc-fuel-gas-out-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("Nm3"),-1,'OGC Fuel gas out uom should be Nm3')}) })
+                             })
+                     })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Boiler', 'Boiler label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Boiler Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Boiler Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Boiler Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Boiler Carbon emission uom should be kg')}) })
+                             })
+                        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-energy-production"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-energy-production-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy Production :', 'Boiler Energy Production label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-boiler-energy-production-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Boiler Energy Production uom should be MWh')}) })
+                             })
+                     })
+           $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Oxygen Plant', 'Oxygen Plant label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Oxygen Plant Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Oxygen Plant Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Oxygen Plant Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-oxygen-plant-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Oxygen Plant Carbon emission uom should be kg')}) })
+                             })
+                     })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Compressor', 'Compressor label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Compressor Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Compressor Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Compressor Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-compressor-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Compressor Carbon emission uom should be kg')}) })
+                             })
+                     })
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Hot Blast Stoves', 'Hot Blast Stoves label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'Hot Blast Stoves Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'Hot Blast Stoves Energy consumption uom should be MWh')}) }) 
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'Hot Blast Stoves Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-hot-blast-stoves-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'Hot Blast Stoves Carbon emission uom should be kg')}) })
+                             })
+                     })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd"]'))
+                    .then(function(){
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-title"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'FGD', 'FGD label not found') }) })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-energy-consumption"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-energy-consumption-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Energy consumption :', 'FGD Energy consumption label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-energy-consumption-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("MWh"),-1,'FGD Energy consumption uom should be MWh')}) })
+                             })
+                         $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-gas-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-gas-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Gas emission :', 'FGD Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-gas-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("Nm3"),-1,'FGD Carbon emission uom should be Nm3')}) })
+                             })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-carbon-emission"]'))
+                             .then(function(){
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-carbon-emission-title"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon emission :', 'FGD Carbon emission label not found') }) })
+                                  $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-cleaning-process-steps-fgd-carbon-emission-value"]'))
+                                     .then(function (el) {el.getText().then(function(text) {assert.notEqual(text.indexOf("kg"),-1,'FGD Carbon emission uom should be kg')}) })
+                             })
+                     })
+      })
+  })
+  
+  // carbon emissions daily
+ .then(function(){
+      console.log("Validate Carbon Emissions element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-header"]'))
+          .then(function(){
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Emissions', 'Carbon Emissions label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-subtitle"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Daily Updates', 'Daily Updates label not found') }) })
+          })
+        $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-descriptors"]'))
+            .then(function(){
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-descriptors-co2e-abated"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2e Abated', 'CO2e Abated label not found') }) })
+                $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-descriptors-carbon-produced"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Carbon Produced', 'Carbon Produced label not found') }) })
+               $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-carbon-emissions-descriptors-net-carbon"]'))
+                   .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net Carbon', 'Net Carbon label not found') }) })         
+             })
+ })
+
+//verification
+.then(function(){
+      console.log("Validate verification element")
+      $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-verified-guarantee"]'))
+        .then(function(){
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-verified-guarantee-title"]'))
+                  .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Verified Guarantee of Origin', 'Verified Guarantee of Origin label not found') }) })        
+             $webDriver.findElement($selenium.By.css('[data-test-id="magnum-pigiron-verified-guarantee-common-table"]'))
+                  .then( function(table) { table.findElements($selenium.By.css('tr')).then(function(tr) {assert(tr.length > 1, "Verification table does not have any row")})})
+                  .then(function(){
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-vpid"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Certificate ID', 'Certificate ID column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-value"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Pig Iron Produced (t)', 'Pig Iron Produced (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2eqemissions"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2 Emissions (t)', 'CO2 Emissions (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2eqemissionsreduction"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'CO2 Offset (t)', 'CO2 Offset (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-co2netoffset"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Net CO2 Emissions (t)', 'Net CO2 Emissions (t) column not found') }) })
+                       $webDriver.findElement($selenium.By.css('[data-test-id="column-timestamp"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'Date and Time', 'Date and Time column not found') }) })
+                    $webDriver.findElement($selenium.By.css('[data-test-id="column-onchainurl"]'))
+                             .then(function (el) {el.getText().then(function(text) {assert.equal(text, 'VIEW ON-CHAIN', 'VIEW ON-CHAIN column not found') }) })
+                  })
+         })
+})

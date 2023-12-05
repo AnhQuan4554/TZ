@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# check if commit is merge commit or a commit ammend
+if [ $2 = "merge" ] || [ $2 = "commit" ]; then
+    exit
+fi
+
+ISSUE_KEY=$(git branch --show-current | grep -o "[A-Z]\{3,\}-[0-9]\+") || true
+if [ -z $ISSUE_KEY ]; then
+    # no issue key in branch, use the default message
+    exit 0
+fi
+
+# issue key matched from branch prefix, append to commit message
+TEMP=$(mktemp /tmp/commitmsg-XXXXX)
+(echo "$(cat $1)" | sed -E "s/^(feat|fix|chore|build|ci|docs|style|refactor|perf|test)(:)/\1($ISSUE_KEY)\2/") >$TEMP
+cat $TEMP >$1

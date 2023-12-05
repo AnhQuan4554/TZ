@@ -1,0 +1,112 @@
+{
+  "name": "Address",
+  "uuid": "1d735afd-0dbb-4fc6-819b-c7de3c469d45",
+  "entity": "VC",
+  "document": {
+    "$id": "#1d735afd-0dbb-4fc6-819b-c7de3c469d45",
+    "$comment": "{\"term\": \"1d735afd-0dbb-4fc6-819b-c7de3c469d45\", \"@id\": \"#1d735afd-0dbb-4fc6-819b-c7de3c469d45\"}",
+    "title": "Address",
+    "description": "Address",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "addressId": {
+        "title": "addressId",
+        "description": "addressId",
+        "readOnly": false,
+        "$comment": "{\"term\": \"addressId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "addressLine1": {
+        "title": "addressLine1",
+        "description": "addressLine1",
+        "readOnly": false,
+        "$comment": "{\"term\": \"addressLine1\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "addressLine2": {
+        "title": "addressLine2",
+        "description": "addressLine2",
+        "readOnly": false,
+        "$comment": "{\"term\": \"addressLine2\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "city": {
+        "title": "city",
+        "description": "city",
+        "readOnly": false,
+        "$comment": "{\"term\": \"city\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "state": {
+        "title": "state",
+        "description": "state",
+        "readOnly": false,
+        "$comment": "{\"term\": \"state\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "postalCode": {
+        "title": "postalCode",
+        "description": "postalCode",
+        "readOnly": false,
+        "$comment": "{\"term\": \"postalCode\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "country": {
+        "title": "country",
+        "description": "country",
+        "readOnly": false,
+        "$comment": "{\"term\": \"country\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "GPSLocation": {
+        "title": "GPSLocation",
+        "description": "GPSLocation",
+        "readOnly": false,
+        "$comment": "{\"term\": \"GPSLocation\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": [
+      "@context",
+      "type",
+      "addressId",
+      "addressLine1",
+      "city",
+      "country"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

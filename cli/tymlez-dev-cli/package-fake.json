@@ -1,0 +1,16 @@
+{
+  "name": "@tymlez/tymlez-cli",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "Tymlez <dev@tymlez.com>",
+  "description": "The common utility use for development and ci.",
+  "private": true,
+  "scripts": {
+    "build": "exit -",
+    "cli": "exit 0",
+    "watch": "exit 0"
+  },
+
+  "dependencies": {},
+  "devDependencies": {}
+}

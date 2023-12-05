@@ -1,0 +1,12 @@
+{
+  "verbose": false,
+  "delay": 5000,
+  "watch": [
+    "dist",
+    "../../packages/backend-libs/dist",
+    "../../packages/common-libs/dist"
+  ],
+  "ext": "js",
+  "ignore": ["*.test.js", "*.spec.js", "test/*", "*.d.ts", "*.esm.js"],
+  "exec": "node --enable-source-maps"
+}

@@ -1,0 +1,10 @@
+[
+  { "name": "MRV", "meterKey": "DD_Main", "type": "MRV" },
+  { "name": "Solcast", "meterKey": "solcast_mock", "type": "DATA" },
+  { "name": "DD_Main", "meterKey": "DD_Main", "type": "DATA" },
+  { "name": "DD_1_8", "meterKey": "DD_1_8", "type": "DATA" },
+  { "name": "DD_6_7", "meterKey": "DD_6_7", "type": "DATA" },
+  { "name": "DD_2_3", "meterKey": "DD_2_3", "type": "DATA" },
+  { "name": "DD_4_5", "meterKey": "DD_4_5", "type": "DATA" },
+  { "name": "DD_Communal", "meterKey": "DD_Communal", "type": "DATA" }
+]

@@ -1,0 +1,80 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$browser.get('https://uon.dev.tymlez.com/')
+  .then(function(){
+       $browser.findElement($driver.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $browser.findElement($driver.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+  .then(function(){ 
+       $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/main/div/div/div[2]/form/div[3]/button'), 1000).click()
+       return $browser.wait(function() {
+       //Tell the monitor to get the page title, then run a function on that title.
+            return $browser.getTitle().then(function(title) {//Specify the expected page title.
+                return title === "TYMLEZ Carbon Footprint for Uon";
+            });
+        }, 5000);//If the condition is not satisfied within a timeout of 1000 milliseconds (1 second), proceed anyway.
+   })
+  .then(function () {
+        return $browser.findElement($driver.By.xpath('//*[@id="__next"]/header/div/div[1]/div[2]/h5')).then(function (el) {
+            el.getText().then(function(text) {
+               assert.equal(text, 'UON Dewatering Dashboard', 'Login not successfully')
+      }) })
+  })
+  //tell the monitor to find summary component
+  .then(function(){
+      console.log("Validate dashboard page elements")
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[1]/div[1]/div/div[1]/div/div[1]/div/p'), 30000).then( function(summary) {
+         summary.getText().then(function(text){
+          assert.equal(text,'Key Metrics' , 'Summary not found')
+        }).then(function(){     
+      summary.findElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[1]/div[1]/div/div[1]/div/div[2]/div/div[1]/div[2]/p')).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Total Carbon Emissions' , 'Component Total Carbon Emissions not found')
+      })  })})
+    })})
+  //tell the monitor to find Renewable Usage Percentage
+  .then(function(){
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[1]/div[1]/div/div[2]/div[2]/div/div/div/div/div/p[1]'), 30000).then( function(e) {
+        e.getText().then(function(text){
+         assert.equal(text,'Renewable Usage Percentage' , 'Renewable Usage Percentage not found')
+      })   })
+  })
+    //find hydrogen footprint
+  .then(function(){     
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[1]/div[1]/div/div[2]/div[1]/div/div/div/div/div/p[1]'), 30000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Carbon Intensity' , 'Hydrogen Footprint not found')
+      })   })
+  })
+      //tell the monitor to find generation
+  .then(function(){     
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[1]/div[2]/div/div/div[1]/div/div/div/div[1]/h6[1]'), 30000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Generation' , 'Generation not found')
+      })   })
+  })
+//tell the monitor to find carbon emissions daily
+  .then(function(){     
+      return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[1]/div[3]/div/div/div[1]/div/div/div/div[1]/h6[1]'), 30000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Carbon Emissions' , 'Carbon Emissions daily not found')
+      })  })
+  })
+       //tell the monitor to find verification
+  .then(function() {
+       return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[2]/div/div[1]/div/div/h6'), 30000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Verification' , 'Verification not found')
+      }).then(function(){
+           $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div/div/main/div[2]/div/div[2]/div[1]/div[1]/table/tbody'), 30000).then( function(table) {
+             table.findElements($driver.By.css('tr')).then(function(tr) {
+               assert(tr.length > 1, "Verification table does not have any row")
+            })})
+    }) })          
+    })

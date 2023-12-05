@@ -1,0 +1,88 @@
+{
+  "name": "tymlez-platform",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build:dev": "sh ./local/build.sh \"$@\"",
+    "start:dev": "sh ./local/up.sh \"$@\"",
+    "stop:dev": "sh ./local/down.sh \"$@\"",
+    "watch:dev": "lerna run watch --parallel --no-bail \"$@\"",
+    "prepare": "husky install",
+    "postinstall": "patch-package && yarn build-common-pkg && yarn build-cli-tools",
+    "dev:local": "lerna run start:dev --stream  --scope \"$@\"",
+    "bootstrap": "./local/bootstrap.sh",
+    "build-common-pkg": "lerna run build --stream --concurrency 1 --scope @tymlez/common-libs --scope @tymlez/backend-libs --scope @tymlez/trustchain-sdk --scope @tymlez/guardian-api-client",
+    "build-cli-tools": "lerna run build --stream --concurrency ${CONCURRENCY:-2} --scope @tymlez/tymlez-cli",
+    "build-ui-libs": "lerna run build --stream --concurrency ${CONCURRENCY:-2} --scope @tymlez/devias-material-kit --scope @tymlez/frontend-libs",
+    "info:changed": "lerna exec 'echo changed' --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "lint": "yarn lint:eslint && lerna run lint --stream --concurrency ${CONCURRENCY:-2}",
+    "format": "yarn lint:eslint --fix",
+    "lint:eslint": "eslint $(echo ${ESLINT_FILES:-.} | xargs) --quiet --ext .js,.ts,.tsx",
+    "lint:eslint:enhanced": "NODE_OPTIONS=\"--max-old-space-size=4096\" eslint $(echo ${ESLINT_FILES:-.} | xargs) -c .eslintrc.full.js --quiet --ext .js,.ts,.tsx",
+    "release": "tymlez-cli monorepo release",
+    "test": "lerna run test --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "build:all": "lerna run build --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "test:smoke:client": "lerna run test:smoke::${CLIENT_NAME} --stream --concurrency ${CONCURRENCY:-2}",
+    "deploy:client:env": "lerna run deploy:${CLIENT_NAME}:${ENV:-dev} --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "deploy:client": "lerna run deploy:${CLIENT_NAME} --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "deploy:guardian": "lerna run deploy:guardian --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "deploy": "lerna run deploy --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "deploy:frontend": "lerna run deploy:frontend --stream --concurrency ${CONCURRENCY:-2} \"$@\"",
+    "cli": "tymlez-cli \"$@\"",
+    "start:mock-server": "nodemon --config local/mock/nodemon.json",
+    "build-shared-packages": "nx run-many --target=build --projects=@tymlez/common-libs,@tymlez/backend-libs,@tymlez/trustchain-sdk,@tymlez/guardian-api-client,@tymlez/devias-material-kit,@tymlez/frontend-libs,@tymlez/tymlez-cli --parallel=false"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
+    "@commitlint/config-conventional": "^17.4.2",
+    "@nrwl/nx-cloud": "^15.0.2",
+    "@tymlez/tymlez-cli": "*",
+    "@types/leaflet": "^1",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
+    "comment-json": "^4.2.3",
+    "commitlint-plugin-regex-match": "^1.2.4",
+    "esbuild": "^0.17.3",
+    "esbuild-register": "^3.4.2",
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lerna": "^6.5.1",
+    "lint-staged": "^13.1.0",
+    "nodemon": "^2.0.20",
+    "nx": "15.5.2",
+    "patch-package": "^6.5.0",
+    "prettier": "^2.8.1",
+    "typescript": "^4.9.4"
+  },
+  "resolutions": {
+    "@hashgraph/did-sdk-js/@hashgraph/sdk": "2.6.0"
+  },
+  "workspaces": [
+    "cli/*",
+    "packages/*",
+    "clients/*",
+    "services/*",
+    "guardian/*",
+    "skaffold/*"
+  ],
+  "packageManager": "yarn@3.5.0",
+  "yarn": {
+    "args": [
+      "--ignore-engines"
+    ]
+  },
+  "dependencies": {
+    "date-fns": "^2.29.3",
+    "date-fns-tz": "^2.0.0",
+    "leaflet": "^1.9.3",
+    "moment-timezone": "^0.5.43",
+    "react-cookie": "^4.1.1",
+    "react-leaflet": "^4.2.1"
+  }
+}

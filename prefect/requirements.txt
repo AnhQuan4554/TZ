@@ -1,0 +1,4 @@
+prefect==2.6.5
+requests
+pydantic
+nats-py

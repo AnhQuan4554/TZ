@@ -1,0 +1,301 @@
+{
+  "name": "MRV",
+  "uuid": "edc520f3-782d-4623-b6fd-139fbc4122c1",
+  "entity": "VC",
+  "document": {
+    "$id": "#edc520f3-782d-4623-b6fd-139fbc4122c1",
+    "$comment": "{\"term\": \"edc520f3-782d-4623-b6fd-139fbc4122c1\", \"@id\": \"#edc520f3-782d-4623-b6fd-139fbc4122c1\"}",
+    "title": "MRV",
+    "description": "MRV data for Guarantee of Origin",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "readingId": {
+        "title": "readingId",
+        "description": "Unique identifier for the set of MRV data",
+        "readOnly": false,
+        "$comment": "{\"term\": \"readingId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "deviceId": {
+        "title": "deviceId",
+        "description": "Unique identifier for the device",
+        "readOnly": false,
+        "$comment": "{\"term\": \"deviceId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "readingDate": {
+        "title": "readingDate",
+        "description": "Date of record for the MRV data",
+        "readOnly": false,
+        "$comment": "{\"term\": \"readingDate\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "date"
+      },
+      "intervalStartDateTime": {
+        "title": "intervalStartDateTime",
+        "description": "Date and time when the MRV started recording",
+        "readOnly": false,
+        "$comment": "{\"term\": \"intervalStartDateTime\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "date-time"
+      },
+      "intervalEndDateTime": {
+        "title": "intervalEndDateTime",
+        "description": "Date and time when the MRV stopped recording",
+        "readOnly": false,
+        "$comment": "{\"term\": \"intervalEndDateTime\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "intervalDuration": {
+        "title": "intervalDuration",
+        "description": "Length of the recording period",
+        "readOnly": false,
+        "$comment": "{\"term\": \"intervalDuration\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "intervalDurationUOM": {
+        "title": "intervalDurationUOM",
+        "description": "Unit of measure for intervalDuration",
+        "readOnly": false,
+        "$comment": "{\"term\": \"intervalDurationUOM\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "value": {
+        "title": "value",
+        "description": "Reading value",
+        "readOnly": false,
+        "$comment": "{\"term\": \"value\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "originalValue": {
+        "title": "originalValue",
+        "description": "Original Reading value before splitting",
+        "readOnly": false,
+        "$comment": "{\"term\": \"originalValue\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "valueUOM": {
+        "title": "valueUOM",
+        "description": "Unit of measure for value",
+        "readOnly": false,
+        "$comment": "{\"term\": \"valueUOM\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "quality": {
+        "title": "quality",
+        "description": "Indication of the quality/confidence of the reading",
+        "readOnly": false,
+        "$comment": "{\"term\": \"quality\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "greenhouseGasEmissionsScope": {
+        "title": "greenhouseGasEmissionsScope",
+        "description": "Scope of the emissions generated",
+        "readOnly": false,
+        "$comment": "{\"term\": \"greenhouseGasEmissionsScope\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "greenhouseGasEmissionsSource": {
+        "title": "greenhouseGasEmissionsSource",
+        "description": "Source of the emissions",
+        "readOnly": false,
+        "$comment": "{\"term\": \"greenhouseGasEmissionsSource\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "CO2Emissions": {
+        "title": "CO2Emissions",
+        "description": "Amount of Carbon Dioxide (CO2) emitted",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2Emissions\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "CH4Emissions": {
+        "title": "CH4Emissions",
+        "description": "Amount of Methane (CH4) emitted",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CH4Emissions\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "N2OEmissions": {
+        "title": "N2OEmissions",
+        "description": "Amount of Nitrogen Dioxide (NO2) emitted",
+        "readOnly": false,
+        "$comment": "{\"term\": \"N2OEmissions\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "CO2eqEmissions": {
+        "title": "CO2eqEmissions",
+        "description": "The equivalent of Carbon Dioxide (CO2) emitted based on the other greenhouse gases",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqEmissions\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "CO2eqEmissionsTYMLEZ": {
+        "title": "CO2eqEmissionsTYMLEZ",
+        "description": "The equivalent of Carbon Dioxide (CO2) emitted based on the other greenhouse gases, calculated using TYMLEZ's methodology",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqEmissionsTYMLEZ\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "emissionsUOM": {
+        "title": "emissionsUOM",
+        "description": "Unit of measure for all emissions values",
+        "readOnly": false,
+        "$comment": "{\"term\": \"emissionsUOM\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "emissionsFactorsLink": {
+        "title": "emissionsFactorsLink",
+        "description": "Link to the official source of the emissions factors used",
+        "readOnly": false,
+        "$comment": "{\"term\": \"emissionsFactorsLink\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "url"
+      },
+      "CO2eqFormula": {
+        "title": "CO2eqFormula",
+        "description": "Formula used to calculate CO2eqEmissions",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqFormula\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "CO2eqFormulaLink": {
+        "title": "CO2eqFormulaLink",
+        "description": "Link to the official definition of the formula",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqFormulaLink\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "url"
+      },
+      "CO2eqEmissionsReduction": {
+        "title": "CO2eqEmissionsReduction",
+        "description": "The equivalent of Carbon Dioxide (CO2) reduced",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqEmissionsReduction\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "CO2eqEmissionsReductionTYMLEZ": {
+        "title": "CO2eqEmissionsReductionTYMLEZ",
+        "description": "The equivalent of Carbon Dioxide (CO2) reduced, calculated using TYMLEZ's methodology",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqEmissionsReductionTYMLEZ\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "number"
+      },
+      "emissionsReductionUOM": {
+        "title": "emissionsReductionUOM",
+        "description": "Unit of measure for all emissions values",
+        "readOnly": false,
+        "$comment": "{\"term\": \"emissionsReductionUOM\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "CO2eqEmissionsReductionFormula": {
+        "title": "CO2eqEmissionsReductionFormula",
+        "description": "Formula used to calculate CO2 reductions",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqEmissionsReductionFormula\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "CO2eqEmissionsReductionFormulaLink": {
+        "title": "CO2eqEmissionsReductionFormulaLink",
+        "description": "Link to the source of the calculation",
+        "readOnly": false,
+        "$comment": "{\"term\": \"CO2eqEmissionsReductionFormulaLink\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "url"
+      },
+      "otherMRVData": {
+        "title": "otherMRVData",
+        "description": "Additional MRV information related to the emissions/removals e.g. water pumped, H2 produced etc..",
+        "readOnly": false,
+        "$comment": "{\"term\": \"otherMRVData\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "sourceData": {
+        "title": "sourceData",
+        "description": "Reference to the source reading data used to create this MRV",
+        "readOnly": false,
+        "type": "array",
+        "items": {
+          "$ref": "#1d735afd-0dbb-4fc6-819b-c7de3c460000"
+        },
+        "$comment": "{\"term\": \"sourceData\", \"@id\": \"#1d735afd-0dbb-4fc6-819b-c7de3c460000&1.0.0\"}"
+      },
+      "__sensitiveFields": {
+        "title": "Sensitive fields",
+        "description": "List of the field will be encrypted before send to on chain",
+        "readOnly": false,
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "$comment": "{\"term\":\"__sensitiveFields\",\"@id\":\"https://www.schema.org/text\"}"
+      },
+      "policyId": {
+        "title": "policyId",
+        "description": "policyId",
+        "readOnly": true,
+        "$comment": "{\"term\": \"policyId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "ref": {
+        "title": "ref",
+        "description": "ref",
+        "readOnly": true,
+        "$comment": "{\"term\": \"ref\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "tokenOwnerId": {
+        "title": "tokenOwnerId",
+        "description": "tokenOwnerId",
+        "readOnly": false,
+        "type": "string",
+        "pattern": "^\\d+\\.\\d+\\.\\d+$",
+        "$comment": "{\"term\":\"tokenOwnerId\",\"@id\":\"https://www.schema.org/text\",\"customType\":\"hederaAccount\"}"
+      }
+    },
+    "required": [
+      "@context",
+      "type",
+      "deviceId",
+      "readingDate",
+      "intervalStartDateTime",
+      "intervalEndDateTime",
+      "intervalDuration",
+      "intervalDurationUOM",
+      "value",
+      "valueUOM",
+      "quality",
+      "policyId"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

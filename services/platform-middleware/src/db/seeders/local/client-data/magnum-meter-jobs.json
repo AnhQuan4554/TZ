@@ -1,0 +1,8 @@
+[
+  { "name": "BioChar", "meterKey": "biochar", "type": "DATA" },
+  { "name": "IronOre", "meterKey": "ironore", "type": "DATA" },
+  { "name": "HIsmelt", "meterKey": "hismelt", "type": "DATA" },
+  { "name": "CET MRV", "meterKey": "hismelt", "type": "MRV" , "tags": ["Tymlez_CET"]},
+  { "name": "CRU MRV", "meterKey": "hismelt", "type": "MRV" , "tags": ["Tymlez_CRU"]},
+  { "name": "GOO MRV", "meterKey": "hismelt", "type": "MRV" , "tags": ["Tymlez_GOO"]}
+]

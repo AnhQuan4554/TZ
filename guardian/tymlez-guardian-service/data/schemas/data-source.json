@@ -1,0 +1,63 @@
+{
+  "name": "Data Source",
+  "uuid": "1d735afd-0dbb-4fc6-819b-c7de3c460000",
+  "entity": "VC",
+  "document": {
+    "$id": "#1d735afd-0dbb-4fc6-819b-c7de3c460000",
+    "$comment": "{\"term\": \"1d735afd-0dbb-4fc6-819b-c7de3c460000\", \"@id\": \"#1d735afd-0dbb-4fc6-819b-c7de3c460000\"}",
+    "title": "Data Source",
+    "description": "Data Source",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "readingId": {
+        "title": "readingId",
+        "description": "Reading Id",
+        "readOnly": false,
+        "$comment": "{\"term\": \"readingId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "hashId": {
+        "title": "hashId",
+        "description": "Reading hash Id",
+        "readOnly": false,
+        "$comment": "{\"term\": \"hashId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": ["@context", "type", "readingId", "hashId"],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

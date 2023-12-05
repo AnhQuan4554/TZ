@@ -1,0 +1,61 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "deploy",
+          "deploy:frontend",
+          "deploy:guardian"
+        ],
+        "accessToken": "MGI4MzllZGMtNjU4Yi00OTc1LWI2MDItNGRmNmQ0MzU5MDRlfHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "defaultBase": "main",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build-shared-packages"],
+      "projects": "dependencies"
+    },
+    "test": {
+      "dependsOn": ["^build-shared-packages"]
+    },
+    "deploy": {
+      "inputs": [
+        { "env": "ENV_PREFIX" },
+        { "runtime": "node -v" },
+        { "runtime": "git rev-parse HEAD:packages/common-libs" },
+        { "runtime": "git rev-parse HEAD:packages/backend-libs" }
+      ]
+    },
+
+    "deploy:guardian": {
+      "inputs": [
+        { "env": "ENV_PREFIX" },
+        { "runtime": "node -v" },
+        { "runtime": "git rev-parse HEAD:packages/common-libs" },
+        { "runtime": "git rev-parse HEAD:packages/backend-libs" },
+        { "runtime": "git rev-parse HEAD:guardian" }
+      ]
+    },
+    "deploy:frontend": {
+      "inputs": [
+        { "env": "ENV_PREFIX" },
+        { "runtime": "node -v" },
+        { "runtime": "git rev-parse HEAD:packages/frontend-libs" },
+        { "runtime": "git rev-parse HEAD:packages/common-libs" }
+      ]
+    },
+    "outputs": [
+      "{projectRoot}/dist",
+      "{projectRoot}/build",
+      "{projectRoot}/out",
+      "{projectRoot}/.next",
+      "{projectRoot}/public/build"
+    ]
+  }
+}

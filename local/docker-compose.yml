@@ -1,0 +1,537 @@
+version: '3'
+services:
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8888:8080
+  mongo:
+    container_name: 'tymlez-dev-mongo'
+    image: mongo
+    restart: always
+    volumes:
+      - mongo:/data/db
+    expose:
+      - 27017
+    ports:
+      - 27018:27017
+  mongo-express:
+    container_name: 'tymlez-dev-mongo-express'
+    image: mongo-express
+    restart: always
+    ports:
+      - 9999:8081
+
+  postgres:
+    container_name: tymlez-dev-postgres
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    volumes:
+      - platform_db:/data/postgres
+    environment:
+      PGDATA: /data/postgres/${CLIENT_NAME:-test}
+      POSTGRES_USER: ${DATABASE_USERNAME:-test}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-test}
+      POSTGRES_DB: ${CLIENT_NAME:-test}
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    container_name: tymlez-dev-redis
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+
+  redis-commander:
+    container_name: tymlez-dev-redis-cmd
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '6380:8081'
+    depends_on:
+      - redis
+  nginx:
+    container_name: tymlez-dev-nginx
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/html:/usr/share/nginx/html
+    ports:
+      - '3000:80'
+    restart: always
+    depends_on:
+      - platform-api
+      - platform-admin-web
+      - platform-report-web
+      - platform-client-web
+      - platform-client-api
+      - platform-trustchain-web
+
+  nats-server:
+    image: nats
+    expose:
+      - 4222
+    ports:
+      - '8222:8222'
+      - '4222:4222'
+    volumes:
+      - ./nats/:/etc/nats
+    command: '-c /etc/nats/nats.conf --http_port 8222'
+    restart: always
+  bull_monitor:
+    container_name: bull-monitor
+    image: samuraitruong/bull-monitor
+    depends_on:
+      redis:
+        condition: service_started
+    ports:
+      - 8005:8080
+    environment:
+      QUEUE_NAMES: healthcheck,task-queue,mrv-queue
+      REDIS_URI: redis://redis:6379
+    entrypoint:
+      - yarn
+      - start
+  localstack:
+    container_name: 'localstack'
+    image: localstack/localstack
+    ports:
+      - '127.0.0.1:4510-4559:4510-4559' # external service port range
+      - '4566-4583:4566-4583'
+    environment:
+      - AWS_DEFAULT_REGION=ap-southeast-2
+      - DEBUG=${DEBUG-}
+      - DATA_DIR=/tmp/localstack/data
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
+      - HOST_TMP_FOLDER=${TMPDIR:-/tmp/}localstack
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - SERVICES=s3
+      - EDGE_PORT=4566
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './.tmp/:/var/lib/localstack'
+      - './.aws:/docker-entrypoint-initaws.d'
+
+  tymlez-dev:
+    container_name: tymlez-dev
+    image: tymlez-development
+    build:
+      context: ..
+      dockerfile: local/Dockerfile
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+    restart: on-failure
+    environment:
+      - CLIENT_NAME=${CLIENT_NAME:-test}
+      - NX_SKIP_NX_CACHE=true
+    healthcheck:
+      test: cat /tmp/ready | grep ready || exit 1
+      interval: 15s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+    command: node local/dev.js
+
+  platform-api:
+    container_name: 'platform-api'
+    image: tymlez-development
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+      - ./local.env:/app/services/platform-middleware/.env
+    depends_on:
+      localstack:
+        condition: service_started
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      tymlez-dev:
+        condition: service_healthy
+      vault:
+        condition: service_started
+      nats-server:
+        condition: service_started
+    environment:
+      - NEW_RELIC_ENABLED=${NEW_RELIC_ENABLED:-false}
+      - NEW_RELIC_USER_API_KEY=${NEW_RELIC_USER_API_KEY}
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - NEW_RELIC_APP_NAME=${ENV}-${CLIENT_NAME}-tymlez-platform-api
+      - NEW_RELIC_SLACK_CHANNEL_NAME=${NEW_RELIC_SLACK_CHANNEL_NAME}
+      - TS_NODE_TRANSPILE_ONLY=true
+      - S3_ENDPOINT=${S3_ENDPOINT:-http://localstack:4566}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-local}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-local}
+      - ASSET_BUCKET_NAME=${ASSET_BUCKET_NAME:-dev-bucket-1}
+      - METER_BUCKET_NAME=${METER_BUCKET_NAME:-dev-bucket-2}
+      - DATABASE_NAME=${CLIENT_NAME:-test}
+      - REDIS_HOST=redis
+      - DATABASE_URL=postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@postgres:5432/${CLIENT_NAME:-test}
+      - CLIENT_NAME=${CLIENT_NAME:-test}
+      - VAULT_TOKEN=${VAULT_TOKEN:-na}
+      - VAULT_KEY=${VAULT_KEY}
+      - ENV=${ENV}
+    ports:
+      - '8080:8080'
+    restart: on-failure
+    command: yarn --cwd services/platform-middleware start:dev
+    healthcheck:
+      test: curl --fail http://localhost:8080/api/healthcheck || exit 1
+      interval: 15s
+      retries: 5
+      start_period: 60s
+      timeout: 5s
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '1'
+        max-size: '1mb'
+  platform-admin-web:
+    container_name: 'admin-web'
+    image: tymlez-development
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+      - ./local.env:/app/clients/platform-admin-web/.env
+    depends_on:
+      platform-api:
+        condition: service_healthy
+    ports:
+      - '3002:3000'
+    command: 'yarn --cwd clients/platform-admin-web start:dev'
+    restart: always
+  platform-trustchain-web:
+    container_name: 'trustchain-web'
+    image: tymlez-development
+    environment:
+      - SWC_MINIFY=${SWC_MINIFY:-true}
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+      - ./local.env:/app/clients/trustchain-web/.env
+      # - ./patches/next-dev.js:/app/node_modules/next/dist/cli/next-dev.js
+    depends_on:
+      platform-api:
+        condition: service_healthy
+    ports:
+      - '3003:3000'
+    command: 'yarn --cwd clients/trustchain-web start:dev'
+    restart: always
+    healthcheck:
+      # test: curl --fail http://localhost:3000/trustchain || exit 1
+      interval: 15s
+      retries: 3
+      start_period: 5s
+      timeout: 10s
+
+  platform-report-web:
+    container_name: 'report-web'
+    image: tymlez-development
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+      - ./local.env:/app/clients/report-web/.env
+    depends_on:
+      platform-api:
+        condition: service_healthy
+    ports:
+      - '3004:3000'
+    command: 'yarn --cwd clients/report-web start:dev'
+    restart: always
+
+  platform-client-web:
+    container_name: 'client-web'
+    image: tymlez-development
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+      - ./local.env:/app/${SERVICE_PATH:-clients}/${CLIENT_NAME:-tymlez}-web/.env
+      # - ./patches/next-dev.js:/app/node_modules/next/dist/cli/next-dev.js
+    depends_on:
+      platform-api:
+        condition: service_healthy
+    ports:
+      - '3001:3000'
+    command: yarn --cwd ${SERVICE_PATH:-clients}/${CLIENT_NAME:-tymlez}-web start:dev
+    restart: always
+  platform-client-api:
+    container_name: 'platform-client-api'
+    image: tymlez-development
+    volumes:
+      - ../:/app
+      - platform_node_modules:/app/node_modules
+      - ./local.env:/app/${SERVICE_PATH:-services}/${CLIENT_NAME:-tymlez}-middleware/.env
+    depends_on:
+      platform-api:
+        condition: service_healthy
+    ports:
+      - '8082:8082'
+    environment:
+      - NEW_RELIC_APP_NAME=${ENV}-${CLIENT_NAME}-tymlez-client-api
+      - TS_NODE_TRANSPILE_ONLY=true
+      - DATABASE_NAME=${CLIENT_NAME:-test}
+    restart: on-failure
+    command: yarn --cwd ${SERVICE_PATH:-services}/${CLIENT_NAME:-tymlez}-middleware start:dev
+  platform-worker:
+    container_name: 'worker'
+    image: tymlez-development
+    ports:
+      - '8083:3000'
+    volumes:
+      - ../:/app
+      - ./local.env:/app/services/platform-worker/.env
+      - platform_node_modules:/app/node_modules
+    depends_on:
+      platform-api:
+        condition: service_healthy
+
+    restart: on-failure
+    command: 'yarn --cwd services/platform-worker start:dev'
+    environment:
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - NEW_RELIC_APP_NAME=${ENV}-${CLIENT_NAME}-tymlez-platform-worker
+      - S3_ENDPOINT=http://localstack:4566
+      - METER_BUCKET_NAME=${METER_BUCKET_NAME:-dev-bucket-1}
+      - ENV=local
+      - CLIENT_NAME=${CLIENT_NAME:-test}
+      - NEW_RELIC_ENABLED=${NEW_RELIC_ENABLED:-false}
+      - BALANCE_REPORT_INTERVAL=${BALANCE_REPORT_INTERVAL:-300000}
+    healthcheck:
+      test: curl --fail http://localhost:3000/healthcheck || exit 1
+      interval: 15s
+      retries: 3
+      start_period: 5s
+      timeout: 10s
+    logging:
+      driver: 'json-file'
+      options:
+        max-file: '1'
+        max-size: '1mb'
+
+  tymlez-guardian-api:
+    container_name: 'tymlez-guardian-api'
+    image: tymlez-development
+    volumes:
+      - ../:/app
+      - ./local.env:/app/guardian/tymlez-guardian-service/.env
+      - platform_node_modules:/app/node_modules
+    depends_on:
+      tymlez-dev:
+        condition: service_healthy
+      mongo:
+        condition: service_started
+    environment:
+      - NEW_RELIC_USER_API_KEY=${NEW_RELIC_USER_API_KEY}
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - NEW_RELIC_APP_NAME=${ENV}-${CLIENT_NAME}-tymlez-guardian-api
+      - NEW_RELIC_LABELS=${NEW_RELIC_LABELS}
+      - NEW_RELIC_ENABLED=${NEW_RELIC_ENABLED:-false}
+      - PORT=3010
+      - CLIENT_NAME=${CLIENT_NAME:-test}
+      - BALANCE_REPORT_INTERVAL=${BALANCE_REPORT_INTERVAL:-300000}
+    # healthcheck:
+    #   test: curl --fail http:/localhost:3010/healthcheck || exit 1
+    #   interval: 15s
+    #   retries: 5
+    #   start_period: 10s
+    #   timeout: 5s
+    ports:
+      - '3010:3010'
+    restart: on-failure
+    command: yarn --cwd guardian/tymlez-guardian-service start:dev
+
+  tymlez-guardian-extensions:
+    container_name: 'tymlez-guardian-extensions'
+    image: tymlez-development
+    ports:
+      - 3011:3000
+    volumes:
+      - ../:/app
+      - ./local.env:/app/guardian/tymlez-guardian-extensions/.env
+      - platform_node_modules:/app/node_modules
+    depends_on:
+      tymlez-dev:
+        condition: service_healthy
+      nats-server:
+        condition: service_started
+    environment:
+      - NEW_RELIC_ENABLED=${NEW_RELIC_ENABLED}
+      - NEW_RELIC_LABELS=${NEW_RELIC_LABELS}
+      - NEW_RELIC_LOG_ENABLED=${NEW_RELIC_LOG_ENABLED}
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - NEW_RELIC_USER_API_KEY=${NEW_RELIC_USER_API_KEY}
+      - NEW_RELIC_SLACK_CHANNEL_NAME=${NEW_RELIC_SLACK_CHANNEL_NAME}
+      - NEW_RELIC_APP_NAME=${ENV}-${CLIENT_NAME}-tymlez-guardian-extensions
+      - MQ_ADDRESS=nats-server
+      - CLIENT_NAME=${CLIENT_NAME:-test}
+      - MONGO_DB_CONNECTION=mongodb://mongo:27017/guardian_extensions_db
+      - GCS_SERVICE_ACCOUNT=${GCS_SERVICE_ACCOUNT}
+      - STORAGE_PROVIDER=${STORAGE_PROVIDER:-local}
+      - GCS_BUCKET_NAME=${GCS_BUCKET_NAME}
+    restart: on-failure
+    command: yarn --cwd guardian/tymlez-guardian-extensions start:dev
+  vault:
+    container_name: vault
+    image: vault
+    restart: always
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - 8200:8200
+    volumes:
+      - vault_data:/vault/file
+      - ../external-docker/vault/config.hcl:/vault/config/vault-server-config.hcl
+      - ../external-docker/vault/vault.sh:/vault.sh
+    command: 'server'
+    healthcheck:
+      test: sh -c "vault status --address=http://localhost:8200 | grep -c true"
+      interval: 2s
+      timeout: 3s
+      retries: 5
+  vault-setup:
+    container_name: vault-setup
+    image: badouralix/curl-jq
+    restart: 'no'
+    environment:
+      - VAULT_KEY=${VAULT_KEY:-na}
+    volumes:
+      - ../external-docker/vault/vault.sh:/tmp/vault.sh
+    depends_on:
+      vault:
+        condition: service_healthy
+    entrypoint: sh /tmp/vault.sh
+  guardian-logger-service:
+    platform: linux/amd64
+    container_name: guardian-logger-service
+    image: gcr.io/hedera-registry/logger-service:${GUARDIAN_VERSION:-latest}
+    depends_on:
+      - nats-server
+    # volumes:
+    #   - .tmp/logger-service:/usr/logger-service/dist
+    restart: always
+    environment:
+      - MQ_ADDRESS=nats-server
+      - DB_HOST=mongo
+  guardian-auth-service:
+    platform: linux/amd64
+    image: gcr.io/hedera-registry/auth-service:${GUARDIAN_VERSION:-latest}
+    restart: always
+    container_name: guardian-auth-service
+    volumes:
+      # TODO: remove this overwrites when guardian fix the issue
+      - ./patches/guardian/auth-service/vaults/vault-providers/hashicorp.js:/usr/auth-service/dist/vaults/vault-providers/hashicorp.js
+    depends_on:
+      - mongo
+      - nats-server
+      - guardian-logger-service
+      - vault
+    environment:
+      - MQ_ADDRESS=nats-server
+      - DB_HOST=mongo
+      - VAULT_PROVIDER=hashicorp
+      - IMPORT_KEYS_FROM_DB=1
+      - HASHICORP_ADDRESS=http://vault:8200
+      - HASHICORP_TOKEN=${VAULT_TOKEN:-na}
+      - HASHICORP_ENCRIPTION_ALG=sha256
+  guardian-guardian-service:
+    platform: linux/amd64
+    container_name: guardian-guardian-service
+    image: gcr.io/hedera-registry/guardian-service:${GUARDIAN_VERSION:-latest}
+    restart: always
+    volumes:
+      - ./local.env:/usr/guardian-service/.env
+      # - .tmp/guardian-service.2.4.2:/usr/guardian-service/dist
+    depends_on:
+      - mongo
+      - nats-server
+      - guardian-auth-service
+      - guardian-policy-service
+      - guardian-logger-service
+    environment:
+      - MQ_ADDRESS=nats-server
+      - DB_HOST=mongo
+      - DB_DATABASE=guardian_db
+      - SERVICE_CHANNEL=guardian-service
+      - LOG_LEVEL="2"
+  guardian-policy-service:
+    platform: linux/amd64
+    container_name: guardian-policy-service
+    image: gcr.io/hedera-registry/policy-service:${GUARDIAN_VERSION:-latest}
+    restart: always
+    volumes:
+      - ./local.env:/usr/policy-service/.env
+    # - .tmp/policy-service:/usr/local/policy-service/dist
+    depends_on:
+      - mongo
+      - nats-server
+      - guardian-auth-service
+      - guardian-logger-service
+    environment:
+      - BBS_SIGNATURES_MODE=WASM
+      - MQ_ADDRESS=nats-server
+      - DB_HOST=mongo
+      - DB_DATABASE=guardian_db
+      - SERVICE_CHANNEL=policy-service
+      - LOG_LEVEL="2"
+  guardian-api-gateway:
+    platform: linux/amd64
+    container_name: guardian-api-gateway
+    image: gcr.io/hedera-registry/api-gateway:${GUARDIAN_VERSION:-latest}
+    restart: always
+    expose:
+      - 3002
+    # volumes:
+    #   - .tmp/guardian-api-gateway:/usr/api-gateway/dist
+    depends_on:
+      - nats-server
+      - guardian-guardian-service
+      - guardian-auth-service
+      - guardian-logger-service
+    environment:
+      - MQ_ADDRESS=nats-server
+      - DB_HOST=mongo
+  guardian-worker-service:
+    platform: linux/amd64
+    container_name: guardian-worker-service
+    image: gcr.io/hedera-registry/worker-service:${GUARDIAN_VERSION:-latest}
+    restart: always
+    depends_on:
+      - mongo
+      - nats-server
+      - guardian-logger-service
+    environment:
+      - SERVICE_CHANNEL=worker
+      - MQ_ADDRESS=nats-server
+      - MQ_TIMEOUT=30000
+      - IPFS_STORAGE_API_KEY=${IPFS_STORAGE_API_KEY}
+    # volumes:
+    #   - .tmp/worker-service:/usr/worker-service/dist
+
+  guardian-frontend:
+    platform: linux/amd64
+    container_name: guardian-frontend
+    image: gcr.io/hedera-registry/frontend:${GUARDIAN_VERSION:-latest}
+    ports:
+      - '4000:80'
+    volumes:
+      - ./nginx/guardian.conf:/etc/nginx/nginx.conf
+    depends_on:
+      guardian-api-gateway:
+        condition: service_started
+    restart: always
+    environment:
+      - GATEWAY_HOST=guardian-api-gateway
+      - GATEWAY_PORT=3002
+
+volumes:
+  mongo:
+  platform_db:
+  platform_node_modules:
+  vault_data:

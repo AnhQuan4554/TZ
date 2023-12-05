@@ -1,0 +1,15 @@
+[
+  {
+    "name": "h2go-main",
+    "key": "h2go-main",
+    "dataSource": "mockagroo",
+    "meterType": "client-specific",
+    "interval": 30,
+    "dataSourceType": "API",
+    "dataCredentials": "ed0c1980",
+    "officialCarbonFactor": 0,
+    "dataDelaySec": 0,
+    "customCarbonFactor": 0,
+    "deviceName": ""
+  }
+]

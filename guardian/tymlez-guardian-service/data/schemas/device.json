@@ -1,0 +1,149 @@
+{
+  "name": "Device",
+  "uuid": "04e92261-64ff-4e9d-92d3-3a409ae5e20e",
+  "entity": "VC",
+  "document": {
+    "$id": "#04e92261-64ff-4e9d-92d3-3a409ae5e20e",
+    "$comment": "{\"term\": \"04e92261-64ff-4e9d-92d3-3a409ae5e20e\", \"@id\": \"#04e92261-64ff-4e9d-92d3-3a409ae5e20e\"}",
+    "title": "Device",
+    "description": "device data",
+    "type": "object",
+    "properties": {
+      "@context": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "type": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "readOnly": true
+      },
+      "id": {
+        "type": "string",
+        "readOnly": true
+      },
+      "deviceId": {
+        "title": "deviceId",
+        "description": "Unique identifier for the device",
+        "readOnly": false,
+        "$comment": "{\"term\": \"deviceId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "siteId": {
+        "title": "siteId",
+        "description": "Unique identifier for the site where this device is installed",
+        "readOnly": false,
+        "$comment": "{\"term\": \"siteId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "deviceType": {
+        "title": "deviceType",
+        "description": "Type of device",
+        "readOnly": false,
+        "$comment": "{\"term\": \"deviceType\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "deviceName": {
+        "title": "deviceName",
+        "description": "Given name for this particular device",
+        "readOnly": false,
+        "$comment": "{\"term\": \"deviceName\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "deviceDescription": {
+        "title": "deviceDescription",
+        "description": "Description of the device and it's purpose",
+        "readOnly": false,
+        "$comment": "{\"term\": \"deviceDescription\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "make": {
+        "title": "make",
+        "description": "Device manufacturer",
+        "readOnly": false,
+        "$comment": "{\"term\": \"make\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "model": {
+        "title": "model",
+        "description": "Device model",
+        "readOnly": false,
+        "$comment": "{\"term\": \"model\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "serialNumber": {
+        "title": "serialNumber",
+        "description": "Device serial number",
+        "readOnly": false,
+        "$comment": "{\"term\": \"serialNumber\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "certification": {
+        "title": "certification",
+        "description": "Image of the certification/calibration certificate",
+        "readOnly": false,
+        "$comment": "{\"term\": \"certification\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "pattern": "^((https)://)?ipfs.io/ipfs/.+"
+      },
+      "certificationExpiryDate": {
+        "title": "certificationExpiryDate",
+        "description": "The date the certification/calibration certificate expires",
+        "readOnly": false,
+        "$comment": "{\"term\": \"certificationExpiryDate\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string",
+        "format": "date"
+      },
+      "otherDeviceData": {
+        "title": "otherDeviceData",
+        "description": "Additional information about the device e.g. specification",
+        "readOnly": false,
+        "$comment": "{\"term\": \"otherDeviceData\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "policyId": {
+        "title": "policyId",
+        "description": "policyId",
+        "readOnly": true,
+        "$comment": "{\"term\": \"policyId\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      },
+      "ref": {
+        "title": "ref",
+        "description": "ref",
+        "readOnly": true,
+        "$comment": "{\"term\": \"ref\", \"@id\": \"https://www.schema.org/text\"}",
+        "type": "string"
+      }
+    },
+    "required": [
+      "@context",
+      "type",
+      "deviceId",
+      "siteId",
+      "deviceType",
+      "policyId"
+    ],
+    "additionalProperties": false,
+    "$defs": {}
+  }
+}

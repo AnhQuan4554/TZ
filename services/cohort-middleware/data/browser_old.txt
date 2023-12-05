@@ -1,0 +1,137 @@
+/**
+ * Feel free to explore, or check out the full documentation
+ * https://docs.newrelic.com/docs/synthetics/new-relic-synthetics/scripting-monitors/writing-scripted-browsers
+ * for details.
+ */
+
+var assert = require('assert');
+
+$browser.get('https://cohort.dev.tymlez.com/')
+  .then(function(){
+       $browser.findElement($driver.By.name('email')).sendKeys('development+newrelic@tymlez.com')
+       $browser.findElement($driver.By.name('password')).sendKeys($secure.DASHBOARD_USER_PW)
+   })
+  .then(function(){ 
+       $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/main/div/div/div[2]/form/div[3]/button'), 1000).click()
+       return $browser.wait(function() {
+       //Tell the monitor to get the page title, then run a function on that title.
+            return $browser.getTitle().then(function(title) {//Specify the expected page title.
+                return title === "Cohort";
+            });
+        }, 10000);//If the condition is not satisfied within a timeout of 1000 milliseconds (1 second), proceed anyway.
+   })
+   .then(function () {
+   return $browser.findElement($driver.By.xpath('//*[@id="__next"]/header/div/div[1]/div[2]/h5')).then(function (el) {
+      el.getText().then(function(text) {
+         assert.equal(text, 'Dashboard', 'Login not successfully')
+      })     
+    })
+  })
+  
+  //tell the monitor to find summary component
+  .then(function(){    
+     $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div/div[1]/p'), 1000)
+      .then( function(summary) {summary.getText().then(function(text){assert.equal(text,'Key Metrics' , 'Key Metrics not found')})})
+         .then(function(){     
+              $browser.findElement($driver.By.css('[data-test-id="cohort-summary-energy-component-0-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Carbon Output"),-1,'Energy component Carbon Output not found') })    
+              $browser.findElement($driver.By.css('[data-test-id="cohort-summary-energy-component-1-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Carbon Abatement (simulated)"),-1,'Energy component Carbon Abatement (simulated) not found') })   
+              $browser.findElement($driver.By.css('[data-test-id="cohort-summary-energy-component-2-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Grid Energy supplied"),-1,'Energy component Grid Energy supplied not found') })   
+              $browser.findElement($driver.By.css('[data-test-id="cohort-summary-energy-component-3-desktop"]')).getAttribute('innerHTML')
+                 .then(function(m){assert.notEqual(m.indexOf("Solar Energy Generation (simulated)"),-1,'Energy component Solar Energy Generation (simulated) not found') }) 
+      })
+  // //tell the monitor to find pie chart  
+    $browser.findElement($driver.By.css('[data-test-id="cohort-summary-pie-chart"]')).getAttribute('innerHTML')
+             .then(function(m){assert.notEqual(m.indexOf("Carbon Output"),-1,'Carbon Output Pie chart not found') })
+    $browser.findElement($driver.By.css('[data-test-id="cohort-summary-pie-chart-label-0"]')).getAttribute('innerHTML')
+             .then(function(m){assert.notEqual(m.indexOf("CO2e Abated (simulated)"),-1,'Carbon Output - CO2e Abated (simulated) not found') })
+    $browser.findElement($driver.By.css('[data-test-id="cohort-summary-pie-chart-label-1"]')).getAttribute('innerHTML')
+              .then(function(m) {assert.notEqual(m.indexOf("CO2e Produced"),-1,'Carbon Output - CO2e Produced not found') }) 
+    $browser.findElement($driver.By.css('[data-test-id="cohort-summary-tenancy-usage"]')).getAttribute('innerHTML')
+              .then(function(m) {assert.notEqual(m.indexOf("Tenancy Usage"),-1,'Tenancy Usage not found') }) 
+  })     
+
+  .then(function(){       
+     //find all the tabs
+      $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-tenancy"]')).getAttribute('innerHTML').then(function(m) {        
+             assert.notEqual(m.indexOf("Tenancy"),-1,'Tenancy tab not found')})
+      $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-consumption"]')).getAttribute('innerHTML').then(function(m) {        
+             assert.notEqual(m.indexOf("Consumption &amp; Generation"),-1,'Consumption & Generation tab not found')})
+     $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-carbon"]')).getAttribute('innerHTML').then(function(m) {        
+             assert.notEqual(m.indexOf("Carbon Emission"),-1,'Carbon Emission tab not found')})
+     $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-verification"]')).getAttribute('innerHTML').then(function(m) {        
+             assert.notEqual(m.indexOf("Verification"),-1,'Verification tab not found')})
+})
+
+  //Tenancy       
+ .then(function(){ 
+    return   $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-tenancy"]')).click()
+       .then(function () {    
+             $browser.findElement($driver.By.css('[data-test-id="cohort-tenancy-history-static-time-line-chart"]')).getAttribute('innerHTML')
+             .then(function(m) {    
+                  assert.notEqual(m.indexOf("TENANCY"),-1,'TENANCY label not found')
+                  assert.notEqual(m.indexOf("Communal"),-1,'Communal label not found')
+                  assert.notEqual(m.indexOf("Elevator"),-1,'Elevator label not found')
+              })
+       })
+  })
+  
+ //Consumption and Generation        
+ .then(function(){ 
+    return   $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-consumption"]')).click()
+       .then(function () {    
+             $browser.findElement($driver.By.css('[data-test-id="cohort-consumption-generation-history-static-time-line-chart"]')).getAttribute('innerHTML')
+             .then(function(m) {    
+                  assert.notEqual(m.indexOf("Consumption &amp; Generation"),-1,'Consumption & Generation label not found')
+                  assert.notEqual(m.indexOf("Consumption"),-1,'Consumption label not found')
+                  assert.notEqual(m.indexOf("Generation"),-1,'Generation label not found')
+              })
+       })
+  })
+
+ //Carbon
+.then(function(){ 
+    return   $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-carbon"]')).click()
+       .then(function () {    
+           $browser.findElement($driver.By.css('[data-test-id="cohort-carbon-emissions-history-static-time-line-chart"]')).getAttribute('innerHTML')
+              .then(function(m) {            
+                  assert.notEqual(m.indexOf("Carbon Emissions"),-1,'Carbon Emissions label not found')
+                  assert.notEqual(m.indexOf("CO2e Emission (Grid Consumption)"),-1,'CO2e Emission label not found')
+                  assert.notEqual(m.indexOf("Estimated CO2e Abated (Solar Generation)"),-1,'Estimated CO2e Abated label not found')
+            })         
+        })
+  })
+  
+
+    
+  //Verification
+   .then(function(){ 
+        return $browser.findElement($driver.By.css('[data-test-id="cohort-energy-tab-child-verification"]')).click()
+        .then(function () {    
+            $browser.findElement($driver.By.css('[data-test-id="cohort-verification-table"]')).getAttribute('innerHTML')
+              .then(function(m) {    
+                  assert.notEqual(m.indexOf("VERIFICATION"),-1,'VERIFICATION label not found')
+                  $browser.findElement($driver.By.css('[data-test-id="cohort-verification-common-table"]'))
+                   .then( function(x) {
+                        x.findElements($driver.By.css('tr')).then(function(tr) {  assert(tr.length > 1, "Verification table does not have any row")  })
+                   })
+              })
+       })
+      .then(function () { 
+            $browser.findElement($driver.By.xpath('//*[@id="energyTab"]/div/div/div[2]/div/div[3]/div[2]/h6')).then(function(el){
+                  el.getText().then(function(text) {assert.equal(text,"All data secured by the TYMLEZ platform built on Hedera hashgraph",'Label for REC certificates component not found') })})
+       })      
+  })
+   
+   
+
+//  //tell the monitor to find Dovu Carbon Offset
+.then(function(){  
+   return $browser.waitForAndFindElement($driver.By.xpath('//*[@id="__next"]/div[2]/div[2]/div/div[3]/div/p'), 1000).then(function(p) {
+        p.getText().then(function(text){
+        assert.equal(text,'Carbon Offsets' , 'Carbon Offsets not found')
+      })}) 
+   })
+  

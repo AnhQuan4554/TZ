@@ -1,0 +1,33 @@
+{
+  "id": "d20d6416-b749-4bb0-aaf4-6de3b5b32b6f",
+  "type": ["VerifiableCredential"],
+  "issuer": "did:hedera:testnet:7b6Q5cRLfgXsW75QBzY48VTvP6YwfpHpC17zuVvtQLtA;hedera:testnet:tid=0.0.47665527",
+  "issuanceDate": "2022-07-13T09:09:22.637Z",
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
+  "credentialSubject": [
+    {
+      "siteId": "did:hedera:testnet:EhsqaFvagMRHTxh7vkVzvTt7QT34awbgzwt3vYpP3C8d;hedera:testnet:tid=0.0.47665533",
+      "certification": "https://ipfs.io/ipfs/bafkreib566otjk54vgjqrz44xfcgdqmjgwbgatligkned7kl5qmilzvnwq",
+      "deviceId": "TestDevice1",
+      "deviceType": "wattwatcher",
+      "deviceName": "Tymlez IoT",
+      "make": "tymlez",
+      "model": "2022",
+      "serialNumber": "123456",
+      "certificationExpiryDate": "2030-01-01",
+      "policyId": "62ce83c6c7db8084a9a0b716",
+      "@context": [
+        "https://ipfs.io/ipfs/bafkreicnhkqi255fw44a246w3ylneun2huv5m3job67btanaxczas4xdwe"
+      ],
+      "id": "did:hedera:testnet:3bRUb7UvhGGYVjqxUDavtaHGEQFKoiVJ4oPEA1ponMi6;hedera:testnet:tid=0.0.47665533",
+      "type": "00999b8d-9487-4cb2-9928-9ced5ed4710b&1.0.0"
+    }
+  ],
+  "proof": {
+    "type": "Ed25519Signature2018",
+    "created": "2022-07-13T09:09:22Z",
+    "verificationMethod": "did:hedera:testnet:7b6Q5cRLfgXsW75QBzY48VTvP6YwfpHpC17zuVvtQLtA;hedera:testnet:tid=0.0.47665527#did-root-key",
+    "proofPurpose": "assertionMethod",
+    "jws": "eyJhbGciOiJFZERTQSIsImI2NCI6ZmFsc2UsImNyaXQiOlsiYjY0Il19..OQ1RLn53aImdNCahfXWmeuC9P6gGoe5IiQVH1PIEF5ix-BTMqoRF_yvF6r1AYxN2ohk38byFipWIDjE2q-__DA"
+  }
+}
